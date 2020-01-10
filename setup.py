@@ -7,7 +7,7 @@ setup(
     version = '0.1.0',    
     license='MIT',  
     description = 'Python Rubix Cube GUI package',
-    author = 'David Grethlein'     
+    author = 'David Grethlein',
     author_email = '12dgrethlein@gmail.com',
     url = 'https://github.com/dgrethlein/RubixCube' , 
     download_url = 'https://github.com/dgrethlein/RubixCube/archive/v0.1.0.tar.gz',
