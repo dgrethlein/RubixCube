@@ -235,7 +235,8 @@ class Cube(object):
 	#==========================================================================	
 	def is_well_formed(self) -> bool:
 		"""Quality control method to ensure class has been properly
-		initialized.
+		initialized by examining all :attr:`faces` via the quality control
+		method :func:`is_valid_face`.
 		
 		Returns:
 			``True`` if all faces are 3 x 3 arrays of valid colors
@@ -245,6 +246,7 @@ class Cube(object):
 		"""
 		return all([self.is_valid_face(self.faces[face]) 
 						for face in self.faces])
+
 
 	def is_valid_face(self, face : np.ndarray) -> bool:
 		"""Checks if the provided array could be a valid face on a the 
@@ -270,7 +272,174 @@ class Cube(object):
 
 			False
 
+	#==========================================================================
+	#		MOVE METHOD(s)
+	#==========================================================================
+	def up(self):
+		if self.is_well_formed():
+
+			self.faces['UP_FACE'] = np.rot90(self.faces['UP_FACE'], 
+											 axes=(1,0))
+
+			temp = self.faces['BACK_FACE'][0,:]
+			self.faces['BACK_FACE'][0,:] = self.faces['LEFT_FACE'][0,:]
+			self.faces['LEFT_FACE'][0,:] = self.faces['FRONT_FACE'][0,:]
+			self.faces['FRONT_FACE'][0,:] = self.faces['RIGHT_FACE'][0,:]
+			self.faces['RIGHT_FACE'][0,:] = temp
 
 
+	def up_inverse(self):
+		if self.is_well_formed():
+
+			self.faces['UP_FACE'] = np.rot90(self.faces['UP_FACE'])
+
+			temp = self.faces['BACK_FACE'][0,:]
+			self.faces['BACK_FACE'][0,:] = self.faces['RIGHT_FACE'][0,:]
+			self.faces['RIGHT_FACE'][0,:] = self.faces['FRONT_FACE'][0,:]
+			self.faces['FRONT_FACE'][0,:] = self.faces['LEFT_FACE'][0,:]
+			self.faces['LEFT_FACE'][0,:] = temp
+
+
+	def down(self):
+		if self.is_well_formed():
+
+			self.faces['DOWN_FACE'] = np.rot90(self.faces['DOWN_FACE'])
+
+			temp = self.faces['FRONT_FACE'][2,:]
+			self.faces['FRONT_FACE'][2,:] = self.faces['LEFT_FACE'][2,:]
+			self.faces['LEFT_FACE'][2,:] = self.faces['BACK_FACE'][2,:]
+			self.faces['BACK_FACE'][2,:] = self.faces['RIGHT_FACE'][2,:]
+			self.faces['RIGHT_FACE'][2,:] = temp
+
+	def down_inverse(self):
+		if self.is_well_formed():
+
+			self.faces['DOWN_FACE'] = np.rot90(self.faces['DOWN_FACE'], 
+											   axes=(1,0))
+
+			temp = self.faces['FRONT_FACE'][2,:]
+			self.faces['FRONT_FACE'][2,:] = self.faces['RIGHT_FACE'][2,:]
+			self.faces['RIGHT_FACE'][2,:] = self.faces['BACK_FACE'][2,:]
+			self.faces['BACK_FACE'][2,:] = self.faces['LEFT_FACE'][2,:]
+			self.faces['LEFT_FACE'][2,:] = temp
+
+
+	def front(self):
+		if self.is_well_formed():
+
+			self.faces['FRONT_FACE'] = np.rot90(self.faces['FRONT_FACE'], 
+												axes=(1,0))
+
+			temp = self.faces['UP_FACE'][2,:]
+			self.faces['UP_FACE'][2,:] = self.faces['LEFT_FACE'][:,2]
+			self.faces['LEFT_FACE'][:,2] = self.faces['DOWN_FACE'][0,:]
+			self.faces['DOWN_FACE'][0,:] = self.faces['RIGHT_FACE'][:,0]
+			self.faces['RIGHT_FACE'][:,0] = temp
+
+
+	def front_inverse(self):
+		if self.is_well_formed():
+
+			self.faces['FRONT_FACE'] = np.rot90(self.faces['FRONT_FACE'])
+
+			temp = self.faces['UP_FACE'][2,:]
+			self.faces['UP_FACE'][2,:] = self.faces['RIGHT_FACE'][:,0]
+			self.faces['RIGHT_FACE'][:,0] = self.faces['DOWN_FACE'][0,:]
+			self.faces['DOWN_FACE'][0,:] = self.faces['LEFT_FACE'][:,2]
+			self.faces['LEFT_FACE'][:,2] = temp
+
+
+	def back(self):
+		if self.is_well_formed():
+
+			self.faces['BACK_FACE'] = np.rot90(self.faces['BACK_FACE'])
+
+			temp = self.faces['DOWN_FACE'][2,:]
+			self.faces['DOWN_FACE'][2,:] = self.faces['LEFT_FACE'][:,0]
+			self.faces['LEFT_FACE'][:,0] = self.faces['UP_FACE'][0,:]
+			self.faces['UP_FACE'][0,:] = self.faces['RIGHT_FACE'][:,2]
+			self.faces['RIGHT_FACE'][:,2] = temp
+
+
+	def back_inverse(self):
+		if self.is_well_formed():
+
+			self.faces['BACK_FACE'] = np.rot90(self.faces['BACK_FACE'], 
+											   axes=(1,0))
+
+			temp = self.faces['DOWN_FACE'][2,:]
+			self.faces['DOWN_FACE'][2,:] = self.faces['RIGHT_FACE'][:,2]
+			self.faces['RIGHT_FACE'][:,2] = self.faces['UP_FACE'][0,:]
+			self.faces['UP_FACE'][0,:] = self.faces['LEFT_FACE'][:,0]
+			self.faces['LEFT_FACE'][:,0] = temp
+
+
+	def left(self):
+		if self.is_well_formed():
+
+			self.faces['LEFT_FACE'] = np.rot90(self.faces['LEFT_FACE'], 
+											   axes=(1,0))
+			
+			temp = self.faces['DOWN_FACE'][:,0]
+			self.faces['DOWN_FACE'][:,0] = self.faces['FRONT_FACE'][:,0]
+			self.faces['FRONT_FACE'][:,0] = self.faces['UP_FACE'][:,0]
+			self.faces['UP_FACE'][:,0] = self.faces['BACK_FACE'][:,2]
+			self.faces['BACK_FACE'][:,2] = temp
+
+
+	def left_inverse(self):
+		if self.is_well_formed():
+
+			self.faces['LEFT_FACE'] = np.rot90(self.faces['LEFT_FACE'])
+
+			temp = self.faces['DOWN_FACE'][:,0]
+			self.faces['DOWN_FACE'][:,0] = self.faces['BACK_FACE'][:,2]
+			self.faces['BACK_FACE'][:,2] = self.faces['UP_FACE'][:,0]
+			self.faces['UP_FACE'][:,0] = self.faces['FRONT_FACE'][:,0] 
+			self.faces['FRONT_FACE'][:,0] = temp
+
+
+	def right(self):
+		if self.is_well_formed():
+
+			self.faces['RIGHT_FACE'] = np.rot90(self.faces['RIGHT_FACE'], 
+												axes=(1,0))
+
+			temp = self.faces['UP_FACE'][:,2]
+			self.faces['UP_FACE'][:,2] = self.faces['FRONT_FACE'][:,2]
+			self.faces['FRONT_FACE'][:,2] = self.faces['DOWN_FACE'][:,2]
+			self.faces['DOWN_FACE'][:,2] = self.faces['BACK_FACE'][:,0]
+			self.faces['BACK_FACE'][:,0] = temp
+
+
+	def right_inverse(self):
+		if self.is_well_formed():
+
+			self.faces['RIGHT_FACE'] = np.rot90(self.faces['RIGHT_FACE'])
+
+			temp = self.faces['UP_FACE'][:,2]
+			self.faces['UP_FACE'][:,2] = self.faces['BACK_FACE'][:,0]
+			self.faces['BACK_FACE'][:,0] = self.faces['DOWN_FACE'][:,2]
+			self.faces['DOWN_FACE'][:,2] = self.faces['FRONT_FACE'][:,2]
+			self.faces['FRONT_FACE'][:,2] = temp
+
+
+	#def middle(self):
+	#	if self.is_well_formed():
+
+	#def middle_inverse(self):
+	#	if self.is_well_formed():
+
+	#def equator(self):
+	#	if self.is_well_formed():
+
+	#def equator_inverse(self):
+	#	if self.is_well_formed():
+
+	#def standing(self):
+	#	if self.is_well_formed():
+
+	#def standing_inverse(self):
+	#	if self.is_well_formed():
 
 
