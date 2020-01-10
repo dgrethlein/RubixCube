@@ -72,6 +72,7 @@ class Cube(object):
 				colors :attr:`DEFAULT_FACE_COLORS`. 
 
 				.. code-block:: 
+				   :name: init_colors_keys
 				   :caption: Required ``colors`` dictionary keys.
 
 			   	   colors = {'UP_COLOR' : ...,
@@ -89,7 +90,8 @@ class Cube(object):
 				3x3 arrays of the the tile face values. Default value is 
 				``None`` which will create a solved cube with default colors.
 
-				.. code-block:: 
+				.. code-block::
+				   :name: init_faces_keys 
 				   :caption: Required ``faces`` dictionary keys.
 
 			   	   faces = {'UP_FACE' : ...,
@@ -137,6 +139,7 @@ class Cube(object):
 		:func:`matplotlib.colors.is_color_like`. 
 
 		.. code-block::
+		   :name: colors_keys
 		   :caption: Required ``colors`` dictionary keys.
 		   
 		   colors = {'UP_COLOR' : ...,
@@ -178,6 +181,7 @@ class Cube(object):
 		colors that can be found within the :attr:`colors` attribute.
 		
 		.. code-block::
+		   :name: faces_keys
 		   :caption: Required ``faces`` dictionary keys.
 		   
 		   faces = {'UP_FACE' : ...,
