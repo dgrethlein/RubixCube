@@ -17,8 +17,8 @@ setup(name = 'rubix_cube',
 	  classifiers = ['Development Status :: 3 - Alpha',
 	  	'Intended Audience :: Developers', 
 	  	'Intended Audience :: End Users/Desktop', 
-	  	'Topic :: GUI :: Games',
-	  	'License :: OSI Approved :: MIT License'
+	  	'Topic :: Games/Entertainment :: Arcade',
+	  	'License :: OSI Approved :: MIT License',
 	  	'Programming Language :: Python :: 3.7',
 	  ],
 )
