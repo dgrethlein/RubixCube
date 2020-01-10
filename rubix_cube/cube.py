@@ -20,13 +20,14 @@ Module Contents
 		<https://www.schemecolor.com/rubik-cube-colors.php>`_) and can invoke
 		the following moves.
 
-		.. image:: ./../../misc/cube_moves.png
+		.. figure:: ./../../misc/cube_moves.png
 		   :name: cube_moves
-		   :caption: 6 cube face rotations both clock-wise and 
-		   	counter-clockwise (inverse) are considered to be the standard 
-		   	move-set.
 		   :align: center
 		   :scale: 75%
+
+		   6 cube face rotations both clock-wise and 
+		   counter-clockwise (inverse) are considered to be the standard 
+		   move-set.
 
 .. moduleauthor:: David Grethlein <djg329@drexel.edu>
 
