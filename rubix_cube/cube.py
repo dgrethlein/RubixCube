@@ -15,6 +15,19 @@ Note:
 Module Contents
 ===============
 
+	*	:class:`Rubix Cube <Cube>` class that is capable of being parameterized
+		with a custom set of 6 unique colors (`Default Color Scheme 
+		<https://www.schemecolor.com/rubik-cube-colors.php>`_) and can invoke
+		the following moves.
+
+		.. image:: ./../../misc/cube_moves.png
+		   :name: cube_moves
+		   :caption: 6 cube face rotations both clock-wise and 
+		   	counter-clockwise (inverse) are considered to be the standard 
+		   	move-set.
+		   :align: center
+		   :scale: 75%
+
 .. moduleauthor:: David Grethlein <djg329@drexel.edu>
 
 """
@@ -40,42 +53,8 @@ class Cube(object):
 		__faces (Dict[str,np.ndarray]): Dictionary of 
 			:class:`numpy arrays <numpy.ndarray>` that define the rendering of
 			the :class:`Cube`'s tile configuration.
+
 	"""
-
-	#==========================================================================
-	#		CONSTANTS FOR DEFAULT CUBE-COLORS
-	#==========================================================================
-	DEFAULT_UP_COLOR = '#ffffff'		# White
-	DEFAULT_DOWN_COLOR = '#ffd500'		# Cyber Yellow
-	DEFAULT_FRONT_COLOR = '#009b48'		# Green (Pigment)
-	DEFAULT_BACK_COLOR = '#0045ad'		# Cobalt Blue
-	DEFAULT_LEFT_COLOR = '#ff5900'		# Orange (Pantone)
-	DEFAULT_RIGHT_COLOR = '#b90000'		# UE Red
-
-	DEFAULT_FACE_COLORS = {
-		'UP_COLOR' : DEFAULT_UP_COLOR,
-		'DOWN_COLOR' : DEFAULT_DOWN_COLOR,
-		'FRONT_COLOR' : DEFAULT_FRONT_COLOR,
-		'BACK_COLOR' : DEFAULT_BACK_COLOR,
-		'LEFT_COLOR' : DEFAULT_LEFT_COLOR,
-		'RIGHT_COLOR' : DEFAULT_RIGHT_COLOR
-	}
-
-	DEFAULT_UP_FACE = np.full((3,3), DEFAULT_UP_COLOR)
-	DEFAULT_DOWN_FACE = np.full((3,3), DEFAULT_DOWN_COLOR)
-	DEFAULT_FRONT_FACE = np.full((3,3), DEFAULT_FRONT_COLOR)
-	DEFAULT_BACK_FACE = np.full((3,3), DEFAULT_BACK_COLOR)
-	DEFAULT_LEFT_FACE = np.full((3,3), DEFAULT_LEFT_COLOR)
-	DEFAULT_RIGHT_FACE = np.full((3,3), DEFAULT_RIGHT_COLOR)
-
-	DEFAULT_FACES = {
-		'UP_FACE' : DEFAULT_UP_FACE,
-		'DOWN_FACE' : DEFAULT_DOWN_FACE,
-		'FRONT_FACE' : DEFAULT_FRONT_FACE,
-		'BACK_FACE' : DEFAULT_BACK_FACE,
-		'LEFT_FACE' : DEFAULT_LEFT_FACE,
-		'RIGHT_FACE' : DEFAULT_RIGHT_FACE
-	}
 
 	#==========================================================================
 	#		CLASS CONSTRUCTOR
@@ -131,21 +110,21 @@ class Cube(object):
 		"""
 
 		# Sets private attributes via properties
-		if colors is None:
+		if not isinstance(colors, dict):
 			self.colors = Cube.DEFAULT_FACE_COLORS
 		else:
 			self.colors = colors
 
-		if faces is None:
+		if not isinstance(faces, dict):
 			self.faces = Cube.DEFAULT_FACES	
 		else:
 			self.faces = faces			
 
 		if verbose:
 			if self.is_well_formed():
-				print("\n[DEBUG]\tCube successfully initialized!")
+				print("\n[DEBUG]\tCube successfully initialized!\n")
 			else:
-				print("\n[ERROR]\tCube not successfully initialized!")
+				print("\n[ERROR]\tCube initialization failure!\n")
 
 	#==========================================================================
 	#		PROPERTY INTERFACE(s)
@@ -258,7 +237,7 @@ class Cube(object):
 
 		Returns:
 			``True`` if faces is 3 x 3 array of valid colors as defined by
-			current isntance's :attr:`colors` attribute, ``False`` otherwise.
+			current instance's :attr:`colors` attribute, ``False`` otherwise.
 		"""
 		if isinstance(face, np.ndarray)\
 		and face.shape == (3,3)\
@@ -276,6 +255,8 @@ class Cube(object):
 	#		MOVE METHOD(s)
 	#==========================================================================
 	def up(self):
+		"""Up Move
+		"""
 		if self.is_well_formed():
 
 			self.faces['UP_FACE'] = np.rot90(self.faces['UP_FACE'], 
@@ -289,6 +270,8 @@ class Cube(object):
 
 
 	def up_inverse(self):
+		"""Up Inverse Move
+		"""
 		if self.is_well_formed():
 
 			self.faces['UP_FACE'] = np.rot90(self.faces['UP_FACE'])
@@ -301,6 +284,8 @@ class Cube(object):
 
 
 	def down(self):
+		"""Down Move
+		"""
 		if self.is_well_formed():
 
 			self.faces['DOWN_FACE'] = np.rot90(self.faces['DOWN_FACE'])
@@ -312,6 +297,8 @@ class Cube(object):
 			self.faces['RIGHT_FACE'][2,:] = temp
 
 	def down_inverse(self):
+		"""Down Inverse Move
+		"""
 		if self.is_well_formed():
 
 			self.faces['DOWN_FACE'] = np.rot90(self.faces['DOWN_FACE'], 
@@ -325,6 +312,8 @@ class Cube(object):
 
 
 	def front(self):
+		"""Front Move
+		"""
 		if self.is_well_formed():
 
 			self.faces['FRONT_FACE'] = np.rot90(self.faces['FRONT_FACE'], 
@@ -338,6 +327,8 @@ class Cube(object):
 
 
 	def front_inverse(self):
+		"""Front Inverse Move
+		"""
 		if self.is_well_formed():
 
 			self.faces['FRONT_FACE'] = np.rot90(self.faces['FRONT_FACE'])
@@ -350,6 +341,8 @@ class Cube(object):
 
 
 	def back(self):
+		"""Back Move
+		"""
 		if self.is_well_formed():
 
 			self.faces['BACK_FACE'] = np.rot90(self.faces['BACK_FACE'])
@@ -362,6 +355,8 @@ class Cube(object):
 
 
 	def back_inverse(self):
+		"""Back Inverse Move
+		"""
 		if self.is_well_formed():
 
 			self.faces['BACK_FACE'] = np.rot90(self.faces['BACK_FACE'], 
@@ -375,6 +370,8 @@ class Cube(object):
 
 
 	def left(self):
+		"""Left Move
+		"""
 		if self.is_well_formed():
 
 			self.faces['LEFT_FACE'] = np.rot90(self.faces['LEFT_FACE'], 
@@ -388,6 +385,8 @@ class Cube(object):
 
 
 	def left_inverse(self):
+		"""Left Inverse Move
+		"""
 		if self.is_well_formed():
 
 			self.faces['LEFT_FACE'] = np.rot90(self.faces['LEFT_FACE'])
@@ -400,6 +399,8 @@ class Cube(object):
 
 
 	def right(self):
+		"""Right Move
+		"""
 		if self.is_well_formed():
 
 			self.faces['RIGHT_FACE'] = np.rot90(self.faces['RIGHT_FACE'], 
@@ -413,6 +414,8 @@ class Cube(object):
 
 
 	def right_inverse(self):
+		"""Right Inverse Move
+		"""
 		if self.is_well_formed():
 
 			self.faces['RIGHT_FACE'] = np.rot90(self.faces['RIGHT_FACE'])
@@ -442,4 +445,38 @@ class Cube(object):
 	#def standing_inverse(self):
 	#	if self.is_well_formed():
 
+	#==========================================================================
+	#		CONSTANTS FOR DEFAULT CUBE-COLORS
+	#==========================================================================
+	DEFAULT_UP_COLOR = '#ffffff'		# White
+	DEFAULT_DOWN_COLOR = '#ffd500'		# Cyber Yellow
+	DEFAULT_FRONT_COLOR = '#009b48'		# Green (Pigment)
+	DEFAULT_BACK_COLOR = '#0045ad'		# Cobalt Blue
+	DEFAULT_LEFT_COLOR = '#ff5900'		# Orange (Pantone)
+	DEFAULT_RIGHT_COLOR = '#b90000'		# UE Red
+
+	DEFAULT_FACE_COLORS = {
+		'UP_COLOR' : DEFAULT_UP_COLOR,
+		'DOWN_COLOR' : DEFAULT_DOWN_COLOR,
+		'FRONT_COLOR' : DEFAULT_FRONT_COLOR,
+		'BACK_COLOR' : DEFAULT_BACK_COLOR,
+		'LEFT_COLOR' : DEFAULT_LEFT_COLOR,
+		'RIGHT_COLOR' : DEFAULT_RIGHT_COLOR
+	}
+
+	DEFAULT_UP_FACE = np.full((3,3), DEFAULT_UP_COLOR)
+	DEFAULT_DOWN_FACE = np.full((3,3), DEFAULT_DOWN_COLOR)
+	DEFAULT_FRONT_FACE = np.full((3,3), DEFAULT_FRONT_COLOR)
+	DEFAULT_BACK_FACE = np.full((3,3), DEFAULT_BACK_COLOR)
+	DEFAULT_LEFT_FACE = np.full((3,3), DEFAULT_LEFT_COLOR)
+	DEFAULT_RIGHT_FACE = np.full((3,3), DEFAULT_RIGHT_COLOR)
+
+	DEFAULT_FACES = {
+		'UP_FACE' : DEFAULT_UP_FACE,
+		'DOWN_FACE' : DEFAULT_DOWN_FACE,
+		'FRONT_FACE' : DEFAULT_FRONT_FACE,
+		'BACK_FACE' : DEFAULT_BACK_FACE,
+		'LEFT_FACE' : DEFAULT_LEFT_FACE,
+		'RIGHT_FACE' : DEFAULT_RIGHT_FACE
+	}
 
