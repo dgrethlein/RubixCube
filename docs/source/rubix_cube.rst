@@ -1,6 +1,13 @@
 rubix\_cube package
 ===================
 
+Subpackages
+-----------
+
+.. toctree::
+
+   rubix_cube.util
+
 Submodules
 ----------
 

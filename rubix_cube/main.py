@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Main :mod:`rubix_cube` module for running ``make`` targets with minimal
+"""Main module for running ``make`` targets with minimal
 effort command-line invokation.
 
 Module Description
@@ -18,16 +18,22 @@ Module Contents
 import os
 import sys
 import json
-from argparse import ArgumentParser
+import argparse
 
 #==============================================================================
 #		ARG-PARSE SET-UP
 #==============================================================================
+TOP_LEVEL_DESCRIPTION = "Rubix Cube Package Argument Parser"
 
 # Argument parser for direct command line interaction
-parser = ArgumentParser(description="Rubix Cube Package Argument Parser")
+parser = argparse.ArgumentParser(description=TOP_LEVEL_DESCRIPTION)
 subparsers = parser.add_subparsers(help=' {----- Package Command(s)  -----}')
 
+#------------------------------------------------
+#	TEST RUBIX CUBE PARSER 
+#------------------------------------------------
+test_cube_parser = subparsers.add_parser('test_cube',
+	help='Generates a solved 3x3 Rubix Cube object.')
 
 
 #==============================================================================

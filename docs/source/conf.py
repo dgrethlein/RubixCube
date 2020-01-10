@@ -34,7 +34,8 @@ extensions = ['sphinx.ext.napoleon',
 			  'sphinx.ext.viewcode',
 			  'sphinx.ext.autodoc',
 			  'sphinx.ext.intersphinx',
-			  'sphinxcontrib.programoutput']
+			  'sphinxcontrib.programoutput',
+			  'sphinxarg.ext']
 
 # Napoleon settings
 napoleon_google_docstring = True
