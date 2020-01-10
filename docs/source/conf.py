@@ -48,9 +48,7 @@ napoleon_include_special_with_doc = True
 intersphinx_mapping = {
 	'python': ('https://docs.python.org/3/', None),
 	'pandas': ('http://pandas-docs.github.io/pandas-docs-travis/', None),
-	'pd': ('http://pandas-docs.github.io/pandas-docs-travis/', None),
 	'numpy': ('http://docs.scipy.org/doc/numpy/', None),
-	'np': ('http://docs.scipy.org/doc/numpy/', None),
 	'matplotlib': ('http://matplotlib.sourceforge.net/', None)
 }
 
