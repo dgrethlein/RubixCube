@@ -71,7 +71,8 @@ html_theme = 'sphinx_rtd_theme'
 html_theme_options = {
 	'navigation_depth': -1,
 	'style_external_links': False,
-	'collapse_navigation' : False	   
+	'collapse_navigation' : False,
+	'canonical_url' : 'https://dgrethlein.github.io/RubixCube/'
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,

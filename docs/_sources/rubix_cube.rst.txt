@@ -11,10 +11,14 @@ Subpackages
 Submodules
 ----------
 
-.. toctree::
+rubix\_cube.cube module
+-----------------------
 
-   rubix_cube.cube
-   rubix_cube.main
+.. automodule:: rubix_cube.cube
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 Module contents
 ---------------
