@@ -14,7 +14,7 @@ Project Documentation
 
 [GitHub Pages](https://dgrethlein.github.io/RubixCube/) :memo:
 
-![](./misc/docs_preview.png)
+![<img src='./misc/docs_preview.png>'](https://dgrethlein.github.io/RubixCube/)
 
 PyPI Installation
 =================
