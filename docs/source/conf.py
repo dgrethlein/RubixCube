@@ -37,7 +37,8 @@ extensions = ['sphinx.ext.napoleon',
       'sphinxcontrib.programoutput',
       'sphinxarg.ext',
       'sphinxcontrib.srclinks',
-      'sphinx.ext.githubpages'
+      'sphinx.ext.githubpages',
+      'sphinx.ext.todo'
       ]
 
 # Napoleon settings
@@ -46,6 +47,9 @@ napoleon_numpy_docstring = True
 napoleon_include_init_with_doc = True
 napoleon_include_private_with_doc = True
 napoleon_include_special_with_doc = True
+
+#Todo settings
+todo_include_todos = True
 
 #intersphinx settings
 intersphinx_mapping = {

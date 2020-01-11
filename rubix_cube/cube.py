@@ -31,6 +31,13 @@ Module Contents
            <https://www.rubiks.com/en-us/blog/how-to-solve-the-rubiks-cube-stage-1>`_
            )
 
+        .. todo::
+           
+           *    Need to finish implementing the ``middle``, ``equator`` , and 
+                ``standing`` middle row movements.
+           *    Need to finish cube-orientation methods ``pitch`` , ``roll``,
+                and ``yaw``.
+
         .. figure:: ./../../misc/flattened_cube.png
            :name: flattened_cube
            :align: center
