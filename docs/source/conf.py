@@ -31,13 +31,14 @@ release = '0.1.2'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = ['sphinx.ext.napoleon',
-			  'sphinx.ext.viewcode',
-			  'sphinx.ext.autodoc',
-			  'sphinx.ext.intersphinx',
-			  'sphinxcontrib.programoutput',
-			  'sphinxarg.ext',
-			  'sphinxcontrib.srclinks'
-			  ]
+      'sphinx.ext.viewcode',
+      'sphinx.ext.autodoc',
+      'sphinx.ext.intersphinx',
+      'sphinxcontrib.programoutput',
+      'sphinxarg.ext',
+      'sphinxcontrib.srclinks',
+      'sphinx.ext.githubpages'
+      ]
 
 # Napoleon settings
 napoleon_google_docstring = True
@@ -48,10 +49,10 @@ napoleon_include_special_with_doc = True
 
 #intersphinx settings
 intersphinx_mapping = {
-	'python': ('https://docs.python.org/3/', None),
-	'pandas': ('http://pandas-docs.github.io/pandas-docs-travis/', None),
-	'numpy': ('http://docs.scipy.org/doc/numpy/', None),
-	'matplotlib': ('http://matplotlib.sourceforge.net/', None)
+    'python': ('https://docs.python.org/3/', None),
+    'pandas': ('http://pandas-docs.github.io/pandas-docs-travis/', None),
+    'numpy': ('http://docs.scipy.org/doc/numpy/', None),
+    'matplotlib': ('http://matplotlib.sourceforge.net/', None)
 }
 
 # Add any paths that contain templates here, relative to this directory.
@@ -72,10 +73,10 @@ exclude_patterns = []
 html_theme = 'sphinx_rtd_theme'
 
 html_theme_options = {
-	'navigation_depth': -1,
-	'style_external_links': False,
-	'collapse_navigation' : False,
-	'canonical_url' : 'https://dgrethlein.github.io/RubixCube/'
+    'navigation_depth': -1,
+    'style_external_links': False,
+    'collapse_navigation' : False,
+    'canonical_url' : 'https://dgrethlein.github.io/RubixCube/'
 }
 
 html_logo = '../../misc/twisty_cube.png' 
