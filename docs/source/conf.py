@@ -13,6 +13,7 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('../../'))
+sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
@@ -34,7 +35,9 @@ extensions = ['sphinx.ext.napoleon',
 			  'sphinx.ext.autodoc',
 			  'sphinx.ext.intersphinx',
 			  'sphinxcontrib.programoutput',
-			  'sphinxarg.ext']
+			  'sphinxarg.ext',
+			  'sphinxcontrib.srclinks'
+			  ]
 
 # Napoleon settings
 napoleon_google_docstring = True
@@ -80,6 +83,26 @@ html_logo = '../../misc/twisty_cube.png'
 # https://www.todayifoundout.com/index.php/2011/10/
 # every-possible-state-of-a-standard-rubiks-cube-ca
 # n-be-solved-in-20-moves-or-less/
+
+srclink_project = 'https://github.com/dgrethlein/RubixCube'
+srclink_branch = 'master'
+srclink_src_path = 'docs/'
+
+# Custom sidebar templates, maps document names to template names.
+html_sidebars = {
+    '**': [
+        'localtoc.html',
+        'relations.html',
+        'searchbox.html',
+        'srclinks.html',
+        ],
+    'index': [
+        'globaltoc.html',
+        'relations.html',
+        'searchbox.html',
+        'srclinks.html',
+        ],
+}
 
 html_show_sourcelink = True
 github_url = 'https://github.com/dgrethlein/RubixCube'
