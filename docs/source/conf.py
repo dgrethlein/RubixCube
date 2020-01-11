@@ -21,7 +21,7 @@ copyright = '2020, David Grethlein'
 author = 'David Grethlein'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.0'
+release = '0.1.1'
 
 
 # -- General configuration ---------------------------------------------------
@@ -74,6 +74,15 @@ html_theme_options = {
 	'collapse_navigation' : False,
 	'canonical_url' : 'https://dgrethlein.github.io/RubixCube/'
 }
+
+html_logo = '../../misc/twisty_cube.png' 
+# Taken from: 
+# https://www.todayifoundout.com/index.php/2011/10/
+# every-possible-state-of-a-standard-rubiks-cube-ca
+# n-be-solved-in-20-moves-or-less/
+
+html_show_sourcelink = True
+github_url = 'https://github.com/dgrethlein/RubixCube'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
