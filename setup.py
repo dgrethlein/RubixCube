@@ -5,7 +5,7 @@ from distutils.core import setup
 
 setup(name = 'rubix_cube',
 	  packages = ['rubix_cube'],   
-	  version = '0.1.0',	
+	  version = '0.1.1',	
 	  license='MIT',  
 	  description = 'Python Rubix Cube GUI package',
 	  author = 'David Grethlein',
