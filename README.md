@@ -25,4 +25,4 @@ PyPI Installation
 pip install rubix-cube
 ```
 
-[![PyPI Preview](./misc/pyp_preview.png)](https://pypi.org/project/rubix-cube/)
+[![PyPI Preview](./misc/pypi_preview.png)](https://pypi.org/project/rubix-cube/)
