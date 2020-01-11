@@ -12,11 +12,13 @@ Final Project Rubix Cube Python GUI
 Project Documentation
 =====================
 
-`GitHub Pages <https://dgrethlein.github.io/RubixCube/>`_
+[GitHub Pages](https://dgrethlein.github.io/RubixCube/)
 
 PyPI Installation
 =================
 
-`PyPI Hosting <https://pypi.org/project/rubix-cube/>`_
+[PyPI Hosting](https://pypi.org/project/rubix-cube/)
 
-> pip install rubix-cube
+```
+pip install rubix-cube
+```
