@@ -9,7 +9,13 @@ clean_html :
 
 github:
 	@make html
-	@cp -a ./docs/build/html/. ../docs
+	@cp -a ./docs/build/html/. ./docs
+
+release:
+	@python3 ./setup.py ./dist/
+	
+to_pipy:
+	@twine upload .dist/*
 
 clean_src : 
 	@find __pycache__ rubix_cube/ | grep __pycache__ | xargs rm -fR
