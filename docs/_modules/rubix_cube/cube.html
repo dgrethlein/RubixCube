@@ -92,13 +92,15 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../rubix_cube.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../rubix_cube.html#module-rubix_cube.cube">rubix_cube.cube module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../rubix_cube.html#module-description">Module Description</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../rubix_cube.html#module-contents">Module Contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../rubix_cube.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../rubix_cube.cube.html">rubix_cube.cube module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../rubix_cube.cube.html#module-description">Module Description</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../rubix_cube.cube.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../rubix_cube.html#id1">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../rubix_cube.html#module-rubix_cube">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -197,6 +199,14 @@
 <span class="sd">		   counter-clockwise (inverse) are considered to be the standard </span>
 <span class="sd">		   move-set.</span>
 
+<span class="sd">		.. figure:: ./../../misc/flattened_cube.png</span>
+<span class="sd">		   :name: flattened_cube</span>
+<span class="sd">		   :align: center</span>
+<span class="sd">		   :scale: 75%</span>
+
+<span class="sd">		   At this view of the cube, each face is a 3x3 array indexed with </span>
+<span class="sd">		   [0,0] in the top-left and [2,2] in the bottom right.</span>
+
 <span class="sd">.. moduleauthor:: David Grethlein &lt;djg329@drexel.edu&gt;</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
@@ -213,7 +223,7 @@
 <span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">is_color_like</span>
 
 
-<div class="viewcode-block" id="Cube"><a class="viewcode-back" href="../../rubix_cube.html#rubix_cube.cube.Cube">[docs]</a><span class="k">class</span> <span class="nc">Cube</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Cube"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube">[docs]</a><span class="k">class</span> <span class="nc">Cube</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;Data structure for representing a 3x3x3 rubix-cube.</span>
 
 <span class="sd">	Attributes:</span>
@@ -228,7 +238,7 @@
 	<span class="c1">#==========================================================================</span>
 	<span class="c1">#		CLASS CONSTRUCTOR</span>
 	<span class="c1">#==========================================================================</span>
-<div class="viewcode-block" id="Cube.__init__"><a class="viewcode-back" href="../../rubix_cube.html#rubix_cube.cube.Cube.__init__">[docs]</a>	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="viewcode-block" id="Cube.__init__"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.__init__">[docs]</a>	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
 				 <span class="n">colors</span> <span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 				 <span class="n">faces</span> <span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 				 <span class="n">verbose</span> <span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
@@ -385,7 +395,7 @@
 	<span class="c1">#==========================================================================</span>
 	<span class="c1">#		QUALITY ASSURANCE METHOD(s)</span>
 	<span class="c1">#==========================================================================	</span>
-<div class="viewcode-block" id="Cube.is_well_formed"><a class="viewcode-back" href="../../rubix_cube.html#rubix_cube.cube.Cube.is_well_formed">[docs]</a>	<span class="k">def</span> <span class="nf">is_well_formed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="Cube.is_well_formed"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.is_well_formed">[docs]</a>	<span class="k">def</span> <span class="nf">is_well_formed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 		<span class="sd">&quot;&quot;&quot;Quality control method to ensure class has been properly</span>
 <span class="sd">		initialized by examining all :attr:`faces` via the quality control</span>
 <span class="sd">		method :func:`is_valid_face`.</span>
@@ -400,7 +410,7 @@
 						<span class="k">for</span> <span class="n">face</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">])</span></div>
 
 
-<div class="viewcode-block" id="Cube.is_valid_face"><a class="viewcode-back" href="../../rubix_cube.html#rubix_cube.cube.Cube.is_valid_face">[docs]</a>	<span class="k">def</span> <span class="nf">is_valid_face</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">face</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="Cube.is_valid_face"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.is_valid_face">[docs]</a>	<span class="k">def</span> <span class="nf">is_valid_face</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">face</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 		<span class="sd">&quot;&quot;&quot;Checks if the provided array could be a valid face on a the </span>
 <span class="sd">		currently initialized :class:`Cube`.</span>
 <span class="sd">			</span>
@@ -427,7 +437,7 @@
 	<span class="c1">#==========================================================================</span>
 	<span class="c1">#		MOVE METHOD(s)</span>
 	<span class="c1">#==========================================================================</span>
-<div class="viewcode-block" id="Cube.up"><a class="viewcode-back" href="../../rubix_cube.html#rubix_cube.cube.Cube.up">[docs]</a>	<span class="k">def</span> <span class="nf">up</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cube.up"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.up">[docs]</a>	<span class="k">def</span> <span class="nf">up</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;Up Move</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
@@ -442,7 +452,7 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;RIGHT_FACE&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">temp</span></div>
 
 
-<div class="viewcode-block" id="Cube.up_inverse"><a class="viewcode-back" href="../../rubix_cube.html#rubix_cube.cube.Cube.up_inverse">[docs]</a>	<span class="k">def</span> <span class="nf">up_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cube.up_inverse"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.up_inverse">[docs]</a>	<span class="k">def</span> <span class="nf">up_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;Up Inverse Move</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
@@ -456,7 +466,7 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;LEFT_FACE&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">temp</span></div>
 
 
-<div class="viewcode-block" id="Cube.down"><a class="viewcode-back" href="../../rubix_cube.html#rubix_cube.cube.Cube.down">[docs]</a>	<span class="k">def</span> <span class="nf">down</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cube.down"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.down">[docs]</a>	<span class="k">def</span> <span class="nf">down</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;Down Move</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
@@ -469,7 +479,7 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;BACK_FACE&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">,:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;RIGHT_FACE&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">,:]</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;RIGHT_FACE&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">temp</span></div>
 
-<div class="viewcode-block" id="Cube.down_inverse"><a class="viewcode-back" href="../../rubix_cube.html#rubix_cube.cube.Cube.down_inverse">[docs]</a>	<span class="k">def</span> <span class="nf">down_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cube.down_inverse"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.down_inverse">[docs]</a>	<span class="k">def</span> <span class="nf">down_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;Down Inverse Move</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
@@ -484,7 +494,7 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;LEFT_FACE&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">temp</span></div>
 
 
-<div class="viewcode-block" id="Cube.front"><a class="viewcode-back" href="../../rubix_cube.html#rubix_cube.cube.Cube.front">[docs]</a>	<span class="k">def</span> <span class="nf">front</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cube.front"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.front">[docs]</a>	<span class="k">def</span> <span class="nf">front</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;Front Move</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
@@ -499,7 +509,7 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;RIGHT_FACE&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span></div>
 
 
-<div class="viewcode-block" id="Cube.front_inverse"><a class="viewcode-back" href="../../rubix_cube.html#rubix_cube.cube.Cube.front_inverse">[docs]</a>	<span class="k">def</span> <span class="nf">front_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cube.front_inverse"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.front_inverse">[docs]</a>	<span class="k">def</span> <span class="nf">front_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;Front Inverse Move</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
@@ -513,7 +523,7 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;LEFT_FACE&#39;</span><span class="p">][:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span></div>
 
 
-<div class="viewcode-block" id="Cube.back"><a class="viewcode-back" href="../../rubix_cube.html#rubix_cube.cube.Cube.back">[docs]</a>	<span class="k">def</span> <span class="nf">back</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cube.back"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.back">[docs]</a>	<span class="k">def</span> <span class="nf">back</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;Back Move</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
@@ -527,7 +537,7 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;RIGHT_FACE&#39;</span><span class="p">][:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span></div>
 
 
-<div class="viewcode-block" id="Cube.back_inverse"><a class="viewcode-back" href="../../rubix_cube.html#rubix_cube.cube.Cube.back_inverse">[docs]</a>	<span class="k">def</span> <span class="nf">back_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cube.back_inverse"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.back_inverse">[docs]</a>	<span class="k">def</span> <span class="nf">back_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;Back Inverse Move</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
@@ -542,7 +552,7 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;LEFT_FACE&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span></div>
 
 
-<div class="viewcode-block" id="Cube.left"><a class="viewcode-back" href="../../rubix_cube.html#rubix_cube.cube.Cube.left">[docs]</a>	<span class="k">def</span> <span class="nf">left</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cube.left"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.left">[docs]</a>	<span class="k">def</span> <span class="nf">left</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;Left Move</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
@@ -557,7 +567,7 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;BACK_FACE&#39;</span><span class="p">][:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span></div>
 
 
-<div class="viewcode-block" id="Cube.left_inverse"><a class="viewcode-back" href="../../rubix_cube.html#rubix_cube.cube.Cube.left_inverse">[docs]</a>	<span class="k">def</span> <span class="nf">left_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cube.left_inverse"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.left_inverse">[docs]</a>	<span class="k">def</span> <span class="nf">left_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;Left Inverse Move</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
@@ -571,7 +581,7 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;FRONT_FACE&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span></div>
 
 
-<div class="viewcode-block" id="Cube.right"><a class="viewcode-back" href="../../rubix_cube.html#rubix_cube.cube.Cube.right">[docs]</a>	<span class="k">def</span> <span class="nf">right</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cube.right"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.right">[docs]</a>	<span class="k">def</span> <span class="nf">right</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;Right Move</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
@@ -586,7 +596,7 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;BACK_FACE&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span></div>
 
 
-<div class="viewcode-block" id="Cube.right_inverse"><a class="viewcode-back" href="../../rubix_cube.html#rubix_cube.cube.Cube.right_inverse">[docs]</a>	<span class="k">def</span> <span class="nf">right_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cube.right_inverse"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.right_inverse">[docs]</a>	<span class="k">def</span> <span class="nf">right_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;Right Inverse Move</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>

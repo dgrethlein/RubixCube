@@ -29,6 +29,14 @@ Module Contents
 		   counter-clockwise (inverse) are considered to be the standard 
 		   move-set.
 
+		.. figure:: ./../../misc/flattened_cube.png
+		   :name: flattened_cube
+		   :align: center
+		   :scale: 75%
+
+		   At this view of the cube, each face is a 3x3 array indexed with 
+		   [0,0] in the top-left and [2,2] in the bottom right.
+
 .. moduleauthor:: David Grethlein <djg329@drexel.edu>
 
 """
