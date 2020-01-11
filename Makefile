@@ -12,10 +12,10 @@ github:
 	@cp -a ./docs/build/html/. ./docs
 
 release:
-	@python3 ./setup.py ./dist/
-	
+	@python3 ./setup.py sdist
+
 to_pipy:
-	@twine upload .dist/*
+	@twine upload ./dist/*
 
 clean_src : 
 	@find __pycache__ rubix_cube/ | grep __pycache__ | xargs rm -fR
