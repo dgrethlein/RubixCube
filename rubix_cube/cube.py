@@ -27,7 +27,9 @@ Module Contents
 
 		   6 cube face rotations both clock-wise and 
 		   counter-clockwise (inverse) are considered to be the standard 
-		   move-set.
+		   move-set. (`How to Solve 
+		   <https://www.rubiks.com/en-us/blog/how-to-solve-the-rubiks-cube-stage-1>`_
+		   )
 
 		.. figure:: ./../../misc/flattened_cube.png
 		   :name: flattened_cube
@@ -35,7 +37,8 @@ Module Contents
 		   :scale: 45%
 
 		   At this view of the cube, each face is a 3x3 array indexed with 
-		   [0,0] in the top-left and [2,2] in the bottom right.
+		   [0,0] in the top-left and [2,2] in the bottom right. (`Flattened
+		   <https://rantonse.no/en/blog/2016-05-12>`_)
 
 .. moduleauthor:: David Grethlein <djg329@drexel.edu>
 
