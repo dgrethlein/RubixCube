@@ -32,7 +32,7 @@ Module Contents
 		.. figure:: ./../../misc/flattened_cube.png
 		   :name: flattened_cube
 		   :align: center
-		   :scale: 75%
+		   :scale: 45%
 
 		   At this view of the cube, each face is a 3x3 array indexed with 
 		   [0,0] in the top-left and [2,2] in the bottom right.
