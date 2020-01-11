@@ -19,6 +19,6 @@ PyPI Installation
 
 [PyPI Hosting](https://pypi.org/project/rubix-cube/)
 
-```
+```bash
 pip install rubix-cube
 ```
