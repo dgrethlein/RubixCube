@@ -37,7 +37,8 @@ subparsers = parser.add_subparsers(help=' {----- Package Command(s)  -----}')
 test_cube_parser = subparsers.add_parser('test_cube',
 	help='Generates a solved 3x3 Rubix Cube object.')
 
-cg = Cube_Game()
+cg = Cube_Game(game_log={'events' : []})
+print(cg.game_log)
 
 
 #==============================================================================

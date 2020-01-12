@@ -44,7 +44,8 @@ class Cube_Game(object):
         __game_cube (Cube): Description
         __game_log (dict): Description
         __game_name (str): Description
-        __verbose (bool): Description
+        __verbose (bool): [DEBUG]-style console output. Default value is 
+            ``False``.
     
     """
 
@@ -73,43 +74,75 @@ class Cube_Game(object):
                    '<<__SOLVE_CUBE__>>',
                    '<<__QUIT_GAME__>>']
 
+
+    CUBE_FUNCS = {'U' : Cube.up,
+                  'Ui' : Cube.up_inverse,
+                  'D' : Cube.down,
+                  'Di' : Cube.down_inverse,
+                  'L' : Cube.left,
+                  'Li' : Cube.left_inverse,
+                  'R' : Cube.right,
+                  'Ri' : Cube.right_inverse,
+                  'F' : Cube.front,
+                  'Fi' : Cube.front_inverse,
+                  'B' : Cube.back,
+                  'Bi' : Cube.back_inverse}
+
     #==========================================================================
     #       CLASS CONSTRUCTOR
     #==========================================================================
     def __init__(self,
                  cube : Cube = None,
-                 game_name : str = 'Untitled_Cube_Game',
+                 game_name : str = None,
                  game_log : Dict = None,
                  scramble : bool = False,
                  verbose : bool = False):
         """:class:`Cube_Game` class constructor
         
         Args:
-            cube (Cube, optional): Description
-            game_name (str, optional): Description
-            game_log (Dict, optional): Description
-            scramble (bool, optional): Description
-            verbose (bool, optional): Description
-        
+            cube (Cube, optional): :class:`Cube` that will be directly
+                manipulated throughout gameplay.
+            game_name (str, optional): Name of the current game being played.
+            game_log (Dict, optional): Dictionary that contains a history of
+                moves and other game events.
+            scramble (bool, optional): Whether or not the game should scramble 
+                the :attr:`__game_cube`` upon initialization. Default value is
+                ``False``.
+            verbose (bool, optional): [DEBUG]-style console output. Default
+                value is ``False``.
         
         """
 
-        # Sets Up Game
-        self.verbose = verbose
+        # Sets Up Default Game
+        self.game_name = 'Untitled_Cube_Game'
+        self.game_cube = Cube()
+        self.game_log = {'events' : [{'type' : '<<__NEW_GAME__>>',
+                              'name' : self.game_name}]}
+
+        # Attempts to reset property values with argument values.
+        self.game_cube = cube
         self.game_name = game_name
-        
+        self.game_log = game_log
+        self.verbose = verbose
 
         # Initializes a default cube
-        if cube is None:
-            self.game_cube = Cube()
-            self.game_log = {'events' : [{'type' : '<<__NEW_GAME__>>'}]}
+        if self.game_cube == Cube():
+            
+            if self.verbose:
+                print(f"\n[DEBUG]\tNew DEFAULT Cube created for game : '{self.game_name}'\n")
+
+        # Initializes a default game log
+        if self.game_log != game_log:
 
             if self.verbose:
-                print(f"\n[DEBUG]\tNew DEFAULT Cube Created for Game : '{self.game_name}'\n")
-
+                print(f"\n[DEBUG]\tNew DEFAULT ``game_log`` created for game : '{self.game_name}'\n")
+        
         else:
-            self.game_cube = cube
-            self.game_log = game_log
+            self.game_log['events'].append({'type' : '<<__NEW_GAME__>>',
+                                            'name' : self.game_name})
+
+            if self.verbose:
+                print(f"\n[DEBUG]\tNew game created with name : '{self.game_name}'\n")
 
 
     #==========================================================================
@@ -150,20 +183,16 @@ class Cube_Game(object):
     @property
     def game_log(self) -> Dict:
         """
-        .. code-block:: 
-           :name: game_log_setter
+        .. code-block::
+           :name: game_log
            :linenos:
-           :caption: Only sets :attr:`__game_log` to dictionary objects that
-                set ``valid_log`` to be ``True``.
+           :caption: Required ``game_log`` dictionary keys.
 
-
-           # Has to ensure that all event types are valid
-            valid_log = all(['type' in event
-                             and event['type'] in Cube_Game.EVENT_TYPES
-                                for event in game_log['events']])
-
-            if valid_log:
-                self.__game_log = game_log
+           game_log = {'events' : [{'type' : '<<__NEW_GAME__>>',
+                                    'name' : '...'},
+                                   {'type' : ...},
+                                   ...,
+                                   {'type' : ...}]}
         """
         return self.__game_log
 
@@ -188,8 +217,6 @@ class Cube_Game(object):
     @property
     def verbose(self) -> bool:
         """
-        Returns:
-            bool: Description
         
         """
         return self.__verbose
@@ -197,15 +224,54 @@ class Cube_Game(object):
 
     @verbose.setter
     def verbose(self, verbose : bool):
-        """Summary
-        
-        Args:
-            verbose (bool): Description
-        """
         if isinstance(verbose, bool):
             self.__verbose = verbose
         else:
             self.__verbose = False 
+
+
+    #==========================================================================
+    #       GAME-PLAY METHOD(s)
+    #==========================================================================
+    def move_cube(self, cube_func : str):
+        """
+
+        Args:
+            cube_func (str): Look-up key to recover the proper :class:`Cube` 
+                method to call from :attr:`CUBE_FUNCS` class attribute to call
+                a move using the :attr:`game_cube`.
+
+        .. code-block::
+           :name: move_cube_CUBE_FUNCS
+           :linenos:
+           :caption: Parameter ``cube_func`` will determine which 
+                :attr:`game_cube` move function is called.
+
+           CUBE_FUNCS = {'U'  : Cube.up,
+                         'Ui' : Cube.up_inverse,
+                         'D'  : Cube.down,
+                         'Di' : Cube.down_inverse,
+                         'L'  : Cube.left,
+                         'Li' : Cube.left_inverse,
+                         'R'  : Cube.right,
+                         'Ri' : Cube.right_inverse,
+                         'F'  : Cube.front,
+                         'Fi' : Cube.front_inverse,
+                         'B'  : Cube.back,
+                         'Bi' : Cube.back_inverse}
+
+        """
+
+        if cube_func in Cube_Game.CUBE_FUNCS\
+        and self.game_cube.is_well_formed():
+
+            # Performs the desired cube move on the game cube
+            Cube_Game.CUBE_FUNCS[cube_func](self.game_cube)
+
+            if self.verbose:
+                print(f"[DEBUG]\tCalling game cube function: '{cube_func}'")
+
+            self.game_log['events'].append({'type' : cube_func})
     
     
     

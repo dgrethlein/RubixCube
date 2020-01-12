@@ -222,7 +222,8 @@
 <span class="sd">        __game_cube (Cube): Description</span>
 <span class="sd">        __game_log (dict): Description</span>
 <span class="sd">        __game_name (str): Description</span>
-<span class="sd">        __verbose (bool): Description</span>
+<span class="sd">        __verbose (bool): [DEBUG]-style console output. Default value is </span>
+<span class="sd">            ``False``.</span>
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -251,43 +252,75 @@
                    <span class="s1">&#39;&lt;&lt;__SOLVE_CUBE__&gt;&gt;&#39;</span><span class="p">,</span>
                    <span class="s1">&#39;&lt;&lt;__QUIT_GAME__&gt;&gt;&#39;</span><span class="p">]</span>
 
+
+    <span class="n">CUBE_FUNCS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;U&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">up</span><span class="p">,</span>
+                  <span class="s1">&#39;Ui&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">up_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;D&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">down</span><span class="p">,</span>
+                  <span class="s1">&#39;Di&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">down_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;L&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">left</span><span class="p">,</span>
+                  <span class="s1">&#39;Li&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">left_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;R&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">right</span><span class="p">,</span>
+                  <span class="s1">&#39;Ri&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">right_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;F&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">front</span><span class="p">,</span>
+                  <span class="s1">&#39;Fi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">front_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;B&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">back</span><span class="p">,</span>
+                  <span class="s1">&#39;Bi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">back_inverse</span><span class="p">}</span>
+
     <span class="c1">#==========================================================================</span>
     <span class="c1">#       CLASS CONSTRUCTOR</span>
     <span class="c1">#==========================================================================</span>
 <div class="viewcode-block" id="Cube_Game.__init__"><a class="viewcode-back" href="../../rubix_cube.cube_game.html#rubix_cube.cube_game.Cube_Game.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">cube</span> <span class="p">:</span> <span class="n">Cube</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">game_name</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Untitled_Cube_Game&#39;</span><span class="p">,</span>
+                 <span class="n">game_name</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">game_log</span> <span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">scramble</span> <span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
                  <span class="n">verbose</span> <span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;:class:`Cube_Game` class constructor</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
-<span class="sd">            cube (Cube, optional): Description</span>
-<span class="sd">            game_name (str, optional): Description</span>
-<span class="sd">            game_log (Dict, optional): Description</span>
-<span class="sd">            scramble (bool, optional): Description</span>
-<span class="sd">            verbose (bool, optional): Description</span>
-<span class="sd">        </span>
+<span class="sd">            cube (Cube, optional): :class:`Cube` that will be directly</span>
+<span class="sd">                manipulated throughout gameplay.</span>
+<span class="sd">            game_name (str, optional): Name of the current game being played.</span>
+<span class="sd">            game_log (Dict, optional): Dictionary that contains a history of</span>
+<span class="sd">                moves and other game events.</span>
+<span class="sd">            scramble (bool, optional): Whether or not the game should scramble </span>
+<span class="sd">                the :attr:`__game_cube`` upon initialization. Default value is</span>
+<span class="sd">                ``False``.</span>
+<span class="sd">            verbose (bool, optional): [DEBUG]-style console output. Default</span>
+<span class="sd">                value is ``False``.</span>
 <span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="c1"># Sets Up Game</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="c1"># Sets Up Default Game</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">game_name</span> <span class="o">=</span> <span class="s1">&#39;Untitled_Cube_Game&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">game_cube</span> <span class="o">=</span> <span class="n">Cube</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;events&#39;</span> <span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;type&#39;</span> <span class="p">:</span> <span class="s1">&#39;&lt;&lt;__NEW_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;name&#39;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_name</span><span class="p">}]}</span>
+
+        <span class="c1"># Attempts to reset property values with argument values.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">game_cube</span> <span class="o">=</span> <span class="n">cube</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">game_name</span> <span class="o">=</span> <span class="n">game_name</span>
-        
+        <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span> <span class="o">=</span> <span class="n">game_log</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
 
         <span class="c1"># Initializes a default cube</span>
-        <span class="k">if</span> <span class="n">cube</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game_cube</span> <span class="o">=</span> <span class="n">Cube</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;events&#39;</span> <span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;type&#39;</span> <span class="p">:</span> <span class="s1">&#39;&lt;&lt;__NEW_GAME__&gt;&gt;&#39;</span><span class="p">}]}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_cube</span> <span class="o">==</span> <span class="n">Cube</span><span class="p">():</span>
+            
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[DEBUG]</span><span class="se">\t</span><span class="s2">New DEFAULT Cube created for game : &#39;</span><span class="si">{self.game_name}</span><span class="s2">&#39;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Initializes a default game log</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span> <span class="o">!=</span> <span class="n">game_log</span><span class="p">:</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[DEBUG]</span><span class="se">\t</span><span class="s2">New DEFAULT Cube Created for Game : &#39;</span><span class="si">{self.game_name}</span><span class="s2">&#39;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[DEBUG]</span><span class="se">\t</span><span class="s2">New DEFAULT ``game_log`` created for game : &#39;</span><span class="si">{self.game_name}</span><span class="s2">&#39;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game_cube</span> <span class="o">=</span> <span class="n">cube</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span> <span class="o">=</span> <span class="n">game_log</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;type&#39;</span> <span class="p">:</span> <span class="s1">&#39;&lt;&lt;__NEW_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;name&#39;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_name</span><span class="p">})</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[DEBUG]</span><span class="se">\t</span><span class="s2">New game created with name : &#39;</span><span class="si">{self.game_name}</span><span class="s2">&#39;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
     <span class="c1">#==========================================================================</span>
@@ -328,20 +361,16 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">game_log</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        .. code-block:: </span>
-<span class="sd">           :name: game_log_setter</span>
+<span class="sd">        .. code-block::</span>
+<span class="sd">           :name: game_log</span>
 <span class="sd">           :linenos:</span>
-<span class="sd">           :caption: Only sets :attr:`__game_log` to dictionary objects that</span>
-<span class="sd">                set ``valid_log`` to be ``True``.</span>
+<span class="sd">           :caption: Required ``game_log`` dictionary keys.</span>
 
-
-<span class="sd">           # Has to ensure that all event types are valid</span>
-<span class="sd">            valid_log = all([&#39;type&#39; in event</span>
-<span class="sd">                             and event[&#39;type&#39;] in Cube_Game.EVENT_TYPES</span>
-<span class="sd">                                for event in game_log[&#39;events&#39;]])</span>
-
-<span class="sd">            if valid_log:</span>
-<span class="sd">                self.__game_log = game_log</span>
+<span class="sd">           game_log = {&#39;events&#39; : [{&#39;type&#39; : &#39;&lt;&lt;__NEW_GAME__&gt;&gt;&#39;,</span>
+<span class="sd">                                    &#39;name&#39; : &#39;...&#39;},</span>
+<span class="sd">                                   {&#39;type&#39; : ...},</span>
+<span class="sd">                                   ...,</span>
+<span class="sd">                                   {&#39;type&#39; : ...}]}</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__game_log</span>
 
@@ -366,8 +395,6 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">verbose</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns:</span>
-<span class="sd">            bool: Description</span>
 <span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span>
@@ -375,15 +402,54 @@
 
     <span class="nd">@verbose</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">verbose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span> <span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Summary</span>
-<span class="sd">        </span>
-<span class="sd">        Args:</span>
-<span class="sd">            verbose (bool): Description</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">verbose</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="o">=</span> <span class="n">verbose</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="o">=</span> <span class="kc">False</span> </div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="o">=</span> <span class="kc">False</span> 
+
+
+    <span class="c1">#==========================================================================</span>
+    <span class="c1">#       GAME-PLAY METHOD(s)</span>
+    <span class="c1">#==========================================================================</span>
+<div class="viewcode-block" id="Cube_Game.move_cube"><a class="viewcode-back" href="../../rubix_cube.cube_game.html#rubix_cube.cube_game.Cube_Game.move_cube">[docs]</a>    <span class="k">def</span> <span class="nf">move_cube</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cube_func</span> <span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cube_func (str): Look-up key to recover the proper :class:`Cube` </span>
+<span class="sd">                method to call from :attr:`CUBE_FUNCS` class attribute to call</span>
+<span class="sd">                a move using the :attr:`game_cube`.</span>
+
+<span class="sd">        .. code-block::</span>
+<span class="sd">           :name: move_cube_CUBE_FUNCS</span>
+<span class="sd">           :linenos:</span>
+<span class="sd">           :caption: Parameter ``cube_func`` will determine which </span>
+<span class="sd">                :attr:`game_cube` move function is called.</span>
+
+<span class="sd">           CUBE_FUNCS = {&#39;U&#39;  : Cube.up,</span>
+<span class="sd">                         &#39;Ui&#39; : Cube.up_inverse,</span>
+<span class="sd">                         &#39;D&#39;  : Cube.down,</span>
+<span class="sd">                         &#39;Di&#39; : Cube.down_inverse,</span>
+<span class="sd">                         &#39;L&#39;  : Cube.left,</span>
+<span class="sd">                         &#39;Li&#39; : Cube.left_inverse,</span>
+<span class="sd">                         &#39;R&#39;  : Cube.right,</span>
+<span class="sd">                         &#39;Ri&#39; : Cube.right_inverse,</span>
+<span class="sd">                         &#39;F&#39;  : Cube.front,</span>
+<span class="sd">                         &#39;Fi&#39; : Cube.front_inverse,</span>
+<span class="sd">                         &#39;B&#39;  : Cube.back,</span>
+<span class="sd">                         &#39;Bi&#39; : Cube.back_inverse}</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">cube_func</span> <span class="ow">in</span> <span class="n">Cube_Game</span><span class="o">.</span><span class="n">CUBE_FUNCS</span>\
+        <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_cube</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
+
+            <span class="c1"># Performs the desired cube move on the game cube</span>
+            <span class="n">Cube_Game</span><span class="o">.</span><span class="n">CUBE_FUNCS</span><span class="p">[</span><span class="n">cube_func</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">game_cube</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[DEBUG]</span><span class="se">\t</span><span class="s2">Calling game cube function: &#39;</span><span class="si">{cube_func}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;type&#39;</span> <span class="p">:</span> <span class="n">cube_func</span><span class="p">})</span></div></div>
     
     
     
