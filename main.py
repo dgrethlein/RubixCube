@@ -36,6 +36,7 @@ test_cube_parser = subparsers.add_parser('test_cube',
 	help='Generates a solved 3x3 Rubix Cube object.')
 
 
+
 #==============================================================================
 #		PARSE ARGUMENTS
 #==============================================================================

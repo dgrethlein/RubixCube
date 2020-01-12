@@ -34,9 +34,9 @@ Module Contents
         .. todo::
            
            *    Need to finish implementing the ``middle``, ``equator`` , and 
-                ``standing`` middle row movements.
-           *    Need to finish cube-orientation methods ``pitch`` , ``roll``,
-                and ``yaw``.
+                ``standing`` middle row movements and their inverses.
+           *    Need to finish implementing the ``pitch`` , ``roll``, and 
+                ``raw`` cube re-orientation methods and their inverses.
 
         .. figure:: ./../../misc/flattened_cube.png
            :name: flattened_cube
@@ -251,7 +251,7 @@ class Cube(object):
 
 
     def is_valid_face(self, face : np.ndarray) -> bool:
-        """Checks if the provided array could be a valid face on a the 
+        """Checks if the provided array could be a valid face on the 
         currently initialized :class:`Cube`.
             
         Args:
@@ -264,15 +264,35 @@ class Cube(object):
         """
         if isinstance(face, np.ndarray)\
         and face.shape == (3,3)\
-        and all([
-                all([val in self.colors.values() for val in row])
-                    for row in face]):
+        and all([all([val in self.colors.values() 
+                        for val in row])
+                            for row in face]):
 
             return True
 
         else:
 
-            False
+            return False
+
+    def is_solved_face(self, face: np.ndarray) -> bool:
+        """Checks if the provided array could be a valid face on the 
+        currently initialized :class:`Cube`.
+
+        Args:
+            face (np.ndarray): Array to be tested for being solved in the
+                context of the current :class:`Cube`.
+
+        Returns:
+            ``True`` if faces is solved 3 x 3 array of valid colors as defined
+            by current instance's :attr:`colors` attribute, ``False``
+            otherwise.
+        """
+        if not self.is_valid_face(face):
+            return False
+        
+        else:
+            return len(np.unique(face)) == 1
+
 
     #==========================================================================
     #       MOVE METHOD(s)
@@ -466,6 +486,24 @@ class Cube(object):
     #   if self.is_well_formed():
 
     #def standing_inverse(self):
+    #   if self.is_well_formed():
+
+    #def pitch(self):
+    #   if self.is_well_formed():
+
+    #def pitch_inverse(self):
+    #   if self.is_well_formed():
+
+    #def roll(self):
+    #   if self.is_well_formed():
+
+    #def roll_inverse(self):
+    #   if self.is_well_formed():
+
+    #def yaw(self):
+    #   if self.is_well_formed():
+
+    #def yaw_inverse(self):
     #   if self.is_well_formed():
 
     #==========================================================================

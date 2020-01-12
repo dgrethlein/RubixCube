@@ -207,9 +207,9 @@
 <span class="sd">        .. todo::</span>
 <span class="sd">           </span>
 <span class="sd">           *    Need to finish implementing the ``middle``, ``equator`` , and </span>
-<span class="sd">                ``standing`` middle row movements.</span>
-<span class="sd">           *    Need to finish cube-orientation methods ``pitch`` , ``roll``,</span>
-<span class="sd">                and ``yaw``.</span>
+<span class="sd">                ``standing`` middle row movements and their inverses.</span>
+<span class="sd">           *    Need to finish implementing the ``pitch`` , ``roll``, and </span>
+<span class="sd">                ``raw`` cube re-orientation methods and their inverses.</span>
 
 <span class="sd">        .. figure:: ./../../misc/flattened_cube.png</span>
 <span class="sd">           :name: flattened_cube</span>
@@ -424,7 +424,7 @@
 
 
 <div class="viewcode-block" id="Cube.is_valid_face"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.is_valid_face">[docs]</a>    <span class="k">def</span> <span class="nf">is_valid_face</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">face</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Checks if the provided array could be a valid face on a the </span>
+        <span class="sd">&quot;&quot;&quot;Checks if the provided array could be a valid face on the </span>
 <span class="sd">        currently initialized :class:`Cube`.</span>
 <span class="sd">            </span>
 <span class="sd">        Args:</span>
@@ -437,15 +437,35 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">face</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>\
         <span class="ow">and</span> <span class="n">face</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>\
-        <span class="ow">and</span> <span class="nb">all</span><span class="p">([</span>
-                <span class="nb">all</span><span class="p">([</span><span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">row</span><span class="p">])</span>
-                    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">face</span><span class="p">]):</span>
+        <span class="ow">and</span> <span class="nb">all</span><span class="p">([</span><span class="nb">all</span><span class="p">([</span><span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> 
+                        <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">row</span><span class="p">])</span>
+                            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">face</span><span class="p">]):</span>
 
             <span class="k">return</span> <span class="kc">True</span>
 
         <span class="k">else</span><span class="p">:</span>
 
-            <span class="kc">False</span></div>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Cube.is_solved_face"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.is_solved_face">[docs]</a>    <span class="k">def</span> <span class="nf">is_solved_face</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">face</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Checks if the provided array could be a valid face on the </span>
+<span class="sd">        currently initialized :class:`Cube`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            face (np.ndarray): Array to be tested for being solved in the</span>
+<span class="sd">                context of the current :class:`Cube`.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            ``True`` if faces is solved 3 x 3 array of valid colors as defined</span>
+<span class="sd">            by current instance&#39;s :attr:`colors` attribute, ``False``</span>
+<span class="sd">            otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_valid_face</span><span class="p">(</span><span class="n">face</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">face</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span></div>
+
 
     <span class="c1">#==========================================================================</span>
     <span class="c1">#       MOVE METHOD(s)</span>
@@ -639,6 +659,24 @@
     <span class="c1">#   if self.is_well_formed():</span>
 
     <span class="c1">#def standing_inverse(self):</span>
+    <span class="c1">#   if self.is_well_formed():</span>
+
+    <span class="c1">#def pitch(self):</span>
+    <span class="c1">#   if self.is_well_formed():</span>
+
+    <span class="c1">#def pitch_inverse(self):</span>
+    <span class="c1">#   if self.is_well_formed():</span>
+
+    <span class="c1">#def roll(self):</span>
+    <span class="c1">#   if self.is_well_formed():</span>
+
+    <span class="c1">#def roll_inverse(self):</span>
+    <span class="c1">#   if self.is_well_formed():</span>
+
+    <span class="c1">#def yaw(self):</span>
+    <span class="c1">#   if self.is_well_formed():</span>
+
+    <span class="c1">#def yaw_inverse(self):</span>
     <span class="c1">#   if self.is_well_formed():</span>
 
     <span class="c1">#==========================================================================</span>
