@@ -7,6 +7,8 @@
 Welcome to Rubix Cube's documentation!
 ======================================
 
+Installation can be done via ``pip install rubix-cube``.
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
