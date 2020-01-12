@@ -37,6 +37,7 @@ Module Contents
                 ``standing`` middle row movements and their inverses.
            *    Need to finish implementing the ``pitch`` , ``roll``, and 
                 ``raw`` cube re-orientation methods and their inverses.
+           *    Need to finish implementing the ``get_num_solved_rings``.
 
         .. figure:: ./../../misc/flattened_cube.png
            :name: flattened_cube
