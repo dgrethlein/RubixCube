@@ -3,7 +3,7 @@ RubixCube
 
 Python GUI Rubix Cube Solver
 
-David Grethlein
+Author : [David Grethlein](davidgrethlein.dev) :nerd:
 
 CS 530 : Developing User Interfaces
 Final Project Rubix Cube Python GUI 
