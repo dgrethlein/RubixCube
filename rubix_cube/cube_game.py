@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Rubix :class:`Cube_Solution` class Module
+"""Rubix :class:`Cube_Game` class Module
 
 Module Description
 ==================
 
-Collection of methods that define the main Rubix :class:`Cube_Solution` class
-data structure and how it manipulates a :class:`Cube <rubix_cube.cube.Cube>`
+Collection of methods that define the main Rubix :class:`Cube Game <Cube_Game>`
+class and how it manipulates a :class:`Cube <rubix_cube.cube.Cube>`
 object, prints to console, logs a history of both moves and re-orientations, 
 scrambles the state of the cube, and loads
 
