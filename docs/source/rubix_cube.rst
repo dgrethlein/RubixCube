@@ -14,6 +14,7 @@ Submodules
 .. toctree::
 
    rubix_cube.cube
+   rubix_cube.cube_game
 
 Module contents
 ---------------

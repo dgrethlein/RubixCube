@@ -1,0 +1,401 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>rubix_cube.cube_game &mdash; Rubix Cube 0.1.2 documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://dgrethlein.github.io/RubixCube/_modules/rubix_cube/cube_game.html"/>
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Rubix Cube
+          
+
+          
+            
+            <img src="../../_static/twisty_cube.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">rubix_cube</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../rubix_cube.html">rubix_cube package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../rubix_cube.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../rubix_cube.util.html">rubix_cube.util package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../rubix_cube.util.html#module-rubix_cube.util">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../rubix_cube.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../rubix_cube.cube.html">rubix_cube.cube module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../rubix_cube.cube.html#module-description">Module Description</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../rubix_cube.cube.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../rubix_cube.cube_game.html">rubix_cube.cube_game module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../rubix_cube.cube_game.html#module-description">Module Description</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../rubix_cube.cube_game.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../rubix_cube.html#module-rubix_cube">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Rubix Cube</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>rubix_cube.cube_game</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for rubix_cube.cube_game</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;Rubix :class:`Cube_Solution` class Module</span>
+
+<span class="sd">Module Description</span>
+<span class="sd">==================</span>
+
+<span class="sd">Collection of methods that define the main Rubix :class:`Cube_Solution` class</span>
+<span class="sd">data structure and how it manipulates a :class:`Cube &lt;rubix_cube.cube.Cube&gt;`</span>
+<span class="sd">object, prints to console, logs a history of both moves and re-orientations, </span>
+<span class="sd">scrambles the state of the cube, and loads</span>
+
+
+<span class="sd">Module Contents</span>
+<span class="sd">===============</span>
+
+<span class="sd">    *   :class:`Cube_Solution` details code for manipulating :class:`Rubix </span>
+<span class="sd">        Cube(s) &lt;rubix_cube.cube.Cube&gt;`.</span>
+
+<span class="sd">.. moduleauthor:: David Grethlein &lt;djg329@drexel.edu&gt;</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span> 
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">.cube</span> <span class="kn">import</span> <span class="n">Cube</span>
+
+
+<div class="viewcode-block" id="Cube_Game"><a class="viewcode-back" href="../../rubix_cube.cube_game.html#rubix_cube.cube_game.Cube_Game">[docs]</a><span class="k">class</span> <span class="nc">Cube_Game</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#==========================================================================</span>
+    <span class="c1">#       CONSTANTS FOR CUBE GAME(s)</span>
+    <span class="c1">#==========================================================================</span>
+    <span class="n">EVENT_TYPES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&lt;&lt;__NEW_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;F&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;Fi&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;B&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;Bi&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;L&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;Li&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;R&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;Ri&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;U&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;Ui&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;D&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;Di&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;&lt;&lt;__START_SCRAMBLE__&gt;&gt;&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;&lt;&lt;__END_SCRAMBLE__&gt;&gt;&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;&lt;&lt;__COLOR_CHANGE__&gt;&gt;&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;&lt;&lt;__SAVE_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;&lt;&lt;__LOAD_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;&lt;&lt;__PAUSE_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;&lt;&lt;__SOLVE_CUBE__&gt;&gt;&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;&lt;&lt;__QUIT_GAME__&gt;&gt;&#39;</span><span class="p">]</span>
+
+    <span class="c1">#==========================================================================</span>
+    <span class="c1">#       CLASS CONSTRUCTOR</span>
+    <span class="c1">#==========================================================================</span>
+<div class="viewcode-block" id="Cube_Game.__init__"><a class="viewcode-back" href="../../rubix_cube.cube_game.html#rubix_cube.cube_game.Cube_Game.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">cube</span> <span class="p">:</span> <span class="n">Cube</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">game_name</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Untitled_Cube_Game&#39;</span><span class="p">,</span>
+                 <span class="n">game_log</span> <span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">scramble</span> <span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                 <span class="n">verbose</span> <span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Sets Up Game</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">game_name</span> <span class="o">=</span> <span class="n">game_name</span>
+        
+
+        <span class="c1"># Initializes a default cube</span>
+        <span class="k">if</span> <span class="n">cube</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">game_cube</span> <span class="o">=</span> <span class="n">Cube</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;events&#39;</span> <span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;type&#39;</span> <span class="p">:</span> <span class="s1">&#39;&lt;&lt;__NEW_GAME__&gt;&gt;&#39;</span><span class="p">}]}</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[DEBUG]</span><span class="se">\t</span><span class="s2">New DEFAULT Cube Created for Game : &#39;</span><span class="si">{self.game_name}</span><span class="s2">&#39;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">game_cube</span> <span class="o">=</span> <span class="n">cube</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span> <span class="o">=</span> <span class="n">game_log</span></div>
+
+        
+
+
+    <span class="c1">#==========================================================================</span>
+    <span class="c1">#       PROPERTY INTERFACE(s)</span>
+    <span class="c1">#==========================================================================</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">game_cube</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Cube</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__game_cube</span>
+
+
+    <span class="nd">@game_cube</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">game_cube</span><span class="p">(</span><span class="bp">self</span> <span class="p">,</span> <span class="n">cube</span> <span class="p">:</span> <span class="n">Cube</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">Cube</span><span class="p">)</span>\
+        <span class="ow">and</span> <span class="n">cube</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__game_cube</span> <span class="o">=</span> <span class="n">cube</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">game_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__game_name</span>
+    
+
+    <span class="nd">@game_name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">game_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span> <span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>\
+        <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__game_name</span> <span class="o">=</span> <span class="n">name</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">game_log</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__game_log</span>
+
+
+    <span class="nd">@game_log</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">game_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game_log</span> <span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">game_log</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>\
+        <span class="ow">and</span> <span class="s1">&#39;events&#39;</span> <span class="ow">in</span> <span class="n">game_log</span>\
+        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">game_log</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">],</span> <span class="nb">list</span><span class="p">)</span>\
+        <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">game_log</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span>\
+        <span class="ow">and</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">game_log</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">]]):</span>
+
+            <span class="c1"># Has to ensure that all event types are valid</span>
+            <span class="n">valid_log</span> <span class="o">=</span> <span class="nb">all</span><span class="p">([</span><span class="s1">&#39;type&#39;</span> <span class="ow">in</span> <span class="n">event</span>\
+                             <span class="ow">and</span> <span class="n">event</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">Cube_Game</span><span class="o">.</span><span class="n">EVENT_TYPES</span>\
+                                <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">game_log</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">]])</span>
+
+            <span class="k">if</span> <span class="n">valid_log</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__game_log</span> <span class="o">=</span> <span class="n">game_log</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">verbose</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span>
+
+
+    <span class="nd">@verbose</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">verbose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span> <span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">verbose</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="o">=</span> <span class="kc">False</span> </div>
+    
+    
+    
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, David Grethlein
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

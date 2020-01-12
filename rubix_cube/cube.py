@@ -81,8 +81,7 @@ class Cube(object):
     #==========================================================================
     def __init__(self,
                  colors : Dict[str,str] = None,
-                 faces : Dict[str,np.array] = None,
-                 verbose : bool = False):
+                 faces : Dict[str,np.array] = None):
         """:class:`Cube` class constructor.
 
         Args:
@@ -126,27 +125,18 @@ class Cube(object):
                 returning ``True`` when examined by 
                 :func:`matplotlib.colors.is_color_like`.
 
-            verbose (bool, optional): [DEBUG]-style console output.
-                Default value is ``False``.
-
         """
 
         # Sets private attributes via properties
-        if not isinstance(colors, dict):
-            self.colors = Cube.DEFAULT_FACE_COLORS
-        else:
+        self.colors = Cube.DEFAULT_FACE_COLORS
+        self.faces = Cube.DEFAULT_FACES 
+        
+        if isinstance(colors, dict):
             self.colors = colors
 
-        if not isinstance(faces, dict):
-            self.faces = Cube.DEFAULT_FACES 
-        else:
-            self.faces = faces          
+            if isinstance(faces, dict):
+                self.faces = faces          
 
-        if verbose:
-            if self.is_well_formed():
-                print("\n[DEBUG]\tCube successfully initialized!\n")
-            else:
-                print("\n[ERROR]\tCube initialization failure!\n")
 
     #==========================================================================
     #       PROPERTY INTERFACE(s)

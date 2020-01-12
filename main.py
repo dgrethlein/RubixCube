@@ -20,6 +20,8 @@ import sys
 import json
 import argparse
 
+from rubix_cube.cube_game import Cube_Game
+
 #==============================================================================
 #		ARG-PARSE SET-UP
 #==============================================================================
@@ -35,6 +37,7 @@ subparsers = parser.add_subparsers(help=' {----- Package Command(s)  -----}')
 test_cube_parser = subparsers.add_parser('test_cube',
 	help='Generates a solved 3x3 Rubix Cube object.')
 
+cg = Cube_Game()
 
 
 #==============================================================================

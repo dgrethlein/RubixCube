@@ -101,6 +101,11 @@
 <li class="toctree-l5"><a class="reference internal" href="../../rubix_cube.cube.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="../../rubix_cube.cube_game.html">rubix_cube.cube_game module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../rubix_cube.cube_game.html#module-description">Module Description</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../rubix_cube.cube_game.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../rubix_cube.html#module-rubix_cube">Module contents</a></li>
@@ -254,8 +259,7 @@
     <span class="c1">#==========================================================================</span>
 <div class="viewcode-block" id="Cube.__init__"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">colors</span> <span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">faces</span> <span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">verbose</span> <span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+                 <span class="n">faces</span> <span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;:class:`Cube` class constructor.</span>
 
 <span class="sd">        Args:</span>
@@ -299,27 +303,18 @@
 <span class="sd">                returning ``True`` when examined by </span>
 <span class="sd">                :func:`matplotlib.colors.is_color_like`.</span>
 
-<span class="sd">            verbose (bool, optional): [DEBUG]-style console output.</span>
-<span class="sd">                Default value is ``False``.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Sets private attributes via properties</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">Cube</span><span class="o">.</span><span class="n">DEFAULT_FACE_COLORS</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">Cube</span><span class="o">.</span><span class="n">DEFAULT_FACE_COLORS</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">faces</span> <span class="o">=</span> <span class="n">Cube</span><span class="o">.</span><span class="n">DEFAULT_FACES</span> 
+        
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">colors</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">faces</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">faces</span> <span class="o">=</span> <span class="n">Cube</span><span class="o">.</span><span class="n">DEFAULT_FACES</span> 
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">faces</span> <span class="o">=</span> <span class="n">faces</span>          
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">faces</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">faces</span> <span class="o">=</span> <span class="n">faces</span>          </div>
 
-        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[DEBUG]</span><span class="se">\t</span><span class="s2">Cube successfully initialized!</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[ERROR]</span><span class="se">\t</span><span class="s2">Cube initialization failure!</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
     <span class="c1">#==========================================================================</span>
     <span class="c1">#       PROPERTY INTERFACE(s)</span>
