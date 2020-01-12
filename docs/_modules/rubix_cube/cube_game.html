@@ -191,7 +191,7 @@
 <span class="sd">Module Contents</span>
 <span class="sd">===============</span>
 
-<span class="sd">    *   :class:`Cube_Solution` details code for manipulating :class:`Rubix </span>
+<span class="sd">    *   :class:`Cube_Game` details code for manipulating :class:`Rubix </span>
 <span class="sd">        Cube(s) &lt;rubix_cube.cube.Cube&gt;`.</span>
 
 <span class="sd">.. moduleauthor:: David Grethlein &lt;djg329@drexel.edu&gt;</span>
@@ -214,13 +214,15 @@
 
 
 <div class="viewcode-block" id="Cube_Game"><a class="viewcode-back" href="../../rubix_cube.cube_game.html#rubix_cube.cube_game.Cube_Game">[docs]</a><span class="k">class</span> <span class="nc">Cube_Game</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Class in charge of directly interacting with and logging changes to</span>
+<span class="sd">    an instance of the :class:`Cube` class.</span>
+
 <span class="sd">    Attributes:</span>
-<span class="sd">        EVENT_TYPES (TYPE): Description</span>
-<span class="sd">        game_cube (TYPE): Description</span>
-<span class="sd">        game_log (dict): Description</span>
-<span class="sd">        game_name (TYPE): Description</span>
-<span class="sd">        verbose (TYPE): Description</span>
+<span class="sd">        EVENT_TYPES (List[str]): Description</span>
+<span class="sd">        __game_cube (Cube): Description</span>
+<span class="sd">        __game_log (dict): Description</span>
+<span class="sd">        __game_name (str): Description</span>
+<span class="sd">        __verbose (bool): Description</span>
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -294,8 +296,6 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">game_cube</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Cube</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns:</span>
-<span class="sd">            Cube: Description</span>
 <span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__game_cube</span>
@@ -303,11 +303,6 @@
 
     <span class="nd">@game_cube</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">game_cube</span><span class="p">(</span><span class="bp">self</span> <span class="p">,</span> <span class="n">cube</span> <span class="p">:</span> <span class="n">Cube</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Summary</span>
-<span class="sd">        </span>
-<span class="sd">        Args:</span>
-<span class="sd">            cube (Cube): Description</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">Cube</span><span class="p">)</span>\
         <span class="ow">and</span> <span class="n">cube</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
 
@@ -317,8 +312,6 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">game_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns:</span>
-<span class="sd">            str: Description</span>
 <span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__game_name</span>
@@ -326,11 +319,6 @@
 
     <span class="nd">@game_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">game_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span> <span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Summary</span>
-<span class="sd">        </span>
-<span class="sd">        Args:</span>
-<span class="sd">            name (str): Description</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>\
         <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
 
@@ -340,20 +328,26 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">game_log</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns:</span>
-<span class="sd">            Dict: Description</span>
-<span class="sd">        </span>
+<span class="sd">        .. code-block:: </span>
+<span class="sd">           :name: game_log_setter</span>
+<span class="sd">           :linenos:</span>
+<span class="sd">           :caption: Only sets :attr:`__game_log` to dictionary objects that</span>
+<span class="sd">                set ``valid_log`` to be ``True``.</span>
+
+
+<span class="sd">           # Has to ensure that all event types are valid</span>
+<span class="sd">            valid_log = all([&#39;type&#39; in event</span>
+<span class="sd">                             and event[&#39;type&#39;] in Cube_Game.EVENT_TYPES</span>
+<span class="sd">                                for event in game_log[&#39;events&#39;]])</span>
+
+<span class="sd">            if valid_log:</span>
+<span class="sd">                self.__game_log = game_log</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__game_log</span>
 
 
     <span class="nd">@game_log</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">game_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game_log</span> <span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Summary</span>
-<span class="sd">        </span>
-<span class="sd">        Args:</span>
-<span class="sd">            game_log (Dict): Description</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">game_log</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>\
         <span class="ow">and</span> <span class="s1">&#39;events&#39;</span> <span class="ow">in</span> <span class="n">game_log</span>\
         <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">game_log</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">],</span> <span class="nb">list</span><span class="p">)</span>\

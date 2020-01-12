@@ -38,6 +38,7 @@
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="rubix_cube.cube_game module" href="rubix_cube.cube_game.html" />
     <link rel="prev" title="rubix_cube.util package" href="rubix_cube.util.html" /> 
 </head>
 
@@ -100,6 +101,11 @@
 <li class="toctree-l4 current"><a class="current reference internal" href="#">rubix_cube.cube module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="#module-description">Module Description</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="rubix_cube.cube_game.html">rubix_cube.cube_game module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="rubix_cube.cube_game.html#module-description">Module Description</a></li>
+<li class="toctree-l5"><a class="reference internal" href="rubix_cube.cube_game.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
@@ -334,7 +340,13 @@ Default value is <code class="docutils literal notranslate"><span class="pre">No
 colors <a class="reference internal" href="#rubix_cube.cube.Cube.DEFAULT_FACE_COLORS" title="rubix_cube.cube.Cube.DEFAULT_FACE_COLORS"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DEFAULT_FACE_COLORS</span></code></a>.</p>
 <div class="literal-block-wrapper docutils container" id="init-colors-keys">
 <div class="code-block-caption"><span class="caption-text">Required <code class="docutils literal notranslate"><span class="pre">colors</span></code> dictionary keys.</span><a class="headerlink" href="#init-colors-keys" title="Permalink to this code">¶</a></div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;UP_COLOR&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
+<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;UP_COLOR&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
           <span class="s1">&#39;DOWN_COLOR&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
           <span class="s1">&#39;FRONT_COLOR&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
           <span class="s1">&#39;BACK_COLOR&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
@@ -342,7 +354,7 @@ colors <a class="reference internal" href="#rubix_cube.cube.Cube.DEFAULT_FACE_CO
           <span class="s1">&#39;RIGHT_COLOR&#39;</span> <span class="p">:</span> <span class="o">...</span>
          <span class="p">}</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 <p>All colors passed as values must return <code class="docutils literal notranslate"><span class="pre">True</span></code> when examined
 by <a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.colors.is_color_like.html#matplotlib.colors.is_color_like" title="(in Matplotlib v3.1.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">matplotlib.colors.is_color_like()</span></code></a>.</p>
@@ -352,7 +364,13 @@ by <a class="reference external" href="https://matplotlib.org/api/_as_gen/matplo
 <code class="docutils literal notranslate"><span class="pre">None</span></code> which will create a solved cube with default colors.</p>
 <div class="literal-block-wrapper docutils container" id="init-faces-keys">
 <div class="code-block-caption"><span class="caption-text">Required <code class="docutils literal notranslate"><span class="pre">faces</span></code> dictionary keys.</span><a class="headerlink" href="#init-faces-keys" title="Permalink to this code">¶</a></div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">faces</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;UP_FACE&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
+<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">faces</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;UP_FACE&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
          <span class="s1">&#39;DOWN_FACE&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
          <span class="s1">&#39;FRONT_FACE&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
          <span class="s1">&#39;BACK_FACE&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
@@ -360,7 +378,7 @@ by <a class="reference external" href="https://matplotlib.org/api/_as_gen/matplo
          <span class="s1">&#39;RIGHT_FACE&#39;</span> <span class="p">:</span> <span class="o">...</span>
         <span class="p">}</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 <p>All faces passed as value must be 3x3
 <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy</span> <span class="pre">arrays</span></code></a> with each element
@@ -392,7 +410,13 @@ that all return <code class="docutils literal notranslate"><span class="pre">Tru
 <a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.colors.is_color_like.html#matplotlib.colors.is_color_like" title="(in Matplotlib v3.1.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">matplotlib.colors.is_color_like()</span></code></a>.</p>
 <div class="literal-block-wrapper docutils container" id="colors-keys">
 <div class="code-block-caption"><span class="caption-text">Required <code class="docutils literal notranslate"><span class="pre">colors</span></code> dictionary keys.</span><a class="headerlink" href="#colors-keys" title="Permalink to this code">¶</a></div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;UP_COLOR&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
+<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;UP_COLOR&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
           <span class="s1">&#39;DOWN_COLOR&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
           <span class="s1">&#39;FRONT_COLOR&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
           <span class="s1">&#39;BACK_COLOR&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
@@ -400,7 +424,7 @@ that all return <code class="docutils literal notranslate"><span class="pre">Tru
           <span class="s1">&#39;RIGHT_COLOR&#39;</span> <span class="p">:</span> <span class="o">...</span>
          <span class="p">}</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 </dd></dl>
 
@@ -425,7 +449,13 @@ of a Rubix Cube. Each value must be a 3x3
 colors that can be found within the <a class="reference internal" href="#rubix_cube.cube.Cube.colors" title="rubix_cube.cube.Cube.colors"><code class="xref py py-attr docutils literal notranslate"><span class="pre">colors</span></code></a> attribute.</p>
 <div class="literal-block-wrapper docutils container" id="faces-keys">
 <div class="code-block-caption"><span class="caption-text">Required <code class="docutils literal notranslate"><span class="pre">faces</span></code> dictionary keys.</span><a class="headerlink" href="#faces-keys" title="Permalink to this code">¶</a></div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">faces</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;UP_FACE&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
+<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">faces</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;UP_FACE&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
          <span class="s1">&#39;DOWN_FACE&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
          <span class="s1">&#39;FRONT_FACE&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
          <span class="s1">&#39;BACK_FACE&#39;</span> <span class="p">:</span> <span class="o">...</span><span class="p">,</span>
@@ -433,7 +463,7 @@ colors that can be found within the <a class="reference internal" href="#rubix_c
          <span class="s1">&#39;RIGHT_FACE&#39;</span> <span class="p">:</span> <span class="o">...</span>
         <span class="p">}</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 </dd></dl>
 
@@ -485,9 +515,9 @@ otherwise.</p>
 <div class="literal-block-wrapper docutils container" id="is-solved-face">
 <div class="code-block-caption"><span class="caption-text">A solved <code class="docutils literal notranslate"><span class="pre">face</span></code> returns <code class="docutils literal notranslate"><span class="pre">True</span></code> when examined by
 <a class="reference internal" href="#rubix_cube.cube.Cube.is_valid_face" title="rubix_cube.cube.Cube.is_valid_face"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_valid_face()</span></code></a> and only contains 1 unique value.</span><a class="headerlink" href="#is-solved-face" title="Permalink to this code">¶</a></div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">face</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">face</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 </dd></dl>
 
@@ -571,6 +601,8 @@ as defined by <a class="reference external" href="https://matplotlib.org/api/_as
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rubix_cube.cube_game.html" class="btn btn-neutral float-right" title="rubix_cube.cube_game module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="rubix_cube.util.html" class="btn btn-neutral float-left" title="rubix_cube.util package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

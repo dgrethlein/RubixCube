@@ -91,6 +91,7 @@ class Cube(object):
 
                 .. code-block:: 
                    :name: init_colors_keys
+                   :linenos:
                    :caption: Required ``colors`` dictionary keys.
 
                    colors = {'UP_COLOR' : ...,
@@ -110,6 +111,7 @@ class Cube(object):
 
                 .. code-block::
                    :name: init_faces_keys 
+                   :linenos:
                    :caption: Required ``faces`` dictionary keys.
 
                    faces = {'UP_FACE' : ...,
@@ -149,6 +151,7 @@ class Cube(object):
 
         .. code-block::
            :name: colors_keys
+           :linenos:
            :caption: Required ``colors`` dictionary keys.
            
            colors = {'UP_COLOR' : ...,
@@ -191,6 +194,7 @@ class Cube(object):
         
         .. code-block::
            :name: faces_keys
+           :linenos:
            :caption: Required ``faces`` dictionary keys.
            
            faces = {'UP_FACE' : ...,
@@ -292,6 +296,7 @@ class Cube(object):
 
         .. code-block::
            :name: is_solved_face
+           :linenos:
            :caption: A solved ``face`` returns ``True`` when examined by 
                 :func:`is_valid_face` and only contains 1 unique value.
 

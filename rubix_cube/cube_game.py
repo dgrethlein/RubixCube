@@ -13,7 +13,7 @@ scrambles the state of the cube, and loads
 Module Contents
 ===============
 
-    *   :class:`Cube_Solution` details code for manipulating :class:`Rubix 
+    *   :class:`Cube_Game` details code for manipulating :class:`Rubix 
         Cube(s) <rubix_cube.cube.Cube>`.
 
 .. moduleauthor:: David Grethlein <djg329@drexel.edu>
@@ -36,13 +36,15 @@ from .cube import Cube
 
 
 class Cube_Game(object):
-    """
+    """Class in charge of directly interacting with and logging changes to
+    an instance of the :class:`Cube` class.
+
     Attributes:
-        EVENT_TYPES (TYPE): Description
-        game_cube (TYPE): Description
-        game_log (dict): Description
-        game_name (TYPE): Description
-        verbose (TYPE): Description
+        EVENT_TYPES (List[str]): Description
+        __game_cube (Cube): Description
+        __game_log (dict): Description
+        __game_name (str): Description
+        __verbose (bool): Description
     
     """
 
@@ -116,8 +118,6 @@ class Cube_Game(object):
     @property
     def game_cube(self) -> Cube:
         """
-        Returns:
-            Cube: Description
         
         """
         return self.__game_cube
@@ -125,11 +125,6 @@ class Cube_Game(object):
 
     @game_cube.setter
     def game_cube(self , cube : Cube):
-        """Summary
-        
-        Args:
-            cube (Cube): Description
-        """
         if isinstance(cube, Cube)\
         and cube.is_well_formed():
 
@@ -139,8 +134,6 @@ class Cube_Game(object):
     @property
     def game_name(self) -> str:
         """
-        Returns:
-            str: Description
         
         """
         return self.__game_name
@@ -148,11 +141,6 @@ class Cube_Game(object):
 
     @game_name.setter
     def game_name(self, name : str):
-        """Summary
-        
-        Args:
-            name (str): Description
-        """
         if isinstance(name, str)\
         and len(name) > 0:
 
@@ -162,20 +150,26 @@ class Cube_Game(object):
     @property
     def game_log(self) -> Dict:
         """
-        Returns:
-            Dict: Description
-        
+        .. code-block:: 
+           :name: game_log_setter
+           :linenos:
+           :caption: Only sets :attr:`__game_log` to dictionary objects that
+                set ``valid_log`` to be ``True``.
+
+
+           # Has to ensure that all event types are valid
+            valid_log = all(['type' in event
+                             and event['type'] in Cube_Game.EVENT_TYPES
+                                for event in game_log['events']])
+
+            if valid_log:
+                self.__game_log = game_log
         """
         return self.__game_log
 
 
     @game_log.setter
     def game_log(self, game_log : Dict):
-        """Summary
-        
-        Args:
-            game_log (Dict): Description
-        """
         if isinstance(game_log, dict)\
         and 'events' in game_log\
         and isinstance(game_log['events'], list)\
