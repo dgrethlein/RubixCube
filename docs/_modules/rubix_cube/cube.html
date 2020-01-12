@@ -419,8 +419,19 @@
 <span class="sd">            ``False`` otherwise.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">all</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">is_valid_face</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="n">face</span><span class="p">])</span> 
-                        <span class="k">for</span> <span class="n">face</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">])</span></div>
+        <span class="n">required_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;UP_FACE&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;DOWN_FACE&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;FRONT_FACE&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;BACK_FACE&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;LEFT_FACE&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;RIGHT_FACE&#39;</span><span class="p">]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">all</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">is_valid_face</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="n">face</span><span class="p">])</span> 
+                        <span class="k">for</span> <span class="n">face</span> <span class="ow">in</span> <span class="n">required_keys</span><span class="p">])</span>
+
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
 
 
 <div class="viewcode-block" id="Cube.is_valid_face"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.is_valid_face">[docs]</a>    <span class="k">def</span> <span class="nf">is_valid_face</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">face</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -447,6 +458,7 @@
 
             <span class="k">return</span> <span class="kc">False</span></div>
 
+
 <div class="viewcode-block" id="Cube.is_solved_face"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.is_solved_face">[docs]</a>    <span class="k">def</span> <span class="nf">is_solved_face</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">face</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Checks if the provided array could be a valid face on the </span>
 <span class="sd">        currently initialized :class:`Cube`.</span>
@@ -459,12 +471,42 @@
 <span class="sd">            ``True`` if faces is solved 3 x 3 array of valid colors as defined</span>
 <span class="sd">            by current instance&#39;s :attr:`colors` attribute, ``False``</span>
 <span class="sd">            otherwise.</span>
+
+<span class="sd">        .. code-block::</span>
+<span class="sd">           :name: is_solved_face</span>
+<span class="sd">           :caption: A solved ``face`` returns ``True`` when examined by </span>
+<span class="sd">                :func:`is_valid_face` and only contains 1 unique value.</span>
+
+<span class="sd">            return len(np.unique(face) == 1)</span>
+<span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_valid_face</span><span class="p">(</span><span class="n">face</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
         
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">face</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="Cube.get_num_solved_faces"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.get_num_solved_faces">[docs]</a>    <span class="k">def</span> <span class="nf">get_num_solved_faces</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Counts the number of solved faces by examining each one using</span>
+<span class="sd">        :func:`is_solved_face` if the currently initialized :class:`Cube`</span>
+<span class="sd">        :func:`is_well_formed`, 0 otherwise.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: **num_faces_solved** - The number of solved faces on the </span>
+<span class="sd">            currently initialized :class:`Cube`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">num_faces_solved</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
+
+            <span class="k">for</span> <span class="n">face</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_solved_face</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="n">faces</span><span class="p">]):</span>
+                    <span class="n">num_faces_solved</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">num_faces_solved</span></div>
 
 
     <span class="c1">#==========================================================================</span>

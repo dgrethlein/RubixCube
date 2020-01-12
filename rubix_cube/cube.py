@@ -246,8 +246,19 @@ class Cube(object):
             ``False`` otherwise.
 
         """
-        return all([self.is_valid_face(self.faces[face]) 
-                        for face in self.faces])
+        required_keys = ['UP_FACE',
+                         'DOWN_FACE',
+                         'FRONT_FACE',
+                         'BACK_FACE',
+                         'LEFT_FACE',
+                         'RIGHT_FACE']
+
+        try:
+            return all([self.is_valid_face(self.faces[face]) 
+                        for face in required_keys])
+
+        except KeyError:
+            return False
 
 
     def is_valid_face(self, face : np.ndarray) -> bool:
@@ -274,6 +285,7 @@ class Cube(object):
 
             return False
 
+
     def is_solved_face(self, face: np.ndarray) -> bool:
         """Checks if the provided array could be a valid face on the 
         currently initialized :class:`Cube`.
@@ -286,12 +298,42 @@ class Cube(object):
             ``True`` if faces is solved 3 x 3 array of valid colors as defined
             by current instance's :attr:`colors` attribute, ``False``
             otherwise.
+
+        .. code-block::
+           :name: is_solved_face
+           :caption: A solved ``face`` returns ``True`` when examined by 
+                :func:`is_valid_face` and only contains 1 unique value.
+
+            return len(np.unique(face) == 1)
+        
         """
         if not self.is_valid_face(face):
             return False
         
         else:
             return len(np.unique(face)) == 1
+
+
+    def get_num_solved_faces(self) -> int:
+        """Counts the number of solved faces by examining each one using
+        :func:`is_solved_face` if the currently initialized :class:`Cube`
+        :func:`is_well_formed`, 0 otherwise.
+
+        Returns:
+            int: **num_faces_solved** - The number of solved faces on the 
+            currently initialized :class:`Cube`.
+
+        """
+
+        num_faces_solved = 0
+
+        if self.is_well_formed():
+
+            for face in self.faces:
+                if self.is_solved_face(self.faces[faces]):
+                    num_faces_solved += 1
+
+        return num_faces_solved
 
 
     #==========================================================================

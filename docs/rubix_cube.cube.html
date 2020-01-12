@@ -451,6 +451,23 @@ colors that can be found within the <a class="reference internal" href="#rubix_c
 </dd></dl>
 
 <dl class="method">
+<dt id="rubix_cube.cube.Cube.get_num_solved_faces">
+<code class="sig-name descname">get_num_solved_faces</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.get_num_solved_faces"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.get_num_solved_faces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts the number of solved faces by examining each one using
+<a class="reference internal" href="#rubix_cube.cube.Cube.is_solved_face" title="rubix_cube.cube.Cube.is_solved_face"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_solved_face()</span></code></a> if the currently initialized <a class="reference internal" href="#rubix_cube.cube.Cube" title="rubix_cube.cube.Cube"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cube</span></code></a>
+<a class="reference internal" href="#rubix_cube.cube.Cube.is_well_formed" title="rubix_cube.cube.Cube.is_well_formed"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_well_formed()</span></code></a>, 0 otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>num_faces_solved</strong> - The number of solved faces on the
+currently initialized <a class="reference internal" href="#rubix_cube.cube.Cube" title="rubix_cube.cube.Cube"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cube</span></code></a>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="rubix_cube.cube.Cube.is_solved_face">
 <code class="sig-name descname">is_solved_face</code><span class="sig-paren">(</span><em class="sig-param">face: numpy.ndarray</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.is_solved_face"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.is_solved_face" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the provided array could be a valid face on the
@@ -466,6 +483,13 @@ by current instance’s <a class="reference internal" href="#rubix_cube.cube.Cub
 otherwise.</p>
 </dd>
 </dl>
+<div class="literal-block-wrapper docutils container" id="is-solved-face">
+<div class="code-block-caption"><span class="caption-text">A solved <code class="docutils literal notranslate"><span class="pre">face</span></code> returns <code class="docutils literal notranslate"><span class="pre">True</span></code> when examined by
+<a class="reference internal" href="#rubix_cube.cube.Cube.is_valid_face" title="rubix_cube.cube.Cube.is_valid_face"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_valid_face()</span></code></a> and only contains 1 unique value.</span><a class="headerlink" href="#is-solved-face" title="Permalink to this code">¶</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">face</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </dd></dl>
 
 <dl class="method">
