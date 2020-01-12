@@ -37,7 +37,13 @@ from .cube import Cube
 
 class Cube_Game(object):
     """
-
+    Attributes:
+        EVENT_TYPES (TYPE): Description
+        game_cube (TYPE): Description
+        game_log (dict): Description
+        game_name (TYPE): Description
+        verbose (TYPE): Description
+    
     """
 
     #==========================================================================
@@ -74,10 +80,16 @@ class Cube_Game(object):
                  game_log : Dict = None,
                  scramble : bool = False,
                  verbose : bool = False):
-        """
+        """:class:`Cube_Game` class constructor
         
         Args:
-
+            cube (Cube, optional): Description
+            game_name (str, optional): Description
+            game_log (Dict, optional): Description
+            scramble (bool, optional): Description
+            verbose (bool, optional): Description
+        
+        
         """
 
         # Sets Up Game
@@ -97,8 +109,6 @@ class Cube_Game(object):
             self.game_cube = cube
             self.game_log = game_log
 
-        
-
 
     #==========================================================================
     #       PROPERTY INTERFACE(s)
@@ -106,13 +116,20 @@ class Cube_Game(object):
     @property
     def game_cube(self) -> Cube:
         """
-
+        Returns:
+            Cube: Description
+        
         """
         return self.__game_cube
 
 
     @game_cube.setter
     def game_cube(self , cube : Cube):
+        """Summary
+        
+        Args:
+            cube (Cube): Description
+        """
         if isinstance(cube, Cube)\
         and cube.is_well_formed():
 
@@ -122,13 +139,20 @@ class Cube_Game(object):
     @property
     def game_name(self) -> str:
         """
-
+        Returns:
+            str: Description
+        
         """
         return self.__game_name
     
 
     @game_name.setter
     def game_name(self, name : str):
+        """Summary
+        
+        Args:
+            name (str): Description
+        """
         if isinstance(name, str)\
         and len(name) > 0:
 
@@ -138,13 +162,20 @@ class Cube_Game(object):
     @property
     def game_log(self) -> Dict:
         """
-
+        Returns:
+            Dict: Description
+        
         """
         return self.__game_log
 
 
     @game_log.setter
     def game_log(self, game_log : Dict):
+        """Summary
+        
+        Args:
+            game_log (Dict): Description
+        """
         if isinstance(game_log, dict)\
         and 'events' in game_log\
         and isinstance(game_log['events'], list)\
@@ -163,13 +194,20 @@ class Cube_Game(object):
     @property
     def verbose(self) -> bool:
         """
-
+        Returns:
+            bool: Description
+        
         """
         return self.__verbose
 
 
     @verbose.setter
     def verbose(self, verbose : bool):
+        """Summary
+        
+        Args:
+            verbose (bool): Description
+        """
         if isinstance(verbose, bool):
             self.__verbose = verbose
         else:

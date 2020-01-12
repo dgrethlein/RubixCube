@@ -206,34 +206,108 @@ scrambles the state of the cube, and loads</p>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="rubix_cube.cube_game.Cube_Game.EVENT_TYPES">
-<code class="sig-name descname">EVENT_TYPES</code><em class="property"> = ['&lt;&lt;__NEW_GAME__&gt;&gt;', 'F', 'Fi', 'B', 'Bi', 'L', 'Li', 'R', 'Ri', 'U', 'Ui', 'D', 'Di', '&lt;&lt;__START_SCRAMBLE__&gt;&gt;', '&lt;&lt;__END_SCRAMBLE__&gt;&gt;', '&lt;&lt;__COLOR_CHANGE__&gt;&gt;', '&lt;&lt;__SAVE_GAME__&gt;&gt;', '&lt;&lt;__LOAD_GAME__&gt;&gt;', '&lt;&lt;__PAUSE_GAME__&gt;&gt;', '&lt;&lt;__SOLVE_CUBE__&gt;&gt;', '&lt;&lt;__QUIT_GAME__&gt;&gt;']</em><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.EVENT_TYPES" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">EVENT_TYPES</code><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.EVENT_TYPES" title="Permalink to this definition">¶</a></dt>
+<dd><p>Description</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rubix_cube.cube_game.Cube_Game.game_cube">
+<code class="sig-name descname">game_cube</code><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.game_cube" title="Permalink to this definition">¶</a></dt>
+<dd><p>Description</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rubix_cube.cube_game.Cube_Game.game_log">
+<code class="sig-name descname">game_log</code><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.game_log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Description</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rubix_cube.cube_game.Cube_Game.game_name">
+<code class="sig-name descname">game_name</code><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.game_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Description</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rubix_cube.cube_game.Cube_Game.verbose">
+<code class="sig-name descname">verbose</code><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Description</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">EVENT_TYPES</code><em class="property"> = ['&lt;&lt;__NEW_GAME__&gt;&gt;', 'F', 'Fi', 'B', 'Bi', 'L', 'Li', 'R', 'Ri', 'U', 'Ui', 'D', 'Di', '&lt;&lt;__START_SCRAMBLE__&gt;&gt;', '&lt;&lt;__END_SCRAMBLE__&gt;&gt;', '&lt;&lt;__COLOR_CHANGE__&gt;&gt;', '&lt;&lt;__SAVE_GAME__&gt;&gt;', '&lt;&lt;__LOAD_GAME__&gt;&gt;', '&lt;&lt;__PAUSE_GAME__&gt;&gt;', '&lt;&lt;__SOLVE_CUBE__&gt;&gt;', '&lt;&lt;__QUIT_GAME__&gt;&gt;']</em></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="rubix_cube.cube_game.Cube_Game.__init__">
 <code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">cube: rubix_cube.cube.Cube = None</em>, <em class="sig-param">game_name: str = 'Untitled_Cube_Game'</em>, <em class="sig-param">game_log: Dict = None</em>, <em class="sig-param">scramble: bool = False</em>, <em class="sig-param">verbose: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube_game.html#Cube_Game.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Args:</p>
+<dd><p><a class="reference internal" href="#rubix_cube.cube_game.Cube_Game" title="rubix_cube.cube_game.Cube_Game"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cube_Game</span></code></a> class constructor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cube</strong> (<a class="reference internal" href="rubix_cube.cube.html#rubix_cube.cube.Cube" title="rubix_cube.cube.Cube"><em>Cube</em></a><em>, </em><em>optional</em>) – Description</p></li>
+<li><p><strong>game_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – Description</p></li>
+<li><p><strong>game_log</strong> (<em>Dict</em><em>, </em><em>optional</em>) – Description</p></li>
+<li><p><strong>scramble</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – Description</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – Description</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
-<dt id="rubix_cube.cube_game.Cube_Game.game_cube">
-<em class="property">property </em><code class="sig-name descname">game_cube</code><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.game_cube" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt>
+<em class="property">property </em><code class="sig-name descname">game_cube</code></dt>
+<dd><p>Returns:
+Cube: Description</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="rubix_cube.cube_game.Cube_Game.game_log">
-<em class="property">property </em><code class="sig-name descname">game_log</code><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.game_log" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt>
+<em class="property">property </em><code class="sig-name descname">game_log</code></dt>
+<dd><p>Returns:
+Dict: Description</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="rubix_cube.cube_game.Cube_Game.game_name">
-<em class="property">property </em><code class="sig-name descname">game_name</code><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.game_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt>
+<em class="property">property </em><code class="sig-name descname">game_name</code></dt>
+<dd><p>Returns:
+str: Description</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="rubix_cube.cube_game.Cube_Game.verbose">
-<em class="property">property </em><code class="sig-name descname">verbose</code><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.verbose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt>
+<em class="property">property </em><code class="sig-name descname">verbose</code></dt>
+<dd><p>Returns:
+bool: Description</p>
+</dd></dl>
 
 </dd></dl>
 
