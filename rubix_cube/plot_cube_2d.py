@@ -62,7 +62,7 @@ def plot_cube_2D(ax : plt.Axes , cube : Cube):
             # in the 2-D representation.
             face_values = cube.faces[face_name]
 
-            print(f"{face_name} : ")
+            #print(f"{face_name} : ")
 
             for row_idx , row in enumerate(face_values):
 
@@ -71,7 +71,7 @@ def plot_cube_2D(ax : plt.Axes , cube : Cube):
                     tile_coords = (face_local_coords[0] + 100*col_idx,
                                    face_local_coords[1] - 100*row_idx)
 
-                    print(f"\t[{row_idx},{col_idx}] : {tile_coords}")
+                    #print(f"\t[{row_idx},{col_idx}] : {tile_coords}")
 
                     rect = patches.Rectangle(xy=tile_coords,
                                              width=100,

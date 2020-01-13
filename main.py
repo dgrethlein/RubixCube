@@ -43,13 +43,15 @@ test_cube_parser = subparsers.add_parser('test_cube',
 
 cg = Cube_Game()
 
+
 while True:
 	fig , ax = plt.subplots(figsize=(8,5))
 	ax.set_xlim(left=-600,right=900)
 	ax.set_ylim(top=500,bottom=-500)
-
+	
 	plot_cube_2D(ax=ax,
 	             cube=cg.game_cube)
+
 
 	plt.show(block=False)
 
