@@ -2,7 +2,7 @@
 
 from distutils.core import setup
 
-RELEASE_VERSION='0.1.4'
+RELEASE_VERSION='0.1.5'
 
 setup(name = 'rubix_cube',
       packages = ['rubix_cube'],   
