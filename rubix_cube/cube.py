@@ -524,11 +524,11 @@ class Cube(object):
         """
         if self.is_well_formed():
 
-            temp = self.faces['DOWN_FACE'][:,0].copy()
-            self.faces['DOWN_FACE'][:,0] = np.flip(self.faces['BACK_FACE'][:,2])
-            self.faces['BACK_FACE'][:,2] = np.flip(self.faces['UP_FACE'][:,0])
-            self.faces['UP_FACE'][:,0] = self.faces['FRONT_FACE'][:,0] 
-            self.faces['FRONT_FACE'][:,0] = temp
+            temp = self.faces['DOWN_FACE'][:,1].copy()
+            self.faces['DOWN_FACE'][:,1] = np.flip(self.faces['BACK_FACE'][:,1])
+            self.faces['BACK_FACE'][:,1] = np.flip(self.faces['UP_FACE'][:,1])
+            self.faces['UP_FACE'][:,1] = self.faces['FRONT_FACE'][:,1] 
+            self.faces['FRONT_FACE'][:,1] = temp
 
 
     def move_equator(self):

@@ -65,7 +65,8 @@ while True:
 		plt.close(fig)
 
 
-print(cg.game_log['events'])
+for e_idx , event in enumerate(cg.game_log['events']):
+	print(f"[DEBUG]\tEvent[{e_idx}] Type : '{event['type']}'")
 
 
 
