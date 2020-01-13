@@ -339,10 +339,12 @@ class Cube(object):
             self.faces['UP_FACE'] = np.rot90(self.faces['UP_FACE'], 
                                              axes=(1,0))
 
-            temp = self.faces['BACK_FACE'][0,:]
+            temp = self.faces['BACK_FACE'][0,:].copy()
+
             self.faces['BACK_FACE'][0,:] = self.faces['LEFT_FACE'][0,:]
             self.faces['LEFT_FACE'][0,:] = self.faces['FRONT_FACE'][0,:]
             self.faces['FRONT_FACE'][0,:] = self.faces['RIGHT_FACE'][0,:]
+
             self.faces['RIGHT_FACE'][0,:] = temp
 
 
@@ -353,7 +355,7 @@ class Cube(object):
 
             self.faces['UP_FACE'] = np.rot90(self.faces['UP_FACE'])
 
-            temp = self.faces['BACK_FACE'][0,:]
+            temp = self.faces['BACK_FACE'][0,:].copy()
             self.faces['BACK_FACE'][0,:] = self.faces['RIGHT_FACE'][0,:]
             self.faces['RIGHT_FACE'][0,:] = self.faces['FRONT_FACE'][0,:]
             self.faces['FRONT_FACE'][0,:] = self.faces['LEFT_FACE'][0,:]
@@ -367,7 +369,7 @@ class Cube(object):
 
             self.faces['DOWN_FACE'] = np.rot90(self.faces['DOWN_FACE'])
 
-            temp = self.faces['FRONT_FACE'][2,:]
+            temp = self.faces['FRONT_FACE'][2,:].copy()
             self.faces['FRONT_FACE'][2,:] = self.faces['LEFT_FACE'][2,:]
             self.faces['LEFT_FACE'][2,:] = self.faces['BACK_FACE'][2,:]
             self.faces['BACK_FACE'][2,:] = self.faces['RIGHT_FACE'][2,:]
@@ -382,7 +384,7 @@ class Cube(object):
             self.faces['DOWN_FACE'] = np.rot90(self.faces['DOWN_FACE'], 
                                                axes=(1,0))
 
-            temp = self.faces['FRONT_FACE'][2,:]
+            temp = self.faces['FRONT_FACE'][2,:].copy()
             self.faces['FRONT_FACE'][2,:] = self.faces['RIGHT_FACE'][2,:]
             self.faces['RIGHT_FACE'][2,:] = self.faces['BACK_FACE'][2,:]
             self.faces['BACK_FACE'][2,:] = self.faces['LEFT_FACE'][2,:]
@@ -397,7 +399,7 @@ class Cube(object):
             self.faces['FRONT_FACE'] = np.rot90(self.faces['FRONT_FACE'], 
                                                 axes=(1,0))
 
-            temp = self.faces['UP_FACE'][2,:]
+            temp = self.faces['UP_FACE'][2,:].copy()
             self.faces['UP_FACE'][2,:] = np.flip(self.faces['LEFT_FACE'][:,2])
             self.faces['LEFT_FACE'][:,2] = self.faces['DOWN_FACE'][0,:]
             self.faces['DOWN_FACE'][0,:] = np.flip(self.faces['RIGHT_FACE'][:,0])
@@ -411,7 +413,7 @@ class Cube(object):
 
             self.faces['FRONT_FACE'] = np.rot90(self.faces['FRONT_FACE'])
 
-            temp = self.faces['UP_FACE'][2,:]
+            temp = self.faces['UP_FACE'][2,:].copy()
             self.faces['UP_FACE'][2,:] = self.faces['RIGHT_FACE'][:,0]
             self.faces['RIGHT_FACE'][:,0] = np.flip(self.faces['DOWN_FACE'][0,:])
             self.faces['DOWN_FACE'][0,:] = self.faces['LEFT_FACE'][:,2]
@@ -425,7 +427,7 @@ class Cube(object):
 
             self.faces['BACK_FACE'] = np.rot90(self.faces['BACK_FACE'])
 
-            temp = self.faces['DOWN_FACE'][2,:]
+            temp = self.faces['DOWN_FACE'][2,:].copy()
             self.faces['DOWN_FACE'][2,:] = self.faces['LEFT_FACE'][:,0]
             self.faces['LEFT_FACE'][:,0] = np.flip(self.faces['UP_FACE'][0,:])
             self.faces['UP_FACE'][0,:] = self.faces['RIGHT_FACE'][:,2]
@@ -440,7 +442,7 @@ class Cube(object):
             self.faces['BACK_FACE'] = np.rot90(self.faces['BACK_FACE'], 
                                                axes=(1,0))
 
-            temp = self.faces['DOWN_FACE'][2,:]
+            temp = self.faces['DOWN_FACE'][2,:].copy()
             self.faces['DOWN_FACE'][2,:] = self.faces['RIGHT_FACE'][:,2]
             self.faces['RIGHT_FACE'][:,2] = self.faces['UP_FACE'][0,:]
             self.faces['UP_FACE'][0,:] = self.faces['LEFT_FACE'][:,0]
@@ -455,7 +457,7 @@ class Cube(object):
             self.faces['LEFT_FACE'] = np.rot90(self.faces['LEFT_FACE'], 
                                                axes=(1,0))
             
-            temp = self.faces['DOWN_FACE'][:,0]
+            temp = self.faces['DOWN_FACE'][:,0].copy()
             self.faces['DOWN_FACE'][:,0] = self.faces['FRONT_FACE'][:,0]
             self.faces['FRONT_FACE'][:,0] = self.faces['UP_FACE'][:,0]
             self.faces['UP_FACE'][:,0] = np.flip(self.faces['BACK_FACE'][:,2])
@@ -469,7 +471,7 @@ class Cube(object):
 
             self.faces['LEFT_FACE'] = np.rot90(self.faces['LEFT_FACE'])
 
-            temp = self.faces['DOWN_FACE'][:,0]
+            temp = self.faces['DOWN_FACE'][:,0].copy()
             self.faces['DOWN_FACE'][:,0] = np.flip(self.faces['BACK_FACE'][:,2])
             self.faces['BACK_FACE'][:,2] = np.flip(self.faces['UP_FACE'][:,0])
             self.faces['UP_FACE'][:,0] = self.faces['FRONT_FACE'][:,0] 
@@ -484,7 +486,7 @@ class Cube(object):
             self.faces['RIGHT_FACE'] = np.rot90(self.faces['RIGHT_FACE'], 
                                                 axes=(1,0))
 
-            temp = self.faces['UP_FACE'][:,2]
+            temp = self.faces['UP_FACE'][:,2].copy()
             self.faces['UP_FACE'][:,2] = self.faces['FRONT_FACE'][:,2]
             self.faces['FRONT_FACE'][:,2] = self.faces['DOWN_FACE'][:,2]
             self.faces['DOWN_FACE'][:,2] = np.flip(self.faces['BACK_FACE'][:,0])
@@ -498,7 +500,7 @@ class Cube(object):
 
             self.faces['RIGHT_FACE'] = np.rot90(self.faces['RIGHT_FACE'])
 
-            temp = self.faces['UP_FACE'][:,2]
+            temp = self.faces['UP_FACE'][:,2].copy()
             self.faces['UP_FACE'][:,2] = np.flip(self.faces['BACK_FACE'][:,0])
             self.faces['BACK_FACE'][:,0] = np.flip(self.faces['DOWN_FACE'][:,2])
             self.faces['DOWN_FACE'][:,2] = self.faces['FRONT_FACE'][:,2]
@@ -510,7 +512,7 @@ class Cube(object):
         """
         if self.is_well_formed():
 
-            temp = self.faces['DOWN_FACE'][:,1]
+            temp = self.faces['DOWN_FACE'][:,1].copy()
             self.faces['DOWN_FACE'][:,1] = self.faces['FRONT_FACE'][:,1]
             self.faces['FRONT_FACE'][:,1] = self.faces['UP_FACE'][:,1]
             self.faces['UP_FACE'][:,1] = np.flip(self.faces['BACK_FACE'][:,1])
@@ -522,7 +524,7 @@ class Cube(object):
         """
         if self.is_well_formed():
 
-            temp = self.faces['DOWN_FACE'][:,0]
+            temp = self.faces['DOWN_FACE'][:,0].copy()
             self.faces['DOWN_FACE'][:,0] = np.flip(self.faces['BACK_FACE'][:,2])
             self.faces['BACK_FACE'][:,2] = np.flip(self.faces['UP_FACE'][:,0])
             self.faces['UP_FACE'][:,0] = self.faces['FRONT_FACE'][:,0] 
@@ -534,7 +536,7 @@ class Cube(object):
         """
         if self.is_well_formed():
 
-            temp = self.faces['FRONT_FACE'][1,:]
+            temp = self.faces['FRONT_FACE'][1,:].copy()
             self.faces['FRONT_FACE'][1,:] = self.faces['LEFT_FACE'][1,:]
             self.faces['LEFT_FACE'][1,:] = self.faces['BACK_FACE'][1,:]
             self.faces['BACK_FACE'][1,:] = self.faces['RIGHT_FACE'][1,:]
@@ -546,7 +548,7 @@ class Cube(object):
         """
         if self.is_well_formed():
 
-            temp = self.faces['FRONT_FACE'][1,:]
+            temp = self.faces['FRONT_FACE'][1,:].copy()
             self.faces['FRONT_FACE'][1,:] = self.faces['RIGHT_FACE'][1,:]
             self.faces['RIGHT_FACE'][1,:] = self.faces['BACK_FACE'][1,:]
             self.faces['BACK_FACE'][1,:] = self.faces['LEFT_FACE'][1,:]
@@ -558,7 +560,7 @@ class Cube(object):
         """
         if self.is_well_formed():
 
-            temp = self.faces['UP_FACE'][1,:]
+            temp = self.faces['UP_FACE'][1,:].copy()
             self.faces['UP_FACE'][1,:] = np.flip(self.faces['LEFT_FACE'][:,1])
             self.faces['LEFT_FACE'][:,1] = self.faces['DOWN_FACE'][1,:]
             self.faces['DOWN_FACE'][1,:] = np.flip(self.faces['RIGHT_FACE'][:,1])
@@ -570,7 +572,7 @@ class Cube(object):
         """
         if self.is_well_formed():
 
-            temp = self.faces['UP_FACE'][1,:]
+            temp = self.faces['UP_FACE'][1,:].copy()
             self.faces['UP_FACE'][1,:] = self.faces['RIGHT_FACE'][:,1]
             self.faces['RIGHT_FACE'][:,1] = np.flip(self.faces['DOWN_FACE'][1,:])
             self.faces['DOWN_FACE'][1,:] = self.faces['LEFT_FACE'][:,1]

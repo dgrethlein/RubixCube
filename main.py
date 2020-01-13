@@ -58,6 +58,8 @@ while True:
 	move = input("Move the Cube : ")
 	cg.move_cube(move)
 
+	plt.close(fig)
+
 
 
 
