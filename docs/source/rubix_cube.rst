@@ -15,6 +15,7 @@ Submodules
 
    rubix_cube.cube
    rubix_cube.cube_game
+   rubix_cube.plot_cube_2d
 
 Module contents
 ---------------
