@@ -275,30 +275,30 @@
                    <span class="s1">&#39;&lt;&lt;__QUIT_GAME__&gt;&gt;&#39;</span><span class="p">]</span>
 
 
-    <span class="n">CUBE_FUNCS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;U&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">up</span><span class="p">,</span>
-                  <span class="s1">&#39;Ui&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">up_inverse</span><span class="p">,</span>
-                  <span class="s1">&#39;D&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">down</span><span class="p">,</span>
-                  <span class="s1">&#39;Di&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">down_inverse</span><span class="p">,</span>
-                  <span class="s1">&#39;L&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">left</span><span class="p">,</span>
-                  <span class="s1">&#39;Li&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">left_inverse</span><span class="p">,</span>
-                  <span class="s1">&#39;R&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">right</span><span class="p">,</span>
-                  <span class="s1">&#39;Ri&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">right_inverse</span><span class="p">,</span>
-                  <span class="s1">&#39;F&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">front</span><span class="p">,</span>
-                  <span class="s1">&#39;Fi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">front_inverse</span><span class="p">,</span>
-                  <span class="s1">&#39;B&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">back</span><span class="p">,</span>
-                  <span class="s1">&#39;Bi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">back_inverse</span><span class="p">,</span>
-                  <span class="s1">&#39;M&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">middle</span><span class="p">,</span>
-                  <span class="s1">&#39;Mi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">middle_inverse</span><span class="p">,</span>
-                  <span class="s1">&#39;E&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">equator</span><span class="p">,</span>
-                  <span class="s1">&#39;Ei&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">equator_inverse</span><span class="p">,</span>
-                  <span class="s1">&#39;S&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">standing</span><span class="p">,</span>
-                  <span class="s1">&#39;Si&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">standing_inverse</span><span class="p">,</span>
-                  <span class="s1">&#39;X&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">pitch</span><span class="p">,</span>
-                  <span class="s1">&#39;Xi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">pitch_inverse</span><span class="p">,</span>
-                  <span class="s1">&#39;Y&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">yaw</span><span class="p">,</span>
-                  <span class="s1">&#39;Yi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">yaw_inverse</span><span class="p">,</span>
-                  <span class="s1">&#39;Z&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">roll</span><span class="p">,</span>
-                  <span class="s1">&#39;Zi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">roll_inverse</span><span class="p">}</span>
+    <span class="n">CUBE_FUNCS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;U&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">move_up</span><span class="p">,</span>
+                  <span class="s1">&#39;Ui&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">move_up_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;D&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">move_down</span><span class="p">,</span>
+                  <span class="s1">&#39;Di&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">move_down_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;L&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">move_left</span><span class="p">,</span>
+                  <span class="s1">&#39;Li&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">move_left_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;R&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">move_right</span><span class="p">,</span>
+                  <span class="s1">&#39;Ri&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">move_right_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;F&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">move_front</span><span class="p">,</span>
+                  <span class="s1">&#39;Fi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">move_front_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;B&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">move_back</span><span class="p">,</span>
+                  <span class="s1">&#39;Bi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">move_back_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;M&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">move_middle</span><span class="p">,</span>
+                  <span class="s1">&#39;Mi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">move_middle_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;E&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">move_equator</span><span class="p">,</span>
+                  <span class="s1">&#39;Ei&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">move_equator_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;S&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">move_standing</span><span class="p">,</span>
+                  <span class="s1">&#39;Si&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">move_standing_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;X&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_pitch</span><span class="p">,</span>
+                  <span class="s1">&#39;Xi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_pitch_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;Y&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_yaw</span><span class="p">,</span>
+                  <span class="s1">&#39;Yi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_yaw_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;Z&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">,</span>
+                  <span class="s1">&#39;Zi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll_inverse</span><span class="p">}</span>
 
     <span class="c1">#==========================================================================</span>
     <span class="c1">#       CLASS CONSTRUCTOR</span>
@@ -502,30 +502,30 @@
 <span class="sd">                :attr:`game_cube` move function is called. If not found,</span>
 <span class="sd">                nothing happens.</span>
 
-<span class="sd">           CUBE_FUNCS = {&#39;U&#39;  : Cube.up,</span>
-<span class="sd">                         &#39;Ui&#39; : Cube.up_inverse,</span>
-<span class="sd">                         &#39;D&#39;  : Cube.down,</span>
-<span class="sd">                         &#39;Di&#39; : Cube.down_inverse,</span>
-<span class="sd">                         &#39;L&#39;  : Cube.left,</span>
-<span class="sd">                         &#39;Li&#39; : Cube.left_inverse,</span>
-<span class="sd">                         &#39;R&#39;  : Cube.right,</span>
-<span class="sd">                         &#39;Ri&#39; : Cube.right_inverse,</span>
-<span class="sd">                         &#39;F&#39;  : Cube.front,</span>
-<span class="sd">                         &#39;Fi&#39; : Cube.front_inverse,</span>
-<span class="sd">                         &#39;B&#39;  : Cube.back,</span>
-<span class="sd">                         &#39;Bi&#39; : Cube.back_inverse,</span>
-<span class="sd">                         &#39;M&#39;  : Cube.middle,</span>
-<span class="sd">                         &#39;Mi&#39; : Cube.middle_inverse,</span>
-<span class="sd">                         &#39;E&#39;  : Cube.equator,</span>
-<span class="sd">                         &#39;Ei&#39; : Cube.equator_inverse,</span>
-<span class="sd">                         &#39;S&#39;  : Cube.standing,</span>
-<span class="sd">                         &#39;Si&#39; : Cube.standing_inverse,</span>
-<span class="sd">                         &#39;X&#39;  : Cube.pitch</span>
-<span class="sd">                         &#39;Xi&#39; : Cube.pitch_inverse,</span>
-<span class="sd">                         &#39;Y&#39;  : Cube.yaw,</span>
-<span class="sd">                         &#39;Yi&#39; : Cube.yaw_inverse,</span>
-<span class="sd">                         &#39;Z&#39;  : Cube.roll,</span>
-<span class="sd">                         &#39;Zi&#39; : Cube.roll_inverse}</span>
+<span class="sd">           CUBE_FUNCS = {&#39;U&#39;  : Cube.move_up,</span>
+<span class="sd">                         &#39;Ui&#39; : Cube.move_up_inverse,</span>
+<span class="sd">                         &#39;D&#39;  : Cube.move_down,</span>
+<span class="sd">                         &#39;Di&#39; : Cube.move_down_inverse,</span>
+<span class="sd">                         &#39;L&#39;  : Cube.move_left,</span>
+<span class="sd">                         &#39;Li&#39; : Cube.move_left_inverse,</span>
+<span class="sd">                         &#39;R&#39;  : Cube.move_right,</span>
+<span class="sd">                         &#39;Ri&#39; : Cube.move_right_inverse,</span>
+<span class="sd">                         &#39;F&#39;  : Cube.move_front,</span>
+<span class="sd">                         &#39;Fi&#39; : Cube.move_front_inverse,</span>
+<span class="sd">                         &#39;B&#39;  : Cube.move_back,</span>
+<span class="sd">                         &#39;Bi&#39; : Cube.move_back_inverse,</span>
+<span class="sd">                         &#39;M&#39;  : Cube.move_middle,</span>
+<span class="sd">                         &#39;Mi&#39; : Cube.move_middle_inverse,</span>
+<span class="sd">                         &#39;E&#39;  : Cube.move_equator,</span>
+<span class="sd">                         &#39;Ei&#39; : Cube.move_equator_inverse,</span>
+<span class="sd">                         &#39;S&#39;  : Cube.move_standing,</span>
+<span class="sd">                         &#39;Si&#39; : Cube.move_standing_inverse,</span>
+<span class="sd">                         &#39;X&#39;  : Cube.rotate_pitch,</span>
+<span class="sd">                         &#39;Xi&#39; : Cube.rotate_pitch_inverse,</span>
+<span class="sd">                         &#39;Y&#39;  : Cube.rotate_yaw,</span>
+<span class="sd">                         &#39;Yi&#39; : Cube.rotate_yaw_inverse,</span>
+<span class="sd">                         &#39;Z&#39;  : Cube.rotate_roll,</span>
+<span class="sd">                         &#39;Zi&#39; : Cube.rotate_roll_inverse}</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">cube_func</span> <span class="ow">in</span> <span class="n">Cube_Game</span><span class="o">.</span><span class="n">CUBE_FUNCS</span>\

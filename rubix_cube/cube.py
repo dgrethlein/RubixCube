@@ -34,8 +34,9 @@ Module Contents
         .. todo::
            
            *    Need to finish implementing the ``get_num_solved_rings``.
-           *    Need to finish implementing the ``pitch``, ``roll``, and
-                ``yaw`` cube re-orientation methods and their inverses.
+           *    Need to finish implementing the ``rotate_pitch``, 
+                ``rotate_roll``, and ``rotate_yaw`` cube re-orientation methods
+                and their inverses.
 
         .. figure:: ./../../misc/flattened_cube.png
            :name: flattened_cube
@@ -333,7 +334,7 @@ class Cube(object):
     #==========================================================================
     #       MOVE METHOD(s)
     #==========================================================================
-    def up(self):
+    def move_up(self):
         """Up Move
         """
         if self.is_well_formed():
@@ -348,7 +349,7 @@ class Cube(object):
             self.faces['RIGHT_FACE'][0,:] = temp
 
 
-    def up_inverse(self):
+    def move_up_inverse(self):
         """Up Inverse Move
         """
         if self.is_well_formed():
@@ -362,7 +363,7 @@ class Cube(object):
             self.faces['LEFT_FACE'][0,:] = temp
 
 
-    def down(self):
+    def move_down(self):
         """Down Move
         """
         if self.is_well_formed():
@@ -376,7 +377,7 @@ class Cube(object):
             self.faces['RIGHT_FACE'][2,:] = temp
 
 
-    def down_inverse(self):
+    def move_down_inverse(self):
         """Down Inverse Move
         """
         if self.is_well_formed():
@@ -391,7 +392,7 @@ class Cube(object):
             self.faces['LEFT_FACE'][2,:] = temp
 
 
-    def front(self):
+    def move_front(self):
         """Front Move
         """
         if self.is_well_formed():
@@ -406,7 +407,7 @@ class Cube(object):
             self.faces['RIGHT_FACE'][:,0] = temp
 
 
-    def front_inverse(self):
+    def move_front_inverse(self):
         """Front Inverse Move
         """
         if self.is_well_formed():
@@ -420,7 +421,7 @@ class Cube(object):
             self.faces['LEFT_FACE'][:,2] = np.flip(temp)
 
 
-    def back(self):
+    def move_back(self):
         """Back Move
         """
         if self.is_well_formed():
@@ -434,7 +435,7 @@ class Cube(object):
             self.faces['RIGHT_FACE'][:,2] = np.flip(temp)
 
 
-    def back_inverse(self):
+    def move_back_inverse(self):
         """Back Inverse Move
         """
         if self.is_well_formed():
@@ -449,7 +450,7 @@ class Cube(object):
             self.faces['LEFT_FACE'][:,0] = temp
 
 
-    def left(self):
+    def move_left(self):
         """Left Move
         """
         if self.is_well_formed():
@@ -464,7 +465,7 @@ class Cube(object):
             self.faces['BACK_FACE'][:,2] = np.flip(temp)
 
 
-    def left_inverse(self):
+    def move_left_inverse(self):
         """Left Inverse Move
         """
         if self.is_well_formed():
@@ -478,7 +479,7 @@ class Cube(object):
             self.faces['FRONT_FACE'][:,0] = temp
 
 
-    def right(self):
+    def move_right(self):
         """Right Move
         """
         if self.is_well_formed():
@@ -493,7 +494,7 @@ class Cube(object):
             self.faces['BACK_FACE'][:,0] = np.flip(temp)
 
 
-    def right_inverse(self):
+    def move_right_inverse(self):
         """Right Inverse Move
         """
         if self.is_well_formed():
@@ -507,7 +508,7 @@ class Cube(object):
             self.faces['FRONT_FACE'][:,2] = temp
 
 
-    def middle(self):
+    def move_middle(self):
         """Middle Slice Move
         """
         if self.is_well_formed():
@@ -519,7 +520,7 @@ class Cube(object):
             self.faces['BACK_FACE'][:,1] = np.flip(temp)
 
 
-    def middle_inverse(self):
+    def move_middle_inverse(self):
         """Middle Slice Inverse Move
         """
         if self.is_well_formed():
@@ -531,7 +532,7 @@ class Cube(object):
             self.faces['FRONT_FACE'][:,0] = temp
 
 
-    def equator(self):
+    def move_equator(self):
         """Equator Slice Move
         """
         if self.is_well_formed():
@@ -543,7 +544,7 @@ class Cube(object):
             self.faces['RIGHT_FACE'][1,:] = temp
 
 
-    def equator_inverse(self):
+    def move_equator_inverse(self):
         """Equator Slice Inverse Move
         """
         if self.is_well_formed():
@@ -555,7 +556,7 @@ class Cube(object):
             self.faces['LEFT_FACE'][1,:] = temp
 
 
-    def standing(self):
+    def move_standing(self):
         """Standing Slice Move
         """
         if self.is_well_formed():
@@ -567,7 +568,7 @@ class Cube(object):
             self.faces['RIGHT_FACE'][:,1] = temp
 
 
-    def standing_inverse(self):
+    def move_standing_inverse(self):
         """Standing Slice Inverse Move
         """
         if self.is_well_formed():
@@ -579,42 +580,42 @@ class Cube(object):
             self.faces['LEFT_FACE'][:,1] = np.flip(temp)
 
 
-    def pitch(self):
+    def rotate_pitch(self):
         """Pitch Rotation
         """
         if self.is_well_formed():
 
             print("M")
 
-    def pitch_inverse(self):
+    def rotate_pitch_inverse(self):
         """Pitch Inverse Rotation
         """
         if self.is_well_formed():
 
             print("M")
 
-    def roll(self):
+    def rotate_roll(self):
         """Roll Rotation
         """
         if self.is_well_formed():
 
             print("M")
 
-    def roll_inverse(self):
+    def rotate_roll_inverse(self):
         """Roll Inverse Rotation
         """
         if self.is_well_formed():
 
             print("M")
 
-    def yaw(self):
+    def rotate_yaw(self):
         """Yaw Rotation
         """
         if self.is_well_formed():
 
             print("M")
 
-    def yaw_inverse(self):
+    def rotate_yaw_inverse(self):
         """Yaw Inverse Rotation
         """
         if self.is_well_formed():

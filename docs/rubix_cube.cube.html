@@ -214,8 +214,9 @@ move-set. (<a class="reference external" href="https://www.rubiks.com/en-us/blog
 <p class="admonition-title">Todo</p>
 <ul class="simple">
 <li><p>Need to finish implementing the <code class="docutils literal notranslate"><span class="pre">get_num_solved_rings</span></code>.</p></li>
-<li><p>Need to finish implementing the <code class="docutils literal notranslate"><span class="pre">pitch</span></code>, <code class="docutils literal notranslate"><span class="pre">roll</span></code>, and
-<code class="docutils literal notranslate"><span class="pre">yaw</span></code> cube re-orientation methods and their inverses.</p></li>
+<li><p>Need to finish implementing the <code class="docutils literal notranslate"><span class="pre">rotate_pitch</span></code>,
+<code class="docutils literal notranslate"><span class="pre">rotate_roll</span></code>, and <code class="docutils literal notranslate"><span class="pre">rotate_yaw</span></code> cube re-orientation methods
+and their inverses.</p></li>
 </ul>
 </div>
 <div class="figure align-center" id="flattened-cube">
@@ -389,18 +390,6 @@ returning <code class="docutils literal notranslate"><span class="pre">True</spa
 </dd></dl>
 
 <dl class="method">
-<dt id="rubix_cube.cube.Cube.back">
-<code class="sig-name descname">back</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.back"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.back" title="Permalink to this definition">¶</a></dt>
-<dd><p>Back Move</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="rubix_cube.cube.Cube.back_inverse">
-<code class="sig-name descname">back_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.back_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.back_inverse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Back Inverse Move</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="rubix_cube.cube.Cube.colors">
 <em class="property">property </em><code class="sig-name descname">colors</code><a class="headerlink" href="#rubix_cube.cube.Cube.colors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Can only be set to be a dictionary with 6 unique color string values
@@ -424,30 +413,6 @@ that all return <code class="docutils literal notranslate"><span class="pre">Tru
 </pre></div>
 </td></tr></table></div>
 </div>
-</dd></dl>
-
-<dl class="method">
-<dt id="rubix_cube.cube.Cube.down">
-<code class="sig-name descname">down</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.down"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.down" title="Permalink to this definition">¶</a></dt>
-<dd><p>Down Move</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="rubix_cube.cube.Cube.down_inverse">
-<code class="sig-name descname">down_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.down_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.down_inverse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Down Inverse Move</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="rubix_cube.cube.Cube.equator">
-<code class="sig-name descname">equator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.equator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.equator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Equator Slice Move</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="rubix_cube.cube.Cube.equator_inverse">
-<code class="sig-name descname">equator_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.equator_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.equator_inverse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Equator Slice Inverse Move</p>
 </dd></dl>
 
 <dl class="method">
@@ -475,18 +440,6 @@ colors that can be found within the <a class="reference internal" href="#rubix_c
 </pre></div>
 </td></tr></table></div>
 </div>
-</dd></dl>
-
-<dl class="method">
-<dt id="rubix_cube.cube.Cube.front">
-<code class="sig-name descname">front</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.front"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.front" title="Permalink to this definition">¶</a></dt>
-<dd><p>Front Move</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="rubix_cube.cube.Cube.front_inverse">
-<code class="sig-name descname">front_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.front_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.front_inverse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Front Inverse Move</p>
 </dd></dl>
 
 <dl class="method">
@@ -564,98 +517,146 @@ as defined by <a class="reference external" href="https://matplotlib.org/api/_as
 </dd></dl>
 
 <dl class="method">
-<dt id="rubix_cube.cube.Cube.left">
-<code class="sig-name descname">left</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.left"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.left" title="Permalink to this definition">¶</a></dt>
+<dt id="rubix_cube.cube.Cube.move_back">
+<code class="sig-name descname">move_back</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.move_back"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.move_back" title="Permalink to this definition">¶</a></dt>
+<dd><p>Back Move</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rubix_cube.cube.Cube.move_back_inverse">
+<code class="sig-name descname">move_back_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.move_back_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.move_back_inverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Back Inverse Move</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rubix_cube.cube.Cube.move_down">
+<code class="sig-name descname">move_down</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.move_down"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.move_down" title="Permalink to this definition">¶</a></dt>
+<dd><p>Down Move</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rubix_cube.cube.Cube.move_down_inverse">
+<code class="sig-name descname">move_down_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.move_down_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.move_down_inverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Down Inverse Move</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rubix_cube.cube.Cube.move_equator">
+<code class="sig-name descname">move_equator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.move_equator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.move_equator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equator Slice Move</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rubix_cube.cube.Cube.move_equator_inverse">
+<code class="sig-name descname">move_equator_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.move_equator_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.move_equator_inverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equator Slice Inverse Move</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rubix_cube.cube.Cube.move_front">
+<code class="sig-name descname">move_front</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.move_front"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.move_front" title="Permalink to this definition">¶</a></dt>
+<dd><p>Front Move</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rubix_cube.cube.Cube.move_front_inverse">
+<code class="sig-name descname">move_front_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.move_front_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.move_front_inverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Front Inverse Move</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rubix_cube.cube.Cube.move_left">
+<code class="sig-name descname">move_left</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.move_left"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.move_left" title="Permalink to this definition">¶</a></dt>
 <dd><p>Left Move</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rubix_cube.cube.Cube.left_inverse">
-<code class="sig-name descname">left_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.left_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.left_inverse" title="Permalink to this definition">¶</a></dt>
+<dt id="rubix_cube.cube.Cube.move_left_inverse">
+<code class="sig-name descname">move_left_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.move_left_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.move_left_inverse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Left Inverse Move</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rubix_cube.cube.Cube.middle">
-<code class="sig-name descname">middle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.middle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.middle" title="Permalink to this definition">¶</a></dt>
+<dt id="rubix_cube.cube.Cube.move_middle">
+<code class="sig-name descname">move_middle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.move_middle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.move_middle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Middle Slice Move</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rubix_cube.cube.Cube.middle_inverse">
-<code class="sig-name descname">middle_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.middle_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.middle_inverse" title="Permalink to this definition">¶</a></dt>
+<dt id="rubix_cube.cube.Cube.move_middle_inverse">
+<code class="sig-name descname">move_middle_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.move_middle_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.move_middle_inverse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Middle Slice Inverse Move</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rubix_cube.cube.Cube.pitch">
-<code class="sig-name descname">pitch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.pitch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.pitch" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pitch Rotation</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="rubix_cube.cube.Cube.pitch_inverse">
-<code class="sig-name descname">pitch_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.pitch_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.pitch_inverse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pitch Inverse Rotation</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="rubix_cube.cube.Cube.right">
-<code class="sig-name descname">right</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.right"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.right" title="Permalink to this definition">¶</a></dt>
+<dt id="rubix_cube.cube.Cube.move_right">
+<code class="sig-name descname">move_right</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.move_right"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.move_right" title="Permalink to this definition">¶</a></dt>
 <dd><p>Right Move</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rubix_cube.cube.Cube.right_inverse">
-<code class="sig-name descname">right_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.right_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.right_inverse" title="Permalink to this definition">¶</a></dt>
+<dt id="rubix_cube.cube.Cube.move_right_inverse">
+<code class="sig-name descname">move_right_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.move_right_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.move_right_inverse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Right Inverse Move</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rubix_cube.cube.Cube.roll">
-<code class="sig-name descname">roll</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.roll"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.roll" title="Permalink to this definition">¶</a></dt>
-<dd><p>Roll Rotation</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="rubix_cube.cube.Cube.roll_inverse">
-<code class="sig-name descname">roll_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.roll_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.roll_inverse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Roll Inverse Rotation</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="rubix_cube.cube.Cube.standing">
-<code class="sig-name descname">standing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.standing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.standing" title="Permalink to this definition">¶</a></dt>
+<dt id="rubix_cube.cube.Cube.move_standing">
+<code class="sig-name descname">move_standing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.move_standing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.move_standing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Standing Slice Move</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rubix_cube.cube.Cube.standing_inverse">
-<code class="sig-name descname">standing_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.standing_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.standing_inverse" title="Permalink to this definition">¶</a></dt>
+<dt id="rubix_cube.cube.Cube.move_standing_inverse">
+<code class="sig-name descname">move_standing_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.move_standing_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.move_standing_inverse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Standing Slice Inverse Move</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rubix_cube.cube.Cube.up">
-<code class="sig-name descname">up</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.up"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.up" title="Permalink to this definition">¶</a></dt>
+<dt id="rubix_cube.cube.Cube.move_up">
+<code class="sig-name descname">move_up</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.move_up"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.move_up" title="Permalink to this definition">¶</a></dt>
 <dd><p>Up Move</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rubix_cube.cube.Cube.up_inverse">
-<code class="sig-name descname">up_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.up_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.up_inverse" title="Permalink to this definition">¶</a></dt>
+<dt id="rubix_cube.cube.Cube.move_up_inverse">
+<code class="sig-name descname">move_up_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.move_up_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.move_up_inverse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Up Inverse Move</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rubix_cube.cube.Cube.yaw">
-<code class="sig-name descname">yaw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.yaw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.yaw" title="Permalink to this definition">¶</a></dt>
+<dt id="rubix_cube.cube.Cube.rotate_pitch">
+<code class="sig-name descname">rotate_pitch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.rotate_pitch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.rotate_pitch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pitch Rotation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rubix_cube.cube.Cube.rotate_pitch_inverse">
+<code class="sig-name descname">rotate_pitch_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.rotate_pitch_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.rotate_pitch_inverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pitch Inverse Rotation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rubix_cube.cube.Cube.rotate_roll">
+<code class="sig-name descname">rotate_roll</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.rotate_roll"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.rotate_roll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Roll Rotation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rubix_cube.cube.Cube.rotate_roll_inverse">
+<code class="sig-name descname">rotate_roll_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.rotate_roll_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.rotate_roll_inverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Roll Inverse Rotation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rubix_cube.cube.Cube.rotate_yaw">
+<code class="sig-name descname">rotate_yaw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.rotate_yaw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.rotate_yaw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Yaw Rotation</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rubix_cube.cube.Cube.yaw_inverse">
-<code class="sig-name descname">yaw_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.yaw_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.yaw_inverse" title="Permalink to this definition">¶</a></dt>
+<dt id="rubix_cube.cube.Cube.rotate_yaw_inverse">
+<code class="sig-name descname">rotate_yaw_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.rotate_yaw_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.rotate_yaw_inverse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Yaw Inverse Rotation</p>
 </dd></dl>
 
