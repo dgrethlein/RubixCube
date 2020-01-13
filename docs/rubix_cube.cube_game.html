@@ -264,12 +264,12 @@ an instance of the <code class="xref py py-class docutils literal notranslate"><
 
 <dl class="attribute">
 <dt id="rubix_cube.cube_game.Cube_Game.CUBE_FUNCS">
-<code class="sig-name descname">CUBE_FUNCS</code><em class="property"> = {'B': &lt;function Cube.back&gt;, 'Bi': &lt;function Cube.back_inverse&gt;, 'D': &lt;function Cube.down&gt;, 'Di': &lt;function Cube.down_inverse&gt;, 'F': &lt;function Cube.front&gt;, 'Fi': &lt;function Cube.front_inverse&gt;, 'L': &lt;function Cube.left&gt;, 'Li': &lt;function Cube.left_inverse&gt;, 'R': &lt;function Cube.right&gt;, 'Ri': &lt;function Cube.right_inverse&gt;, 'U': &lt;function Cube.up&gt;, 'Ui': &lt;function Cube.up_inverse&gt;}</em><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.CUBE_FUNCS" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">CUBE_FUNCS</code><em class="property"> = {'B': &lt;function Cube.back&gt;, 'Bi': &lt;function Cube.back_inverse&gt;, 'D': &lt;function Cube.down&gt;, 'Di': &lt;function Cube.down_inverse&gt;, 'E': &lt;function Cube.equator&gt;, 'Ei': &lt;function Cube.equator_inverse&gt;, 'F': &lt;function Cube.front&gt;, 'Fi': &lt;function Cube.front_inverse&gt;, 'L': &lt;function Cube.left&gt;, 'Li': &lt;function Cube.left_inverse&gt;, 'M': &lt;function Cube.middle&gt;, 'Mi': &lt;function Cube.middle_inverse&gt;, 'R': &lt;function Cube.right&gt;, 'Ri': &lt;function Cube.right_inverse&gt;, 'S': &lt;function Cube.standing&gt;, 'Si': &lt;function Cube.standing_inverse&gt;, 'U': &lt;function Cube.up&gt;, 'Ui': &lt;function Cube.up_inverse&gt;, 'X': &lt;function Cube.pitch&gt;, 'Xi': &lt;function Cube.pitch_inverse&gt;, 'Y': &lt;function Cube.yaw&gt;, 'Yi': &lt;function Cube.yaw_inverse&gt;, 'Z': &lt;function Cube.roll&gt;, 'Zi': &lt;function Cube.roll_inverse&gt;}</em><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.CUBE_FUNCS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt>
-<code class="sig-name descname">EVENT_TYPES</code><em class="property"> = ['&lt;&lt;__NEW_GAME__&gt;&gt;', 'F', 'Fi', 'B', 'Bi', 'L', 'Li', 'R', 'Ri', 'U', 'Ui', 'D', 'Di', '&lt;&lt;__START_SCRAMBLE__&gt;&gt;', '&lt;&lt;__END_SCRAMBLE__&gt;&gt;', '&lt;&lt;__COLOR_CHANGE__&gt;&gt;', '&lt;&lt;__SAVE_GAME__&gt;&gt;', '&lt;&lt;__LOAD_GAME__&gt;&gt;', '&lt;&lt;__PAUSE_GAME__&gt;&gt;', '&lt;&lt;__SOLVE_CUBE__&gt;&gt;', '&lt;&lt;__QUIT_GAME__&gt;&gt;']</em></dt>
+<code class="sig-name descname">EVENT_TYPES</code><em class="property"> = ['&lt;&lt;__NEW_GAME__&gt;&gt;', 'F', 'Fi', 'B', 'Bi', 'L', 'Li', 'R', 'Ri', 'U', 'Ui', 'D', 'Di', 'M', 'Mi', 'E', 'Ei', 'S', 'Si', 'X', 'Xi', 'Y', 'Yi', 'Z', 'Zi', '&lt;&lt;__START_SCRAMBLE__&gt;&gt;', '&lt;&lt;__END_SCRAMBLE__&gt;&gt;', '&lt;&lt;__COLOR_CHANGE__&gt;&gt;', '&lt;&lt;__SAVE_GAME__&gt;&gt;', '&lt;&lt;__LOAD_GAME__&gt;&gt;', '&lt;&lt;__PAUSE_GAME__&gt;&gt;', '&lt;&lt;__RESUME_GAME__&gt;&gt;', '&lt;&lt;__SOLVE_CUBE__&gt;&gt;', '&lt;&lt;__QUIT_GAME__&gt;&gt;']</em></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -285,7 +285,7 @@ manipulated throughout gameplay.</p></li>
 <li><p><strong>game_log</strong> (<em>Dict</em><em>, </em><em>optional</em>) – Dictionary that contains a history of
 moves and other game events.</p></li>
 <li><p><strong>scramble</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether or not the game should scramble
-the <code class="xref py py-attr docutils literal notranslate"><span class="pre">__game_cube`</span></code> upon initialization. Default value is
+the <a class="reference internal" href="#rubix_cube.cube_game.Cube_Game.__game_cube" title="rubix_cube.cube_game.Cube_Game.__game_cube"><code class="xref py py-attr docutils literal notranslate"><span class="pre">__game_cube</span></code></a> upon initialization. Default value is
 <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – [DEBUG]-style console output. Default
 value is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
@@ -297,12 +297,89 @@ value is <code class="docutils literal notranslate"><span class="pre">False</spa
 <dl class="method">
 <dt id="rubix_cube.cube_game.Cube_Game.game_cube">
 <em class="property">property </em><code class="sig-name descname">game_cube</code><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.game_cube" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Rubix</span> <span class="pre">Cube</span></code> object being manipulated in game.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="rubix_cube.cube_game.Cube_Game.game_log">
 <em class="property">property </em><code class="sig-name descname">game_log</code><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.game_log" title="Permalink to this definition">¶</a></dt>
-<dd><div class="literal-block-wrapper docutils container" id="game-log">
+<dd><p>JSON-style <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> recording all actions done to
+the <a class="reference internal" href="#rubix_cube.cube_game.Cube_Game.game_cube" title="rubix_cube.cube_game.Cube_Game.game_cube"><code class="xref py py-attr docutils literal notranslate"><span class="pre">game_cube</span></code></a> stored under the <code class="docutils literal notranslate"><span class="pre">events</span></code> key which is a list
+of :class`dict` objects each of which has a <code class="docutils literal notranslate"><span class="pre">type</span></code> key with a value
+found in <a class="reference internal" href="#rubix_cube.cube_game.Cube_Game.EVENT_TYPES" title="rubix_cube.cube_game.Cube_Game.EVENT_TYPES"><code class="xref py py-attr docutils literal notranslate"><span class="pre">EVENT_TYPES</span></code></a>.</p>
+<div class="literal-block-wrapper docutils container" id="game-log-event-types">
+<div class="code-block-caption"><span class="caption-text">Potential values of <code class="docutils literal notranslate"><span class="pre">type</span></code> in <a class="reference internal" href="#rubix_cube.cube_game.Cube_Game.game_log" title="rubix_cube.cube_game.Cube_Game.game_log"><code class="xref py py-attr docutils literal notranslate"><span class="pre">game_log</span></code></a>.</span><a class="headerlink" href="#game-log-event-types" title="Permalink to this code">¶</a></div>
+<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">EVENT_TYPES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&lt;&lt;__NEW_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;F&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Fi&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;B&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Bi&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;L&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Li&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;R&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Ri&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;U&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Ui&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;D&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Di&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;M&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Mi&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;E&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Ei&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;S&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Si&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Xi&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Y&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Yi&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Z&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Zi&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;&lt;&lt;__START_SCRAMBLE__&gt;&gt;&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;&lt;&lt;__END_SCRAMBLE__&gt;&gt;&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;&lt;&lt;__COLOR_CHANGE__&gt;&gt;&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;&lt;&lt;__SAVE_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;&lt;&lt;__LOAD_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;&lt;&lt;__PAUSE_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;&lt;&lt;__RESUME_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;&lt;&lt;__SOLVE_CUBE__&gt;&gt;&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;&lt;&lt;__QUIT_GAME__&gt;&gt;&#39;</span><span class="p">]</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="game-log">
 <div class="code-block-caption"><span class="caption-text">Required <code class="docutils literal notranslate"><span class="pre">game_log</span></code> dictionary keys.</span><a class="headerlink" href="#game-log" title="Permalink to this code">¶</a></div>
 <div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
@@ -321,12 +398,15 @@ value is <code class="docutils literal notranslate"><span class="pre">False</spa
 <dl class="method">
 <dt id="rubix_cube.cube_game.Cube_Game.game_name">
 <em class="property">property </em><code class="sig-name descname">game_name</code><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.game_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Name of the Game</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="rubix_cube.cube_game.Cube_Game.move_cube">
 <code class="sig-name descname">move_cube</code><span class="sig-paren">(</span><em class="sig-param">cube_func: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube_game.html#Cube_Game.move_cube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.move_cube" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Function that interfaces the <a class="reference internal" href="#rubix_cube.cube_game.Cube_Game" title="rubix_cube.cube_game.Cube_Game"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cube_Game</span></code></a> class with the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Cube</span></code> class to turn the layers or rotate the orientation.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>cube_func</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Look-up key to recover the proper <code class="xref py py-class docutils literal notranslate"><span class="pre">Cube</span></code>
 method to call from <a class="reference internal" href="#rubix_cube.cube_game.Cube_Game.CUBE_FUNCS" title="rubix_cube.cube_game.Cube_Game.CUBE_FUNCS"><code class="xref py py-attr docutils literal notranslate"><span class="pre">CUBE_FUNCS</span></code></a> class attribute to call
@@ -335,7 +415,8 @@ a move using the <a class="reference internal" href="#rubix_cube.cube_game.Cube_
 </dl>
 <div class="literal-block-wrapper docutils container" id="move-cube-cube-funcs">
 <div class="code-block-caption"><span class="caption-text">Parameter <code class="docutils literal notranslate"><span class="pre">cube_func</span></code> will determine which
-<a class="reference internal" href="#rubix_cube.cube_game.Cube_Game.game_cube" title="rubix_cube.cube_game.Cube_Game.game_cube"><code class="xref py py-attr docutils literal notranslate"><span class="pre">game_cube</span></code></a> move function is called.</span><a class="headerlink" href="#move-cube-cube-funcs" title="Permalink to this code">¶</a></div>
+<a class="reference internal" href="#rubix_cube.cube_game.Cube_Game.game_cube" title="rubix_cube.cube_game.Cube_Game.game_cube"><code class="xref py py-attr docutils literal notranslate"><span class="pre">game_cube</span></code></a> move function is called. If not found,
+nothing happens.</span><a class="headerlink" href="#move-cube-cube-funcs" title="Permalink to this code">¶</a></div>
 <div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -347,7 +428,19 @@ a move using the <a class="reference internal" href="#rubix_cube.cube_game.Cube_
  9
 10
 11
-12</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">CUBE_FUNCS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;U&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">up</span><span class="p">,</span>
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">CUBE_FUNCS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;U&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">up</span><span class="p">,</span>
               <span class="s1">&#39;Ui&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">up_inverse</span><span class="p">,</span>
               <span class="s1">&#39;D&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">down</span><span class="p">,</span>
               <span class="s1">&#39;Di&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">down_inverse</span><span class="p">,</span>
@@ -358,7 +451,19 @@ a move using the <a class="reference internal" href="#rubix_cube.cube_game.Cube_
               <span class="s1">&#39;F&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">front</span><span class="p">,</span>
               <span class="s1">&#39;Fi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">front_inverse</span><span class="p">,</span>
               <span class="s1">&#39;B&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">back</span><span class="p">,</span>
-              <span class="s1">&#39;Bi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">back_inverse</span><span class="p">}</span>
+              <span class="s1">&#39;Bi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">back_inverse</span><span class="p">,</span>
+              <span class="s1">&#39;M&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">middle</span><span class="p">,</span>
+              <span class="s1">&#39;Mi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">middle_inverse</span><span class="p">,</span>
+              <span class="s1">&#39;E&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">equator</span><span class="p">,</span>
+              <span class="s1">&#39;Ei&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">equator_inverse</span><span class="p">,</span>
+              <span class="s1">&#39;S&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">standing</span><span class="p">,</span>
+              <span class="s1">&#39;Si&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">standing_inverse</span><span class="p">,</span>
+              <span class="s1">&#39;X&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">pitch</span>
+              <span class="s1">&#39;Xi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">pitch_inverse</span><span class="p">,</span>
+              <span class="s1">&#39;Y&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">yaw</span><span class="p">,</span>
+              <span class="s1">&#39;Yi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">yaw_inverse</span><span class="p">,</span>
+              <span class="s1">&#39;Z&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">roll</span><span class="p">,</span>
+              <span class="s1">&#39;Zi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">roll_inverse</span><span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -367,7 +472,8 @@ a move using the <a class="reference internal" href="#rubix_cube.cube_game.Cube_
 <dl class="method">
 <dt id="rubix_cube.cube_game.Cube_Game.verbose">
 <em class="property">property </em><code class="sig-name descname">verbose</code><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.verbose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>[DEBUG]-style console output. Default value is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</dd></dl>
 
 </dd></dl>
 

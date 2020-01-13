@@ -243,12 +243,25 @@
                    <span class="s1">&#39;Ui&#39;</span><span class="p">,</span>
                    <span class="s1">&#39;D&#39;</span><span class="p">,</span>
                    <span class="s1">&#39;Di&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;M&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;Mi&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;E&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;Ei&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;S&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;Si&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;Xi&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;Y&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;Yi&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;Z&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;Zi&#39;</span><span class="p">,</span>
                    <span class="s1">&#39;&lt;&lt;__START_SCRAMBLE__&gt;&gt;&#39;</span><span class="p">,</span>
                    <span class="s1">&#39;&lt;&lt;__END_SCRAMBLE__&gt;&gt;&#39;</span><span class="p">,</span>
                    <span class="s1">&#39;&lt;&lt;__COLOR_CHANGE__&gt;&gt;&#39;</span><span class="p">,</span>
                    <span class="s1">&#39;&lt;&lt;__SAVE_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
                    <span class="s1">&#39;&lt;&lt;__LOAD_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
                    <span class="s1">&#39;&lt;&lt;__PAUSE_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;&lt;&lt;__RESUME_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
                    <span class="s1">&#39;&lt;&lt;__SOLVE_CUBE__&gt;&gt;&#39;</span><span class="p">,</span>
                    <span class="s1">&#39;&lt;&lt;__QUIT_GAME__&gt;&gt;&#39;</span><span class="p">]</span>
 
@@ -264,7 +277,19 @@
                   <span class="s1">&#39;F&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">front</span><span class="p">,</span>
                   <span class="s1">&#39;Fi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">front_inverse</span><span class="p">,</span>
                   <span class="s1">&#39;B&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">back</span><span class="p">,</span>
-                  <span class="s1">&#39;Bi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">back_inverse</span><span class="p">}</span>
+                  <span class="s1">&#39;Bi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">back_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;M&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">middle</span><span class="p">,</span>
+                  <span class="s1">&#39;Mi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">middle_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;E&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">equator</span><span class="p">,</span>
+                  <span class="s1">&#39;Ei&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">equator_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;S&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">standing</span><span class="p">,</span>
+                  <span class="s1">&#39;Si&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">standing_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;X&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">pitch</span><span class="p">,</span>
+                  <span class="s1">&#39;Xi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">pitch_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;Y&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">yaw</span><span class="p">,</span>
+                  <span class="s1">&#39;Yi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">yaw_inverse</span><span class="p">,</span>
+                  <span class="s1">&#39;Z&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">roll</span><span class="p">,</span>
+                  <span class="s1">&#39;Zi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">roll_inverse</span><span class="p">}</span>
 
     <span class="c1">#==========================================================================</span>
     <span class="c1">#       CLASS CONSTRUCTOR</span>
@@ -284,7 +309,7 @@
 <span class="sd">            game_log (Dict, optional): Dictionary that contains a history of</span>
 <span class="sd">                moves and other game events.</span>
 <span class="sd">            scramble (bool, optional): Whether or not the game should scramble </span>
-<span class="sd">                the :attr:`__game_cube`` upon initialization. Default value is</span>
+<span class="sd">                the :attr:`__game_cube` upon initialization. Default value is</span>
 <span class="sd">                ``False``.</span>
 <span class="sd">            verbose (bool, optional): [DEBUG]-style console output. Default</span>
 <span class="sd">                value is ``False``.</span>
@@ -328,8 +353,7 @@
     <span class="c1">#==========================================================================</span>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">game_cube</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Cube</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        </span>
+        <span class="sd">&quot;&quot;&quot;:class:`Rubix Cube &lt;Cube&gt;` object being manipulated in game.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__game_cube</span>
 
@@ -344,8 +368,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">game_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        </span>
+        <span class="sd">&quot;&quot;&quot;Name of the Game</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__game_name</span>
     
@@ -360,7 +383,51 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">game_log</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;JSON-style :class:`dict` recording all actions done to</span>
+<span class="sd">        the :attr:`game_cube` stored under the ``events`` key which is a list</span>
+<span class="sd">        of :class`dict` objects each of which has a ``type`` key with a value</span>
+<span class="sd">        found in :attr:`EVENT_TYPES`.</span>
+
+<span class="sd">        .. code-block::</span>
+<span class="sd">           :name: game_log_EVENT_TYPES</span>
+<span class="sd">           :linenos:</span>
+<span class="sd">           :caption: Potential values of ``type`` in :attr:`game_log`.</span>
+
+<span class="sd">           EVENT_TYPES = [&#39;&lt;&lt;__NEW_GAME__&gt;&gt;&#39;,</span>
+<span class="sd">                          &#39;F&#39;,</span>
+<span class="sd">                          &#39;Fi&#39;,</span>
+<span class="sd">                          &#39;B&#39;,</span>
+<span class="sd">                          &#39;Bi&#39;,</span>
+<span class="sd">                          &#39;L&#39;,</span>
+<span class="sd">                          &#39;Li&#39;,</span>
+<span class="sd">                          &#39;R&#39;,</span>
+<span class="sd">                          &#39;Ri&#39;,</span>
+<span class="sd">                          &#39;U&#39;,</span>
+<span class="sd">                          &#39;Ui&#39;,</span>
+<span class="sd">                          &#39;D&#39;,</span>
+<span class="sd">                          &#39;Di&#39;,</span>
+<span class="sd">                          &#39;M&#39;,</span>
+<span class="sd">                          &#39;Mi&#39;,</span>
+<span class="sd">                          &#39;E&#39;,</span>
+<span class="sd">                          &#39;Ei&#39;,</span>
+<span class="sd">                          &#39;S&#39;,</span>
+<span class="sd">                          &#39;Si&#39;,</span>
+<span class="sd">                          &#39;X&#39;,</span>
+<span class="sd">                          &#39;Xi&#39;,</span>
+<span class="sd">                          &#39;Y&#39;,</span>
+<span class="sd">                          &#39;Yi&#39;,</span>
+<span class="sd">                          &#39;Z&#39;,</span>
+<span class="sd">                          &#39;Zi&#39;,</span>
+<span class="sd">                          &#39;&lt;&lt;__START_SCRAMBLE__&gt;&gt;&#39;,</span>
+<span class="sd">                          &#39;&lt;&lt;__END_SCRAMBLE__&gt;&gt;&#39;,</span>
+<span class="sd">                          &#39;&lt;&lt;__COLOR_CHANGE__&gt;&gt;&#39;,</span>
+<span class="sd">                          &#39;&lt;&lt;__SAVE_GAME__&gt;&gt;&#39;,</span>
+<span class="sd">                          &#39;&lt;&lt;__LOAD_GAME__&gt;&gt;&#39;,</span>
+<span class="sd">                          &#39;&lt;&lt;__PAUSE_GAME__&gt;&gt;&#39;,</span>
+<span class="sd">                          &#39;&lt;&lt;__RESUME_GAME__&gt;&gt;&#39;,</span>
+<span class="sd">                          &#39;&lt;&lt;__SOLVE_CUBE__&gt;&gt;&#39;,</span>
+<span class="sd">                          &#39;&lt;&lt;__QUIT_GAME__&gt;&gt;&#39;]</span>
+<span class="sd">        </span>
 <span class="sd">        .. code-block::</span>
 <span class="sd">           :name: game_log</span>
 <span class="sd">           :linenos:</span>
@@ -394,8 +461,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">verbose</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        </span>
+        <span class="sd">&quot;&quot;&quot;[DEBUG]-style console output. Default value is ``False``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span>
 
@@ -412,7 +478,8 @@
     <span class="c1">#       GAME-PLAY METHOD(s)</span>
     <span class="c1">#==========================================================================</span>
 <div class="viewcode-block" id="Cube_Game.move_cube"><a class="viewcode-back" href="../../rubix_cube.cube_game.html#rubix_cube.cube_game.Cube_Game.move_cube">[docs]</a>    <span class="k">def</span> <span class="nf">move_cube</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cube_func</span> <span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Function that interfaces the :class:`Cube_Game` class with the</span>
+<span class="sd">        :class:`Cube` class to turn the layers or rotate the orientation.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            cube_func (str): Look-up key to recover the proper :class:`Cube` </span>
@@ -423,7 +490,8 @@
 <span class="sd">           :name: move_cube_CUBE_FUNCS</span>
 <span class="sd">           :linenos:</span>
 <span class="sd">           :caption: Parameter ``cube_func`` will determine which </span>
-<span class="sd">                :attr:`game_cube` move function is called.</span>
+<span class="sd">                :attr:`game_cube` move function is called. If not found,</span>
+<span class="sd">                nothing happens.</span>
 
 <span class="sd">           CUBE_FUNCS = {&#39;U&#39;  : Cube.up,</span>
 <span class="sd">                         &#39;Ui&#39; : Cube.up_inverse,</span>
@@ -436,8 +504,19 @@
 <span class="sd">                         &#39;F&#39;  : Cube.front,</span>
 <span class="sd">                         &#39;Fi&#39; : Cube.front_inverse,</span>
 <span class="sd">                         &#39;B&#39;  : Cube.back,</span>
-<span class="sd">                         &#39;Bi&#39; : Cube.back_inverse}</span>
-
+<span class="sd">                         &#39;Bi&#39; : Cube.back_inverse,</span>
+<span class="sd">                         &#39;M&#39;  : Cube.middle,</span>
+<span class="sd">                         &#39;Mi&#39; : Cube.middle_inverse,</span>
+<span class="sd">                         &#39;E&#39;  : Cube.equator,</span>
+<span class="sd">                         &#39;Ei&#39; : Cube.equator_inverse,</span>
+<span class="sd">                         &#39;S&#39;  : Cube.standing,</span>
+<span class="sd">                         &#39;Si&#39; : Cube.standing_inverse,</span>
+<span class="sd">                         &#39;X&#39;  : Cube.pitch</span>
+<span class="sd">                         &#39;Xi&#39; : Cube.pitch_inverse,</span>
+<span class="sd">                         &#39;Y&#39;  : Cube.yaw,</span>
+<span class="sd">                         &#39;Yi&#39; : Cube.yaw_inverse,</span>
+<span class="sd">                         &#39;Z&#39;  : Cube.roll,</span>
+<span class="sd">                         &#39;Zi&#39; : Cube.roll_inverse}</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">cube_func</span> <span class="ow">in</span> <span class="n">Cube_Game</span><span class="o">.</span><span class="n">CUBE_FUNCS</span>\
@@ -450,7 +529,8 @@
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[DEBUG]</span><span class="se">\t</span><span class="s2">Calling game cube function: &#39;</span><span class="si">{cube_func}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;type&#39;</span> <span class="p">:</span> <span class="n">cube_func</span><span class="p">})</span></div></div>
-    
+
+
     
     
 

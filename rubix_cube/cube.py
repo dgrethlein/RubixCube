@@ -508,41 +508,89 @@ class Cube(object):
             self.faces['FRONT_FACE'][:,2] = temp
 
 
-    #def middle(self):
-    #   if self.is_well_formed():
+    def middle(self):
+        """Middle Slice Move
+        """
+        if self.is_well_formed():
 
-    #def middle_inverse(self):
-    #   if self.is_well_formed():
+            print("M")
 
-    #def equator(self):
-    #   if self.is_well_formed():
+    def middle_inverse(self):
+        """Middle Slice Inverse Move
+        """
+        if self.is_well_formed():
 
-    #def equator_inverse(self):
-    #   if self.is_well_formed():
+            print("M")
 
-    #def standing(self):
-    #   if self.is_well_formed():
+    def equator(self):
+        """Equator Slice Move
+        """
+        if self.is_well_formed():
 
-    #def standing_inverse(self):
-    #   if self.is_well_formed():
+            print("M")
 
-    #def pitch(self):
-    #   if self.is_well_formed():
+    def equator_inverse(self):
+        """Equator Slice Inverse Move
+        """
+        if self.is_well_formed():
 
-    #def pitch_inverse(self):
-    #   if self.is_well_formed():
+            print("M")
 
-    #def roll(self):
-    #   if self.is_well_formed():
+    def standing(self):
+        """Standing Slice Move
+        """
+        if self.is_well_formed():
 
-    #def roll_inverse(self):
-    #   if self.is_well_formed():
+            print("M")
 
-    #def yaw(self):
-    #   if self.is_well_formed():
+    def standing_inverse(self):
+        """Standing Slice Inverse Move
+        """
+        if self.is_well_formed():
 
-    #def yaw_inverse(self):
-    #   if self.is_well_formed():
+            print("M")
+
+    def pitch(self):
+        """Pitch Rotation
+        """
+        if self.is_well_formed():
+
+            print("M")
+
+    def pitch_inverse(self):
+        """Pitch Inverse Rotation
+        """
+        if self.is_well_formed():
+
+            print("M")
+
+    def roll(self):
+        """Roll Rotation
+        """
+        if self.is_well_formed():
+
+            print("M")
+
+    def roll_inverse(self):
+        """Roll Inverse Rotation
+        """
+        if self.is_well_formed():
+
+            print("M")
+
+    def yaw(self):
+        """Yaw Rotation
+        """
+        if self.is_well_formed():
+
+            print("M")
+
+    def yaw_inverse(self):
+        """Yaw Inverse Rotation
+        """
+        if self.is_well_formed():
+
+            print("M")
 
     #==========================================================================
     #       CONSTANTS FOR DEFAULT CUBE-COLORS

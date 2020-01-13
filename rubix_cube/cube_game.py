@@ -65,12 +65,25 @@ class Cube_Game(object):
                    'Ui',
                    'D',
                    'Di',
+                   'M',
+                   'Mi',
+                   'E',
+                   'Ei',
+                   'S',
+                   'Si',
+                   'X',
+                   'Xi',
+                   'Y',
+                   'Yi',
+                   'Z',
+                   'Zi',
                    '<<__START_SCRAMBLE__>>',
                    '<<__END_SCRAMBLE__>>',
                    '<<__COLOR_CHANGE__>>',
                    '<<__SAVE_GAME__>>',
                    '<<__LOAD_GAME__>>',
                    '<<__PAUSE_GAME__>>',
+                   '<<__RESUME_GAME__>>',
                    '<<__SOLVE_CUBE__>>',
                    '<<__QUIT_GAME__>>']
 
@@ -86,7 +99,19 @@ class Cube_Game(object):
                   'F' : Cube.front,
                   'Fi' : Cube.front_inverse,
                   'B' : Cube.back,
-                  'Bi' : Cube.back_inverse}
+                  'Bi' : Cube.back_inverse,
+                  'M' : Cube.middle,
+                  'Mi' : Cube.middle_inverse,
+                  'E' : Cube.equator,
+                  'Ei' : Cube.equator_inverse,
+                  'S' : Cube.standing,
+                  'Si' : Cube.standing_inverse,
+                  'X' : Cube.pitch,
+                  'Xi' : Cube.pitch_inverse,
+                  'Y' : Cube.yaw,
+                  'Yi' : Cube.yaw_inverse,
+                  'Z' : Cube.roll,
+                  'Zi' : Cube.roll_inverse}
 
     #==========================================================================
     #       CLASS CONSTRUCTOR
@@ -106,7 +131,7 @@ class Cube_Game(object):
             game_log (Dict, optional): Dictionary that contains a history of
                 moves and other game events.
             scramble (bool, optional): Whether or not the game should scramble 
-                the :attr:`__game_cube`` upon initialization. Default value is
+                the :attr:`__game_cube` upon initialization. Default value is
                 ``False``.
             verbose (bool, optional): [DEBUG]-style console output. Default
                 value is ``False``.
@@ -150,8 +175,7 @@ class Cube_Game(object):
     #==========================================================================
     @property
     def game_cube(self) -> Cube:
-        """
-        
+        """:class:`Rubix Cube <Cube>` object being manipulated in game.
         """
         return self.__game_cube
 
@@ -166,8 +190,7 @@ class Cube_Game(object):
 
     @property
     def game_name(self) -> str:
-        """
-        
+        """Name of the Game
         """
         return self.__game_name
     
@@ -182,7 +205,51 @@ class Cube_Game(object):
 
     @property
     def game_log(self) -> Dict:
-        """
+        """JSON-style :class:`dict` recording all actions done to
+        the :attr:`game_cube` stored under the ``events`` key which is a list
+        of :class`dict` objects each of which has a ``type`` key with a value
+        found in :attr:`EVENT_TYPES`.
+
+        .. code-block::
+           :name: game_log_EVENT_TYPES
+           :linenos:
+           :caption: Potential values of ``type`` in :attr:`game_log`.
+
+           EVENT_TYPES = ['<<__NEW_GAME__>>',
+                          'F',
+                          'Fi',
+                          'B',
+                          'Bi',
+                          'L',
+                          'Li',
+                          'R',
+                          'Ri',
+                          'U',
+                          'Ui',
+                          'D',
+                          'Di',
+                          'M',
+                          'Mi',
+                          'E',
+                          'Ei',
+                          'S',
+                          'Si',
+                          'X',
+                          'Xi',
+                          'Y',
+                          'Yi',
+                          'Z',
+                          'Zi',
+                          '<<__START_SCRAMBLE__>>',
+                          '<<__END_SCRAMBLE__>>',
+                          '<<__COLOR_CHANGE__>>',
+                          '<<__SAVE_GAME__>>',
+                          '<<__LOAD_GAME__>>',
+                          '<<__PAUSE_GAME__>>',
+                          '<<__RESUME_GAME__>>',
+                          '<<__SOLVE_CUBE__>>',
+                          '<<__QUIT_GAME__>>']
+        
         .. code-block::
            :name: game_log
            :linenos:
@@ -216,8 +283,7 @@ class Cube_Game(object):
 
     @property
     def verbose(self) -> bool:
-        """
-        
+        """[DEBUG]-style console output. Default value is ``False``.
         """
         return self.__verbose
 
@@ -234,7 +300,8 @@ class Cube_Game(object):
     #       GAME-PLAY METHOD(s)
     #==========================================================================
     def move_cube(self, cube_func : str):
-        """
+        """Function that interfaces the :class:`Cube_Game` class with the
+        :class:`Cube` class to turn the layers or rotate the orientation.
 
         Args:
             cube_func (str): Look-up key to recover the proper :class:`Cube` 
@@ -245,7 +312,8 @@ class Cube_Game(object):
            :name: move_cube_CUBE_FUNCS
            :linenos:
            :caption: Parameter ``cube_func`` will determine which 
-                :attr:`game_cube` move function is called.
+                :attr:`game_cube` move function is called. If not found,
+                nothing happens.
 
            CUBE_FUNCS = {'U'  : Cube.up,
                          'Ui' : Cube.up_inverse,
@@ -258,8 +326,19 @@ class Cube_Game(object):
                          'F'  : Cube.front,
                          'Fi' : Cube.front_inverse,
                          'B'  : Cube.back,
-                         'Bi' : Cube.back_inverse}
-
+                         'Bi' : Cube.back_inverse,
+                         'M'  : Cube.middle,
+                         'Mi' : Cube.middle_inverse,
+                         'E'  : Cube.equator,
+                         'Ei' : Cube.equator_inverse,
+                         'S'  : Cube.standing,
+                         'Si' : Cube.standing_inverse,
+                         'X'  : Cube.pitch
+                         'Xi' : Cube.pitch_inverse,
+                         'Y'  : Cube.yaw,
+                         'Yi' : Cube.yaw_inverse,
+                         'Z'  : Cube.roll,
+                         'Zi' : Cube.roll_inverse}
         """
 
         if cube_func in Cube_Game.CUBE_FUNCS\
@@ -272,7 +351,8 @@ class Cube_Game(object):
                 print(f"[DEBUG]\tCalling game cube function: '{cube_func}'")
 
             self.game_log['events'].append({'type' : cube_func})
-    
+
+
     
     
 
