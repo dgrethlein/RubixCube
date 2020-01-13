@@ -14,7 +14,7 @@ github:
 release:
 	@python3 ./setup.py sdist
 
-to_pipy:
+to_pypi:
 	@twine upload ./dist/*
 
 clean_src : 
