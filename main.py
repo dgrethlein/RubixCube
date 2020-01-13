@@ -55,11 +55,17 @@ while True:
 
 	plt.show(block=False)
 
-	move = input("Move the Cube : ")
-	cg.move_cube(move)
+	move = input("Move the Cube <Q to quit>: ")
+	if "Q" in move\
+	or 'q' in move:
+		plt.close(fig)
+		break
+	else:
+		cg.move_cube(move)
+		plt.close(fig)
 
-	plt.close(fig)
 
+print(cg.game_log['events'])
 
 
 
