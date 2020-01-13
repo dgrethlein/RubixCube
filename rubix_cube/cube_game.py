@@ -50,9 +50,11 @@ class Cube_Game(object):
 
     Attributes:
         EVENT_TYPES (List[str]): Description
-        __game_cube (Cube): Description
-        __game_log (dict): Description
-        __game_name (str): Description
+        __game_cube (Cube): :class:`Rubix Cube <Cube>` that is manipulated
+            throughout game-play.
+        __game_log (dict): Historical record of all moves, rotations, and other
+            game events that manipulate the :attr:`game_cube`.
+        __game_name (str): Name of the game.
         __verbose (bool): [DEBUG]-style console output. Default value is 
             ``False``.
     

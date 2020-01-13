@@ -20,7 +20,10 @@ import sys
 import json
 import argparse
 
+import matplotlib.pyplot as plt
+
 from rubix_cube.cube_game import Cube_Game
+from rubix_cube.plot_cube_2d import plot_cube_2D
 
 #==============================================================================
 #		ARG-PARSE SET-UP
@@ -37,8 +40,23 @@ subparsers = parser.add_subparsers(help=' {----- Package Command(s)  -----}')
 test_cube_parser = subparsers.add_parser('test_cube',
 	help='Generates a solved 3x3 Rubix Cube object.')
 
-cg = Cube_Game(game_log={'events' : []})
-print(cg.game_log)
+
+cg = Cube_Game()
+
+while True:
+	fig , ax = plt.subplots(figsize=(8,5))
+	ax.set_xlim(left=-600,right=900)
+	ax.set_ylim(top=500,bottom=-500)
+
+	plot_cube_2D(ax=ax,
+	             cube=cg.game_cube)
+
+	plt.show(block=False)
+
+	move = input("Move the Cube : ")
+	cg.move_cube(move)
+
+
 
 
 #==============================================================================
