@@ -1,8 +1,19 @@
 # -*- coding: utf-8 -*-
-"""2-D Rubix :class:`Cube` plot rendering Module
+"""2-D :class:`Rubix Cube <Cube>` plot rendering Module.
 
 Module Description
 ==================
+
+    *   :func:`plot_cube_2D` method for plotting the :class:`Rubix Cube <Cube>`
+        in a :class:`matplotlib Figure <matplotlib.pyplot.Figure>`.
+
+        .. figure:: ./../../misc/plot_cube_2D.png
+           :name: plot_cube_2d_img
+           :align: center
+           :width: 75%
+           
+           All 6 faces of the :class:`Rubix Cube <Cube>` are visible in this 2D
+           rendering.
 
 Module Contents
 ===============
