@@ -17,5 +17,8 @@ release:
 to_pypi:
 	@twine upload ./dist/*
 
+doc_sphinx:
+	@sphinx-apidoc -o ./docs/source/ ./rubix_cube/ --separate
+
 clean_src : 
 	@find __pycache__ rubix_cube/ | grep __pycache__ | xargs rm -fR

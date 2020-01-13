@@ -61,7 +61,7 @@ while True:
 		plt.close(fig)
 		break
 	else:
-		cg.move_cube(move)
+		cg.manipulate_cube(move)
 		plt.close(fig)
 
 

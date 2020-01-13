@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rubix_cube.cube_game &mdash; Rubix Cube 0.1.3 documentation</title>
+  <title>rubix_cube.cube_game &mdash; Rubix Cube 0.1.5 documentation</title>
   
 
   
@@ -493,7 +493,7 @@
     <span class="c1">#==========================================================================</span>
     <span class="c1">#       GAME-PLAY METHOD(s)</span>
     <span class="c1">#==========================================================================</span>
-<div class="viewcode-block" id="Cube_Game.move_cube"><a class="viewcode-back" href="../../rubix_cube.cube_game.html#rubix_cube.cube_game.Cube_Game.move_cube">[docs]</a>    <span class="k">def</span> <span class="nf">move_cube</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cube_func</span> <span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="Cube_Game.manipulate_cube"><a class="viewcode-back" href="../../rubix_cube.cube_game.html#rubix_cube.cube_game.Cube_Game.manipulate_cube">[docs]</a>    <span class="k">def</span> <span class="nf">manipulate_cube</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cube_func</span> <span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Function that interfaces the :class:`Cube_Game` class with the</span>
 <span class="sd">        :class:`Cube` class to turn the layers or rotate the orientation.</span>
 
@@ -544,10 +544,36 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[DEBUG]</span><span class="se">\t</span><span class="s2">Calling game cube function: &#39;</span><span class="si">{cube_func}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;type&#39;</span> <span class="p">:</span> <span class="n">cube_func</span><span class="p">})</span></div></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;type&#39;</span> <span class="p">:</span> <span class="n">cube_func</span><span class="p">})</span></div>
 
 
     
+<div class="viewcode-block" id="Cube_Game.scramble_cube"><a class="viewcode-back" href="../../rubix_cube.cube_game.html#rubix_cube.cube_game.Cube_Game.scramble_cube">[docs]</a>    <span class="k">def</span> <span class="nf">scramble_cube</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_steps</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">cube_funcs</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Scrambles the :attr:`game_cube` attribute by applying a sequence of </span>
+<span class="sd">        ``n_steps`` cube manipulations defined by a provided sub-set of </span>
+<span class="sd">        functions</span>
+<span class="sd">        cube functions,</span>
+<span class="sd">        </span>
+<span class="sd">        Note:</span>
+<span class="sd">            Won&#39;t perform the following sequences:</span>
+
+<span class="sd">            *   ``&lt;&lt;ACTION&gt;&gt;`` , ``&lt;&lt;ACTION_INVERSE&gt;&gt;``</span>
+<span class="sd">            *   ``&lt;&lt;ACTION&gt;&gt;``, ``&lt;&lt;ACTION&gt;&gt;``, ``&lt;&lt;ACTION&gt;&gt;``, ``&lt;&lt;ACTION&gt;&gt;``</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            n_steps (int, optional): The number of :class:`Rubix Cube &lt;Cube&gt;` </span>
+<span class="sd">                manipulations to be applied to the :attr:`game_cube`.</span>
+
+<span class="sd">                Note:</span>
+<span class="sd">                    Valid range of values, 0 &lt;= ``n_steps`` &lt;= 500. Won&#39;t </span>
+<span class="sd">                    call any :class:`Cube` function(s) if not in range.</span>
+
+<span class="sd">            cube_funcs (List[str], optional): Sub-list of :attr:`CUBE_FUNCS`</span>
+<span class="sd">                that defines the options for manipulating the cube. Default</span>
+<span class="sd">                value is ``None`` which allows all functions in </span>
+<span class="sd">                :attr:`CUBE_FUNCS` to be selected.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span></div></div>
     
 
 

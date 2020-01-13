@@ -310,7 +310,7 @@ class Cube_Game(object):
     #==========================================================================
     #       GAME-PLAY METHOD(s)
     #==========================================================================
-    def move_cube(self, cube_func : str):
+    def manipulate_cube(self, cube_func : str):
         """Function that interfaces the :class:`Cube_Game` class with the
         :class:`Cube` class to turn the layers or rotate the orientation.
 
@@ -365,6 +365,32 @@ class Cube_Game(object):
 
 
     
+    def scramble_cube(self, n_steps : int = 50, cube_funcs : List[str] = None):
+        """Scrambles the :attr:`game_cube` attribute by applying a sequence of 
+        ``n_steps`` cube manipulations defined by a provided sub-set of 
+        functions
+        cube functions,
+        
+        Note:
+            Won't perform the following sequences:
+
+            *   ``<<ACTION>>`` , ``<<ACTION_INVERSE>>``
+            *   ``<<ACTION>>``, ``<<ACTION>>``, ``<<ACTION>>``, ``<<ACTION>>``
+
+        Args:
+            n_steps (int, optional): The number of :class:`Rubix Cube <Cube>` 
+                manipulations to be applied to the :attr:`game_cube`.
+
+                Note:
+                    Valid range of values, 0 <= ``n_steps`` <= 500. Won't 
+                    call any :class:`Cube` function(s) if not in range.
+
+            cube_funcs (List[str], optional): Sub-list of :attr:`CUBE_FUNCS`
+                that defines the options for manipulating the cube. Default
+                value is ``None`` which allows all functions in 
+                :attr:`CUBE_FUNCS` to be selected.
+        
+        """
     
 
 
