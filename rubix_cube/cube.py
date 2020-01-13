@@ -33,11 +33,9 @@ Module Contents
 
         .. todo::
            
-           *    Need to finish implementing the ``middle``, ``equator`` , and 
-                ``standing`` middle row movements and their inverses.
-           *    Need to finish implementing the ``pitch`` , ``roll``, and 
-                ``raw`` cube re-orientation methods and their inverses.
            *    Need to finish implementing the ``get_num_solved_rings``.
+           *    Need to finish implementing the ``pitch``, ``roll``, and
+                ``yaw`` cube re-orientation methods and their inverses.
 
         .. figure:: ./../../misc/flattened_cube.png
            :name: flattened_cube
@@ -377,6 +375,7 @@ class Cube(object):
             self.faces['BACK_FACE'][2,:] = self.faces['RIGHT_FACE'][2,:]
             self.faces['RIGHT_FACE'][2,:] = temp
 
+
     def down_inverse(self):
         """Down Inverse Move
         """
@@ -401,9 +400,9 @@ class Cube(object):
                                                 axes=(1,0))
 
             temp = self.faces['UP_FACE'][2,:]
-            self.faces['UP_FACE'][2,:] = self.faces['LEFT_FACE'][:,2]
+            self.faces['UP_FACE'][2,:] = np.flip(self.faces['LEFT_FACE'][:,2])
             self.faces['LEFT_FACE'][:,2] = self.faces['DOWN_FACE'][0,:]
-            self.faces['DOWN_FACE'][0,:] = self.faces['RIGHT_FACE'][:,0]
+            self.faces['DOWN_FACE'][0,:] = np.flip(self.faces['RIGHT_FACE'][:,0])
             self.faces['RIGHT_FACE'][:,0] = temp
 
 
@@ -416,9 +415,9 @@ class Cube(object):
 
             temp = self.faces['UP_FACE'][2,:]
             self.faces['UP_FACE'][2,:] = self.faces['RIGHT_FACE'][:,0]
-            self.faces['RIGHT_FACE'][:,0] = self.faces['DOWN_FACE'][0,:]
+            self.faces['RIGHT_FACE'][:,0] = np.flip(self.faces['DOWN_FACE'][0,:])
             self.faces['DOWN_FACE'][0,:] = self.faces['LEFT_FACE'][:,2]
-            self.faces['LEFT_FACE'][:,2] = temp
+            self.faces['LEFT_FACE'][:,2] = np.flip(temp)
 
 
     def back(self):
@@ -430,9 +429,9 @@ class Cube(object):
 
             temp = self.faces['DOWN_FACE'][2,:]
             self.faces['DOWN_FACE'][2,:] = self.faces['LEFT_FACE'][:,0]
-            self.faces['LEFT_FACE'][:,0] = self.faces['UP_FACE'][0,:]
+            self.faces['LEFT_FACE'][:,0] = np.flip(self.faces['UP_FACE'][0,:])
             self.faces['UP_FACE'][0,:] = self.faces['RIGHT_FACE'][:,2]
-            self.faces['RIGHT_FACE'][:,2] = temp
+            self.faces['RIGHT_FACE'][:,2] = np.flip(temp)
 
 
     def back_inverse(self):
@@ -461,8 +460,8 @@ class Cube(object):
             temp = self.faces['DOWN_FACE'][:,0]
             self.faces['DOWN_FACE'][:,0] = self.faces['FRONT_FACE'][:,0]
             self.faces['FRONT_FACE'][:,0] = self.faces['UP_FACE'][:,0]
-            self.faces['UP_FACE'][:,0] = self.faces['BACK_FACE'][:,2]
-            self.faces['BACK_FACE'][:,2] = temp
+            self.faces['UP_FACE'][:,0] = np.flip(self.faces['BACK_FACE'][:,2])
+            self.faces['BACK_FACE'][:,2] = np.flip(temp)
 
 
     def left_inverse(self):
@@ -473,8 +472,8 @@ class Cube(object):
             self.faces['LEFT_FACE'] = np.rot90(self.faces['LEFT_FACE'])
 
             temp = self.faces['DOWN_FACE'][:,0]
-            self.faces['DOWN_FACE'][:,0] = self.faces['BACK_FACE'][:,2]
-            self.faces['BACK_FACE'][:,2] = self.faces['UP_FACE'][:,0]
+            self.faces['DOWN_FACE'][:,0] = np.flip(self.faces['BACK_FACE'][:,2])
+            self.faces['BACK_FACE'][:,2] = np.flip(self.faces['UP_FACE'][:,0])
             self.faces['UP_FACE'][:,0] = self.faces['FRONT_FACE'][:,0] 
             self.faces['FRONT_FACE'][:,0] = temp
 
@@ -490,8 +489,8 @@ class Cube(object):
             temp = self.faces['UP_FACE'][:,2]
             self.faces['UP_FACE'][:,2] = self.faces['FRONT_FACE'][:,2]
             self.faces['FRONT_FACE'][:,2] = self.faces['DOWN_FACE'][:,2]
-            self.faces['DOWN_FACE'][:,2] = self.faces['BACK_FACE'][:,0]
-            self.faces['BACK_FACE'][:,0] = temp
+            self.faces['DOWN_FACE'][:,2] = np.flip(self.faces['BACK_FACE'][:,0])
+            self.faces['BACK_FACE'][:,0] = np.flip(temp)
 
 
     def right_inverse(self):
@@ -502,8 +501,8 @@ class Cube(object):
             self.faces['RIGHT_FACE'] = np.rot90(self.faces['RIGHT_FACE'])
 
             temp = self.faces['UP_FACE'][:,2]
-            self.faces['UP_FACE'][:,2] = self.faces['BACK_FACE'][:,0]
-            self.faces['BACK_FACE'][:,0] = self.faces['DOWN_FACE'][:,2]
+            self.faces['UP_FACE'][:,2] = np.flip(self.faces['BACK_FACE'][:,0])
+            self.faces['BACK_FACE'][:,0] = np.flip(self.faces['DOWN_FACE'][:,2])
             self.faces['DOWN_FACE'][:,2] = self.faces['FRONT_FACE'][:,2]
             self.faces['FRONT_FACE'][:,2] = temp
 
@@ -513,42 +512,72 @@ class Cube(object):
         """
         if self.is_well_formed():
 
-            print("M")
+            temp = self.faces['DOWN_FACE'][:,1]
+            self.faces['DOWN_FACE'][:,1] = self.faces['FRONT_FACE'][:,1]
+            self.faces['FRONT_FACE'][:,1] = self.faces['UP_FACE'][:,1]
+            self.faces['UP_FACE'][:,1] = np.flip(self.faces['BACK_FACE'][:,1])
+            self.faces['BACK_FACE'][:,1] = np.flip(temp)
+
 
     def middle_inverse(self):
         """Middle Slice Inverse Move
         """
         if self.is_well_formed():
 
-            print("M")
+            temp = self.faces['DOWN_FACE'][:,0]
+            self.faces['DOWN_FACE'][:,0] = np.flip(self.faces['BACK_FACE'][:,2])
+            self.faces['BACK_FACE'][:,2] = np.flip(self.faces['UP_FACE'][:,0])
+            self.faces['UP_FACE'][:,0] = self.faces['FRONT_FACE'][:,0] 
+            self.faces['FRONT_FACE'][:,0] = temp
+
 
     def equator(self):
         """Equator Slice Move
         """
         if self.is_well_formed():
 
-            print("M")
+            temp = self.faces['FRONT_FACE'][1,:]
+            self.faces['FRONT_FACE'][1,:] = self.faces['LEFT_FACE'][1,:]
+            self.faces['LEFT_FACE'][1,:] = self.faces['BACK_FACE'][1,:]
+            self.faces['BACK_FACE'][1,:] = self.faces['RIGHT_FACE'][1,:]
+            self.faces['RIGHT_FACE'][1,:] = temp
+
 
     def equator_inverse(self):
         """Equator Slice Inverse Move
         """
         if self.is_well_formed():
 
-            print("M")
+            temp = self.faces['FRONT_FACE'][1,:]
+            self.faces['FRONT_FACE'][1,:] = self.faces['RIGHT_FACE'][1,:]
+            self.faces['RIGHT_FACE'][1,:] = self.faces['BACK_FACE'][1,:]
+            self.faces['BACK_FACE'][1,:] = self.faces['LEFT_FACE'][1,:]
+            self.faces['LEFT_FACE'][1,:] = temp
+
 
     def standing(self):
         """Standing Slice Move
         """
         if self.is_well_formed():
 
-            print("M")
+            temp = self.faces['UP_FACE'][1,:]
+            self.faces['UP_FACE'][1,:] = np.flip(self.faces['LEFT_FACE'][:,1])
+            self.faces['LEFT_FACE'][:,1] = self.faces['DOWN_FACE'][1,:]
+            self.faces['DOWN_FACE'][1,:] = np.flip(self.faces['RIGHT_FACE'][:,1])
+            self.faces['RIGHT_FACE'][:,1] = temp
+
 
     def standing_inverse(self):
         """Standing Slice Inverse Move
         """
         if self.is_well_formed():
 
-            print("M")
+            temp = self.faces['UP_FACE'][1,:]
+            self.faces['UP_FACE'][1,:] = self.faces['RIGHT_FACE'][:,1]
+            self.faces['RIGHT_FACE'][:,1] = np.flip(self.faces['DOWN_FACE'][1,:])
+            self.faces['DOWN_FACE'][1,:] = self.faces['LEFT_FACE'][:,1]
+            self.faces['LEFT_FACE'][:,1] = np.flip(temp)
+
 
     def pitch(self):
         """Pitch Rotation
