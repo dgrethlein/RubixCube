@@ -34,9 +34,6 @@ Module Contents
         .. todo::
            
            *    Need to finish implementing the ``get_num_solved_rings``.
-           *    Need to finish implementing the ``rotate_pitch``, 
-                ``rotate_roll``, and ``rotate_yaw`` cube re-orientation methods
-                and their inverses.
 
         .. figure:: ./../../misc/flattened_cube.png
            :name: flattened_cube
@@ -585,42 +582,59 @@ class Cube(object):
         """
         if self.is_well_formed():
 
-            print("M")
+            self.move_left_inverse()
+            self.move_middle_inverse()
+            self.move_right()
+
 
     def rotate_pitch_inverse(self):
         """Pitch Inverse Rotation
         """
         if self.is_well_formed():
 
-            print("M")
+            self.move_left()
+            self.move_middle()
+            self.move_right_inverse()
+
 
     def rotate_roll(self):
         """Roll Rotation
         """
         if self.is_well_formed():
 
-            print("M")
+            self.move_front()
+            self.move_standing()
+            self.move_back_inverse()
+
 
     def rotate_roll_inverse(self):
         """Roll Inverse Rotation
         """
         if self.is_well_formed():
 
-            print("M")
+            self.move_front_inverse()
+            self.move_standing_inverse()
+            self.move_back()
+
 
     def rotate_yaw(self):
         """Yaw Rotation
         """
         if self.is_well_formed():
 
-            print("M")
+            self.move_up()
+            self.move_equator_inverse()
+            self.move_down_inverse()
+
 
     def rotate_yaw_inverse(self):
         """Yaw Inverse Rotation
         """
         if self.is_well_formed():
 
-            print("M")
+            self.move_up_inverse()
+            self.move_equator()
+            self.move_down()
 
     #==========================================================================
     #       CONSTANTS FOR DEFAULT CUBE-COLORS

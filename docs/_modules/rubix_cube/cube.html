@@ -212,9 +212,6 @@
 <span class="sd">        .. todo::</span>
 <span class="sd">           </span>
 <span class="sd">           *    Need to finish implementing the ``get_num_solved_rings``.</span>
-<span class="sd">           *    Need to finish implementing the ``rotate_pitch``, </span>
-<span class="sd">                ``rotate_roll``, and ``rotate_yaw`` cube re-orientation methods</span>
-<span class="sd">                and their inverses.</span>
 
 <span class="sd">        .. figure:: ./../../misc/flattened_cube.png</span>
 <span class="sd">           :name: flattened_cube</span>
@@ -763,42 +760,59 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
 
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;M&quot;</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_left_inverse</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_middle_inverse</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_right</span><span class="p">()</span></div>
+
 
 <div class="viewcode-block" id="Cube.rotate_pitch_inverse"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.rotate_pitch_inverse">[docs]</a>    <span class="k">def</span> <span class="nf">rotate_pitch_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Pitch Inverse Rotation</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
 
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;M&quot;</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_left</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_middle</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_right_inverse</span><span class="p">()</span></div>
+
 
 <div class="viewcode-block" id="Cube.rotate_roll"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.rotate_roll">[docs]</a>    <span class="k">def</span> <span class="nf">rotate_roll</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Roll Rotation</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
 
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;M&quot;</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_front</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_standing</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_back_inverse</span><span class="p">()</span></div>
+
 
 <div class="viewcode-block" id="Cube.rotate_roll_inverse"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.rotate_roll_inverse">[docs]</a>    <span class="k">def</span> <span class="nf">rotate_roll_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Roll Inverse Rotation</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
 
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;M&quot;</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_front_inverse</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_standing_inverse</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_back</span><span class="p">()</span></div>
+
 
 <div class="viewcode-block" id="Cube.rotate_yaw"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.rotate_yaw">[docs]</a>    <span class="k">def</span> <span class="nf">rotate_yaw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Yaw Rotation</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
 
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;M&quot;</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_up</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_equator_inverse</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_down_inverse</span><span class="p">()</span></div>
+
 
 <div class="viewcode-block" id="Cube.rotate_yaw_inverse"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.rotate_yaw_inverse">[docs]</a>    <span class="k">def</span> <span class="nf">rotate_yaw_inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Yaw Inverse Rotation</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
 
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;M&quot;</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_up_inverse</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_equator</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">move_down</span><span class="p">()</span></div>
 
     <span class="c1">#==========================================================================</span>
     <span class="c1">#       CONSTANTS FOR DEFAULT CUBE-COLORS</span>
