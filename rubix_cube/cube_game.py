@@ -7,7 +7,8 @@ Module Description
 Collection of methods that define the main Rubix :class:`Cube Game <Cube_Game>`
 class and how it manipulates a :class:`Cube <rubix_cube.cube.Cube>`
 object, prints to console, logs a history of both moves and re-orientations, 
-scrambles the state of the cube, and loads
+scrambles the state of the cube, times game-play, and performs file-system
+loading and saving of games.
 
 
 Module Contents
@@ -15,6 +16,14 @@ Module Contents
 
     *   :class:`Cube_Game` details code for manipulating :class:`Rubix 
         Cube(s) <rubix_cube.cube.Cube>`.
+
+        .. todo::
+
+           *    Implement file I/O operations (loading and saving games).
+           *    Implement scramble cube functions.
+           *    Implement color changing functions.
+           *    Implement game clock functions.
+
 
 .. moduleauthor:: David Grethlein <djg329@drexel.edu>
 
