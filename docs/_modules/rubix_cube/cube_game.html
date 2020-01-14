@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rubix_cube.cube_game &mdash; Rubix Cube 0.1.5 documentation</title>
+  <title>rubix_cube.cube_game &mdash; Rubix Cube 0.1.6 documentation</title>
   
 
   
@@ -213,6 +213,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span> 
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span> <span class="p">,</span> <span class="n">randrange</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -306,6 +307,31 @@
                   <span class="s1">&#39;Yi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_yaw_inverse</span><span class="p">,</span>
                   <span class="s1">&#39;Z&#39;</span>  <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">,</span>
                   <span class="s1">&#39;Zi&#39;</span> <span class="p">:</span> <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll_inverse</span><span class="p">}</span>
+
+    <span class="n">INVERSE_FUNCS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;U&#39;</span>  <span class="p">:</span> <span class="s1">&#39;Ui&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Ui&#39;</span> <span class="p">:</span> <span class="s1">&#39;U&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;D&#39;</span>  <span class="p">:</span> <span class="s1">&#39;Di&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Di&#39;</span> <span class="p">:</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;L&#39;</span>  <span class="p">:</span> <span class="s1">&#39;Li&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Li&#39;</span> <span class="p">:</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;R&#39;</span>  <span class="p">:</span> <span class="s1">&#39;Ri&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Ri&#39;</span> <span class="p">:</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;F&#39;</span>  <span class="p">:</span> <span class="s1">&#39;Fi&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Fi&#39;</span> <span class="p">:</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;B&#39;</span>  <span class="p">:</span> <span class="s1">&#39;Bi&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Bi&#39;</span> <span class="p">:</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;M&#39;</span>  <span class="p">:</span> <span class="s1">&#39;Mi&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Mi&#39;</span> <span class="p">:</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;E&#39;</span>  <span class="p">:</span> <span class="s1">&#39;Ei&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Ei&#39;</span> <span class="p">:</span> <span class="s1">&#39;E&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;S&#39;</span>  <span class="p">:</span> <span class="s1">&#39;Si&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Si&#39;</span> <span class="p">:</span> <span class="s1">&#39;S&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;X&#39;</span>  <span class="p">:</span> <span class="s1">&#39;Xi&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Xi&#39;</span> <span class="p">:</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Y&#39;</span>  <span class="p">:</span> <span class="s1">&#39;Yi&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Yi&#39;</span> <span class="p">:</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Z&#39;</span>  <span class="p">:</span> <span class="s1">&#39;Zi&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Zi&#39;</span> <span class="p">:</span> <span class="s1">&#39;Z&#39;</span><span class="p">}</span>
 
     <span class="c1">#==========================================================================</span>
     <span class="c1">#       CLASS CONSTRUCTOR</span>
@@ -548,24 +574,19 @@
 
 
     
-<div class="viewcode-block" id="Cube_Game.scramble_cube"><a class="viewcode-back" href="../../rubix_cube.cube_game.html#rubix_cube.cube_game.Cube_Game.scramble_cube">[docs]</a>    <span class="k">def</span> <span class="nf">scramble_cube</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_steps</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">cube_funcs</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Scrambles the :attr:`game_cube` attribute by applying a sequence of </span>
-<span class="sd">        ``n_steps`` cube manipulations defined by a provided sub-set of </span>
-<span class="sd">        functions</span>
-<span class="sd">        cube functions,</span>
-<span class="sd">        </span>
-<span class="sd">        Note:</span>
-<span class="sd">            Won&#39;t perform the following sequences:</span>
-
-<span class="sd">            *   ``&lt;&lt;ACTION&gt;&gt;`` , ``&lt;&lt;ACTION_INVERSE&gt;&gt;``</span>
-<span class="sd">            *   ``&lt;&lt;ACTION&gt;&gt;``, ``&lt;&lt;ACTION&gt;&gt;``, ``&lt;&lt;ACTION&gt;&gt;``, ``&lt;&lt;ACTION&gt;&gt;``</span>
+<div class="viewcode-block" id="Cube_Game.get_scramble_sequence"><a class="viewcode-back" href="../../rubix_cube.cube_game.html#rubix_cube.cube_game.Cube_Game.get_scramble_sequence">[docs]</a>    <span class="k">def</span> <span class="nf">get_scramble_sequence</span><span class="p">(</span><span class="n">n_steps</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+                              <span class="n">cube_funcs</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Compiles a sequence of moves for scrambling the :attr:`game_cube`</span>
+<span class="sd">        attribute for applying a sequence of ``n_steps`` semi-randomly selected</span>
+<span class="sd">        cube manipulations using a defined a provided sub-set of cube functions</span>
+<span class="sd">        ``cube_funcs``.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            n_steps (int, optional): The number of :class:`Rubix Cube &lt;Cube&gt;` </span>
 <span class="sd">                manipulations to be applied to the :attr:`game_cube`.</span>
 
 <span class="sd">                Note:</span>
-<span class="sd">                    Valid range of values, 0 &lt;= ``n_steps`` &lt;= 500. Won&#39;t </span>
+<span class="sd">                    Valid range of values, 0 &lt; ``n_steps`` &lt;= 500. Won&#39;t </span>
 <span class="sd">                    call any :class:`Cube` function(s) if not in range.</span>
 
 <span class="sd">            cube_funcs (List[str], optional): Sub-list of :attr:`CUBE_FUNCS`</span>
@@ -573,8 +594,91 @@
 <span class="sd">                value is ``None`` which allows all functions in </span>
 <span class="sd">                :attr:`CUBE_FUNCS` to be selected.</span>
 <span class="sd">        </span>
-<span class="sd">        &quot;&quot;&quot;</span></div></div>
+<span class="sd">        Returns:</span>
+<span class="sd">            List[str]: **sequence** - A list of cube manipulation function </span>
+<span class="sd">            str(s) for use with :func:`manipulate_cube` function.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            Won&#39;t perform the following sequences:</span>
+
+<span class="sd">            *   ``&lt;&lt;ACTION&gt;&gt;`` , ``&lt;&lt;ACTION_INVERSE&gt;&gt;``</span>
+<span class="sd">            *   ``&lt;&lt;ACTION&gt;&gt;``, ``&lt;&lt;ACTION&gt;&gt;``, ``&lt;&lt;ACTION&gt;&gt;``, ``&lt;&lt;ACTION&gt;&gt;``</span>
+<span class="sd">        </span>
+<span class="sd">            .. code-block::</span>
+<span class="sd">               :name: scramble_cube_INVERSE_FUNCS</span>
+<span class="sd">               :linenos:</span>
+<span class="sd">               :caption: :class:`Cube_Game` static :attr:`INVERSE_FUNCS` attribute</span>
+<span class="sd">                    for looking up the inverse function for each potential cube</span>
+<span class="sd">                    manipulation.</span>
+<span class="sd">            </span>
+<span class="sd">               INVERSE_FUNCS = {&#39;U&#39;  : &#39;Ui&#39;,</span>
+<span class="sd">                                &#39;Ui&#39; : &#39;U&#39;,</span>
+<span class="sd">                                &#39;D&#39;  : &#39;Di&#39;,</span>
+<span class="sd">                                &#39;Di&#39; : &#39;D&#39;,</span>
+<span class="sd">                                &#39;L&#39;  : &#39;Li&#39;,</span>
+<span class="sd">                                &#39;Li&#39; : &#39;L&#39;,</span>
+<span class="sd">                                &#39;R&#39;  : &#39;Ri&#39;,</span>
+<span class="sd">                                &#39;Ri&#39; : &#39;R&#39;,</span>
+<span class="sd">                                &#39;F&#39;  : &#39;Fi&#39;,</span>
+<span class="sd">                                &#39;Fi&#39; : &#39;F&#39;,</span>
+<span class="sd">                                &#39;B&#39;  : &#39;Bi&#39;,</span>
+<span class="sd">                                &#39;Bi&#39; : &#39;B&#39;,</span>
+<span class="sd">                                &#39;M&#39;  : &#39;Mi&#39;,</span>
+<span class="sd">                                &#39;Mi&#39; : &#39;M&#39;,</span>
+<span class="sd">                                &#39;E&#39;  : &#39;Ei&#39;,</span>
+<span class="sd">                                &#39;Ei&#39; : &#39;E&#39;,</span>
+<span class="sd">                                &#39;S&#39;  : &#39;Si&#39;,</span>
+<span class="sd">                                &#39;Si&#39; : &#39;S&#39;,</span>
+<span class="sd">                                &#39;X&#39;  : &#39;Xi&#39;,</span>
+<span class="sd">                                &#39;Xi&#39; : &#39;X&#39;,</span>
+<span class="sd">                                &#39;Y&#39;  : &#39;Yi&#39;,</span>
+<span class="sd">                                &#39;Yi&#39; : &#39;Y&#39;,</span>
+<span class="sd">                                &#39;Z&#39;  : &#39;Zi&#39;,</span>
+<span class="sd">                                &#39;Zi&#39; : &#39;Z&#39;}</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
     
+        <span class="c1"># Default length for sequence of random moves to be generated</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_steps</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>\
+        <span class="ow">or</span> <span class="ow">not</span> <span class="p">(</span><span class="n">n_steps</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">n_steps</span> <span class="o">&lt;=</span> <span class="mi">500</span><span class="p">):</span>
+            <span class="n">n_steps</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Default list of cube functions is all of them</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cube_funcs</span> <span class="p">,</span> <span class="nb">list</span><span class="p">)</span>\
+        <span class="ow">or</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="n">func</span> <span class="ow">in</span> <span class="n">Cube_Game</span><span class="o">.</span><span class="n">CUBE_FUNCS</span> <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">cube_funcs</span><span class="p">]):</span>
+            <span class="n">cube_funcs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">Cube_Game</span><span class="o">.</span><span class="n">CUBE_FUNCS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+        <span class="n">sequence</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n_steps</span><span class="p">:</span>
+
+            <span class="c1"># Generates a random choice from the current options</span>
+            <span class="c1"># of potential cube-functions to call</span>
+            <span class="n">choice_func</span> <span class="o">=</span> <span class="n">cube_funcs</span><span class="p">[</span><span class="n">randrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cube_funcs</span><span class="p">))]</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">sequence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">choice_func</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">last_func</span> <span class="o">=</span> <span class="n">sequence</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+                <span class="c1"># No &lt;&lt;FUNCTION&gt;&gt; , &lt;&lt;INVERSE_FUNCTION&gt;&gt; sub-sequences</span>
+                <span class="k">if</span> <span class="n">last_func</span> <span class="o">==</span> <span class="n">Cube_Game</span><span class="o">.</span><span class="n">INVERSE_FUNCS</span><span class="p">[</span><span class="n">choice_func</span><span class="p">]:</span>
+                    <span class="k">continue</span>
+
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+
+                    <span class="n">last_three</span> <span class="o">=</span> <span class="n">sequence</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span>
+
+                    <span class="c1"># No 4 of the same function in a row</span>
+                    <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="n">func</span> <span class="o">==</span> <span class="n">choice_func</span> <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">last_three</span><span class="p">]):</span>
+                        <span class="k">continue</span>
+
+            <span class="n">sequence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">choice_func</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">sequence</span></div></div>
+
+
+
 
 
 </pre></div>

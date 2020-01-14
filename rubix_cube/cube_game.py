@@ -30,6 +30,7 @@ Module Contents
 """
 
 from pathlib import Path 
+from random import randint , randrange
 
 import os
 import sys
@@ -123,6 +124,31 @@ class Cube_Game(object):
                   'Yi' : Cube.rotate_yaw_inverse,
                   'Z'  : Cube.rotate_roll,
                   'Zi' : Cube.rotate_roll_inverse}
+
+    INVERSE_FUNCS = {'U'  : 'Ui',
+                     'Ui' : 'U',
+                     'D'  : 'Di',
+                     'Di' : 'D',
+                     'L'  : 'Li',
+                     'Li' : 'L',
+                     'R'  : 'Ri',
+                     'Ri' : 'R',
+                     'F'  : 'Fi',
+                     'Fi' : 'F',
+                     'B'  : 'Bi',
+                     'Bi' : 'B',
+                     'M'  : 'Mi',
+                     'Mi' : 'M',
+                     'E'  : 'Ei',
+                     'Ei' : 'E',
+                     'S'  : 'Si',
+                     'Si' : 'S',
+                     'X'  : 'Xi',
+                     'Xi' : 'X',
+                     'Y'  : 'Yi',
+                     'Yi' : 'Y',
+                     'Z'  : 'Zi',
+                     'Zi' : 'Z'}
 
     #==========================================================================
     #       CLASS CONSTRUCTOR
@@ -365,24 +391,19 @@ class Cube_Game(object):
 
 
     
-    def scramble_cube(self, n_steps : int = 50, cube_funcs : List[str] = None):
-        """Scrambles the :attr:`game_cube` attribute by applying a sequence of 
-        ``n_steps`` cube manipulations defined by a provided sub-set of 
-        functions
-        cube functions,
-        
-        Note:
-            Won't perform the following sequences:
-
-            *   ``<<ACTION>>`` , ``<<ACTION_INVERSE>>``
-            *   ``<<ACTION>>``, ``<<ACTION>>``, ``<<ACTION>>``, ``<<ACTION>>``
+    def get_scramble_sequence(n_steps : int = 50,
+                              cube_funcs : List[str] = None) -> List[str]:
+        """Compiles a sequence of moves for scrambling the :attr:`game_cube`
+        attribute for applying a sequence of ``n_steps`` semi-randomly selected
+        cube manipulations using a defined a provided sub-set of cube functions
+        ``cube_funcs``.
 
         Args:
             n_steps (int, optional): The number of :class:`Rubix Cube <Cube>` 
                 manipulations to be applied to the :attr:`game_cube`.
 
                 Note:
-                    Valid range of values, 0 <= ``n_steps`` <= 500. Won't 
+                    Valid range of values, 0 < ``n_steps`` <= 500. Won't 
                     call any :class:`Cube` function(s) if not in range.
 
             cube_funcs (List[str], optional): Sub-list of :attr:`CUBE_FUNCS`
@@ -390,7 +411,90 @@ class Cube_Game(object):
                 value is ``None`` which allows all functions in 
                 :attr:`CUBE_FUNCS` to be selected.
         
+        Returns:
+            List[str]: **sequence** - A list of cube manipulation function 
+            str(s) for use with :func:`manipulate_cube` function.
+
+        Note:
+            Won't perform the following sequences:
+
+            *   ``<<ACTION>>`` , ``<<ACTION_INVERSE>>``
+            *   ``<<ACTION>>``, ``<<ACTION>>``, ``<<ACTION>>``, ``<<ACTION>>``
+        
+            .. code-block::
+               :name: scramble_cube_INVERSE_FUNCS
+               :linenos:
+               :caption: :class:`Cube_Game` static :attr:`INVERSE_FUNCS` attribute
+                    for looking up the inverse function for each potential cube
+                    manipulation.
+            
+               INVERSE_FUNCS = {'U'  : 'Ui',
+                                'Ui' : 'U',
+                                'D'  : 'Di',
+                                'Di' : 'D',
+                                'L'  : 'Li',
+                                'Li' : 'L',
+                                'R'  : 'Ri',
+                                'Ri' : 'R',
+                                'F'  : 'Fi',
+                                'Fi' : 'F',
+                                'B'  : 'Bi',
+                                'Bi' : 'B',
+                                'M'  : 'Mi',
+                                'Mi' : 'M',
+                                'E'  : 'Ei',
+                                'Ei' : 'E',
+                                'S'  : 'Si',
+                                'Si' : 'S',
+                                'X'  : 'Xi',
+                                'Xi' : 'X',
+                                'Y'  : 'Yi',
+                                'Yi' : 'Y',
+                                'Z'  : 'Zi',
+                                'Zi' : 'Z'}
+
         """
     
+        # Default length for sequence of random moves to be generated
+        if not isinstance(n_steps, int)\
+        or not (n_steps > 0 and n_steps <= 500):
+            n_steps = 0
+
+        # Default list of cube functions is all of them
+        if not isinstance(cube_funcs , list)\
+        or not all([func in Cube_Game.CUBE_FUNCS for func in cube_funcs]):
+            cube_funcs = list(Cube_Game.CUBE_FUNCS.keys())
+
+        sequence = []
+
+        while len(sequence) < n_steps:
+
+            # Generates a random choice from the current options
+            # of potential cube-functions to call
+            choice_func = cube_funcs[randrange(len(cube_funcs))]
+
+            if len(sequence) == 0:
+                sequence.append(choice_func)
+            else:
+                last_func = sequence[-1]
+
+                # No <<FUNCTION>> , <<INVERSE_FUNCTION>> sub-sequences
+                if last_func == Cube_Game.INVERSE_FUNCS[choice_func]:
+                    continue
+
+                if len(sequence) > 2:
+
+                    last_three = sequence[-3:]
+
+                    # No 4 of the same function in a row
+                    if all([func == choice_func for func in last_three]):
+                        continue
+
+            sequence.append(choice_func)
+
+        return sequence
+
+
+
 
 

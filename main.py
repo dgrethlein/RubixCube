@@ -43,7 +43,6 @@ test_cube_parser = subparsers.add_parser('test_cube',
 
 cg = Cube_Game(verbose=True)
 
-
 while True:
 	fig , ax = plt.subplots(figsize=(8,5))
 	ax.set_xlim(left=-600,right=900)
@@ -56,18 +55,55 @@ while True:
 	plt.show(block=False)
 
 	move = input("Move the Cube <Q to quit>: ")
+
 	if "Q" in move\
-	or 'q' in move:
+	or "q" in move:
+		cg.game_log['events'].append({'type' : '<<__QUIT_GAME__>>'})
 		plt.close(fig)
 		break
+
+	elif move == "S"\
+	or move == "s"\
+	or move == "Scramble"\
+	or move == "scramble":
+		
+		sequence = Cube_Game.get_scramble_sequence()
+		
+		if len(sequence) > 0:
+			cg.game_log['events'].append({'type' : '<<__START_SCRAMBLE__>>'})
+
+			plt.close(fig)
+
+			for mv in sequence:
+				fig , ax = plt.subplots(figsize=(8,5))
+				ax.set_xlim(left=-600,right=900)
+				ax.set_ylim(top=500,bottom=-500)	
+				
+				plot_cube_2D(ax=ax, cube=cg.game_cube)
+
+				plt.show(block=False)
+
+				plt.pause(0.05)
+
+				cg.manipulate_cube(mv)
+
+				plt.close(fig)
+
+			cg.game_log['events'].append({'type' : '<<__END_SCRAMBLE__>>'})
+
+			continue
+
 	else:
 		cg.manipulate_cube(move)
-		plt.close(fig)
+		
+	plt.close(fig)
 
-
+print("\n--------------------------------------------------------------")
+print(f"[DEBUG]\tGame log for game : '{cg.game_name}'")
+print("--------------------------------------------------------------")
 for e_idx , event in enumerate(cg.game_log['events']):
-	print(f"[DEBUG]\tEvent[{e_idx}] Type : '{event['type']}'")
-
+	print(f"\t*\tEvent[{e_idx}] Type : '{event['type']}'")
+print("--------------------------------------------------------------")
 
 
 #==============================================================================
