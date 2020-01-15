@@ -9,12 +9,19 @@ Welcome to Rubix Cube's documentation!
 
 Installation can be done via ``pip install rubix-cube``.
 
+
+.. raw:: html 
+	
+	<video width="700" height="500" autoplay loop controls>
+	  <source src="../../../misc/scramble_2d.mov">
+	  Your browser does not support the video tag.
+	</video>
+
 .. toctree::
    :maxdepth: 4
    :caption: Contents:
 
    modules
-
 
 Indices and tables
 ==================
