@@ -62,9 +62,7 @@ while True:
 		plt.close(fig)
 		break
 
-	elif move == "S"\
-	or move == "s"\
-	or move == "Scramble"\
+	elif move == "Scramble"\
 	or move == "scramble":
 		
 		sequence = Cube_Game.get_scramble_sequence()
