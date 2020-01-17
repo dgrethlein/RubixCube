@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
 
    rubix_cube.util
+   rubix_cube.tests
 
 Submodules
 ----------

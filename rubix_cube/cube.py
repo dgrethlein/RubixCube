@@ -34,6 +34,11 @@ Module Contents
         .. todo::
            
            *    Need to finish implementing the ``get_num_solved_rings``.
+           *    Need to finish implementing the ``are_equivalent_cubes``.
+           *    Need to finish implementing the ``__eq__`` operator.
+           *    Need to finish implementing the ``__ne__`` operator.
+           *    Need to finish implementing the ``__imod__`` operator
+                to call the ``are_equivalent_cubes`` function.
 
         .. figure:: ./../../misc/flattened_cube.png
            :name: flattened_cube
@@ -135,6 +140,35 @@ class Cube(object):
             if isinstance(faces, dict):
                 self.faces = faces          
 
+
+    #==========================================================================
+    #      OVERLOADED OPERATOR(s)
+    #==========================================================================
+    def __eq__(self, other) -> bool:
+        """
+
+        """
+
+        if self.is_well_formed()\
+        and isinstance(other , self.__class__)\
+        and other.is_well_formed():
+
+            for face , other_face in zip(self.faces , other.faces):
+                if not np.array_equal(self.faces[face],other.faces[other_face]):
+                    return False
+
+            return True
+
+        else:
+            return False
+
+
+    def __ne__(self, other) -> bool:
+        """
+
+        """
+
+        return not (self == other)
 
     #==========================================================================
     #       PROPERTY INTERFACE(s)
