@@ -8,14 +8,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rubix_cube.plot_cube_2d &mdash; Rubix Cube 0.1.6 documentation</title>
+  <title>rubix_cube.plot_cube_3d &mdash; Rubix Cube 0.1.6 documentation</title>
   
 
   
   
   
   
-    <link rel="canonical" href="https://dgrethlein.github.io/RubixCube/_modules/rubix_cube/plot_cube_2d.html"/>
+    <link rel="canonical" href="https://dgrethlein.github.io/RubixCube/_modules/rubix_cube/plot_cube_3d.html"/>
   
 
   
@@ -170,7 +170,7 @@
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
-      <li>rubix_cube.plot_cube_2d</li>
+      <li>rubix_cube.plot_cube_3d</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -185,23 +185,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for rubix_cube.plot_cube_2d</h1><div class="highlight"><pre>
+  <h1>Source code for rubix_cube.plot_cube_3d</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;2-D :class:`Rubix Cube &lt;Cube&gt;` plot rendering Module.</span>
+<span class="sd">&quot;&quot;&quot;3-D :class:`Rubix Cube &lt;Cube&gt;` plot rendering Module.</span>
 
 <span class="sd">Module Description</span>
 <span class="sd">==================</span>
 
-<span class="sd">    *   :func:`plot_cube_2D` method for plotting the :class:`Rubix Cube &lt;Cube&gt;`</span>
+<span class="sd">    *   :func:`plot_cube_3D` method for plotting the :class:`Rubix Cube &lt;Cube&gt;`</span>
 <span class="sd">        on a :class:`matplotlib Axes &lt;matplotlib.axes.Axes&gt;`.</span>
-
-<span class="sd">        .. figure:: ./../../misc/plot_cube_2D.png</span>
-<span class="sd">           :name: plot_cube_2d_img</span>
-<span class="sd">           :align: center</span>
-<span class="sd">           :width: 75%</span>
-<span class="sd">           </span>
-<span class="sd">           All 6 faces of the :class:`Rubix Cube &lt;Cube&gt;` are visible in this 2D</span>
-<span class="sd">           rendering.</span>
 
 <span class="sd">Module Contents</span>
 <span class="sd">===============</span>
@@ -222,68 +214,46 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
 
+<span class="kn">from</span> <span class="nn">matplotlib.axes</span> <span class="kn">import</span> <span class="n">Axes</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+
 <span class="kn">from</span> <span class="nn">.cube</span> <span class="kn">import</span> <span class="n">Cube</span>
+<span class="kn">from</span> <span class="nn">.cube_game</span> <span class="kn">import</span> <span class="n">Cube_Game</span>
 
 
-<span class="n">FACE_COORDS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;FRONT_FACE&#39;</span> <span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span>
-               <span class="s1">&#39;LEFT_FACE&#39;</span>  <span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">450</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span>
-               <span class="s1">&#39;RIGHT_FACE&#39;</span> <span class="p">:</span> <span class="p">(</span><span class="mi">150</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span>
-               <span class="s1">&#39;BACK_FACE&#39;</span>  <span class="p">:</span> <span class="p">(</span><span class="mi">450</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span>
-               <span class="s1">&#39;UP_FACE&#39;</span>    <span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span><span class="mi">350</span><span class="p">),</span>
-               <span class="s1">&#39;DOWN_FACE&#39;</span>  <span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span><span class="o">-</span><span class="mi">250</span><span class="p">)}</span>
-
-
-<div class="viewcode-block" id="plot_cube_2D"><a class="viewcode-back" href="../../rubix_cube.plot_cube_2d.html#rubix_cube.plot_cube_2d.plot_cube_2D">[docs]</a><span class="k">def</span> <span class="nf">plot_cube_2D</span><span class="p">(</span><span class="n">ax</span> <span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span> <span class="p">,</span> <span class="n">cube</span> <span class="p">:</span> <span class="n">Cube</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Plots the :class:`Rubix Cube &lt;Cube&gt;` on a </span>
-<span class="sd">    :class:`matplotlib Axes &lt;matplotlib.axes.Axes&gt;` on a flattened 2-D</span>
-<span class="sd">    representation.</span>
-
+<div class="viewcode-block" id="is_3d_axes"><a class="viewcode-back" href="../../rubix_cube.plot_cube_3d.html#rubix_cube.plot_cube_3d.is_3d_axes">[docs]</a><span class="k">def</span> <span class="nf">is_3d_axes</span><span class="p">(</span><span class="n">ax</span> <span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Simply checks if the current object being examined is an instance of the</span>
+<span class="sd">    :class:`matplotlib Axes &lt;matplotlib.axes.Axes&gt;` parameterized to be a 3-D</span>
+<span class="sd">    plotting</span>
+<span class="sd">    </span>
 <span class="sd">    Args:</span>
-<span class="sd">        ax (plt.Axes): The :class:`matplotlib Axes &lt;matplotlib.axes.Axes&gt;`</span>
-<span class="sd">            on which the plotting will be done.</span>
-<span class="sd">        cube (Cube): :class:`Rubix Cube &lt;Cube&gt;` that will be plotted in a</span>
-<span class="sd">            flattened 2-D representation of all 6 sides.</span>
+<span class="sd">        ax (plt.Axes): Object to be tested if it is a </span>
+<span class="sd">            :class:`plt.Axes &lt;matplotlib.axes.Axes&gt;`</span>
+<span class="sd">    </span>
+<span class="sd">    Return:</span>
+<span class="sd">        ``True`` if object is an instance of </span>
+<span class="sd">        :class:`matplotlib Axes &lt;matplotlib.axes.Axes&gt;` initialized to be a</span>
+<span class="sd">        3-D projection. ``False`` otherwise.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        None.</span>
+<span class="sd">        .. code-block::</span>
+<span class="sd">           :name: is_3d_axes</span>
+<span class="sd">           :linenos:</span>
+<span class="sd">           :caption: Tests if the given object ``ax`` is a 3-D projection</span>
+<span class="sd">                or not.</span>
+
+<span class="sd">           if isinstance(ax, plt.Axes)\</span>
+<span class="sd">           and ax.name == &#39;3d&#39;:</span>
+<span class="sd">               return True</span>
+<span class="sd">           else:</span>
+<span class="sd">               return False</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># Ensures the arguments are well-formed.</span>
-    <span class="k">if</span> <span class="n">cube</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">()</span>\
-    <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ax</span> <span class="p">,</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">):</span>
-
-        <span class="k">for</span> <span class="n">face_name</span> <span class="ow">in</span> <span class="n">cube</span><span class="o">.</span><span class="n">faces</span><span class="p">:</span>
-
-            <span class="c1"># Grabs the local coordinates for each face</span>
-            <span class="n">face_local_coords</span> <span class="o">=</span> <span class="n">FACE_COORDS</span><span class="p">[</span><span class="n">face_name</span><span class="p">]</span>
-
-            <span class="c1"># Grabs the face values for filling in the plot for each tile</span>
-            <span class="c1"># in the 2-D representation.</span>
-            <span class="n">face_values</span> <span class="o">=</span> <span class="n">cube</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="n">face_name</span><span class="p">]</span>
-
-            <span class="c1">#print(f&quot;{face_name} : &quot;)</span>
-
-            <span class="k">for</span> <span class="n">row_idx</span> <span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">face_values</span><span class="p">):</span>
-
-                <span class="k">for</span> <span class="n">col_idx</span> <span class="p">,</span> <span class="n">color_val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
-
-                    <span class="n">tile_coords</span> <span class="o">=</span> <span class="p">(</span><span class="n">face_local_coords</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">100</span><span class="o">*</span><span class="n">col_idx</span><span class="p">,</span>
-                                   <span class="n">face_local_coords</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">100</span><span class="o">*</span><span class="n">row_idx</span><span class="p">)</span>
-
-                    <span class="c1">#print(f&quot;\t[{row_idx},{col_idx}] : {tile_coords}&quot;)</span>
-
-                    <span class="n">rect</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="n">tile_coords</span><span class="p">,</span>
-                                             <span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-                                             <span class="n">height</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-                                             <span class="n">facecolor</span><span class="o">=</span><span class="n">color_val</span><span class="p">,</span>
-                                             <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                                             <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
-
-                    <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span></div>
-
-
-
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">)</span>\
+    <span class="ow">and</span> <span class="n">ax</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;3d&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
 </pre></div>
 
            </div>

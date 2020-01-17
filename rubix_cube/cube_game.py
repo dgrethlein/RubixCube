@@ -389,7 +389,6 @@ class Cube_Game(object):
 
             self.game_log['events'].append({'type' : cube_func})
 
-
     
     def get_scramble_sequence(n_steps : int = 50,
                               cube_funcs : List[str] = None) -> List[str]:

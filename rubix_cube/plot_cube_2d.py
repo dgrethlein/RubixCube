@@ -5,7 +5,7 @@ Module Description
 ==================
 
     *   :func:`plot_cube_2D` method for plotting the :class:`Rubix Cube <Cube>`
-        in a :class:`matplotlib Figure <matplotlib.pyplot.Figure>`.
+        on a :class:`matplotlib Axes <matplotlib.axes.Axes>`.
 
         .. figure:: ./../../misc/plot_cube_2D.png
            :name: plot_cube_2d_img
@@ -35,7 +35,6 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 from .cube import Cube
-from .cube_game import Cube_Game
 
 
 FACE_COORDS = {'FRONT_FACE' : (-150,50),
@@ -47,11 +46,13 @@ FACE_COORDS = {'FRONT_FACE' : (-150,50),
 
 
 def plot_cube_2D(ax : plt.Axes , cube : Cube):
-    """Plots the :class:`Rubix Cube <Cube>` on a :class:`matplotlib.Figure`
-    in a flattened 2-D representation.
+    """Plots the :class:`Rubix Cube <Cube>` on a 
+    :class:`matplotlib Axes <matplotlib.axes.Axes>` on a flattened 2-D
+    representation.
 
     Args:
-        ax (plt.Axes): The axes on which the plotting will be done.
+        ax (plt.Axes): The :class:`matplotlib Axes <matplotlib.axes.Axes>`
+            on which the plotting will be done.
         cube (Cube): :class:`Rubix Cube <Cube>` that will be plotted in a
             flattened 2-D representation of all 6 sides.
 

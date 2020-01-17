@@ -8,14 +8,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rubix_cube.plot_cube_2d module &mdash; Rubix Cube 0.1.6 documentation</title>
+  <title>rubix_cube.plot_cube_3d module &mdash; Rubix Cube 0.1.6 documentation</title>
   
 
   
   
   
   
-    <link rel="canonical" href="https://dgrethlein.github.io/RubixCube/rubix_cube.plot_cube_2d.html"/>
+    <link rel="canonical" href="https://dgrethlein.github.io/RubixCube/rubix_cube.plot_cube_3d.html"/>
   
 
   
@@ -38,8 +38,7 @@
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="rubix_cube.plot_cube_3d module" href="rubix_cube.plot_cube_3d.html" />
-    <link rel="prev" title="rubix_cube.cube_game module" href="rubix_cube.cube_game.html" /> 
+    <link rel="prev" title="rubix_cube.plot_cube_2d module" href="rubix_cube.plot_cube_2d.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -108,14 +107,14 @@
 <li class="toctree-l5"><a class="reference internal" href="rubix_cube.cube_game.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">rubix_cube.plot_cube_2d module</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="#module-description">Module Description</a></li>
-<li class="toctree-l5"><a class="reference internal" href="#module-contents">Module Contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="rubix_cube.plot_cube_2d.html">rubix_cube.plot_cube_2d module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="rubix_cube.plot_cube_2d.html#module-description">Module Description</a></li>
+<li class="toctree-l5"><a class="reference internal" href="rubix_cube.plot_cube_2d.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="rubix_cube.plot_cube_3d.html">rubix_cube.plot_cube_3d module</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="rubix_cube.plot_cube_3d.html#module-description">Module Description</a></li>
-<li class="toctree-l5"><a class="reference internal" href="rubix_cube.plot_cube_3d.html#module-contents">Module Contents</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">rubix_cube.plot_cube_3d module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#module-description">Module Description</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
@@ -174,13 +173,13 @@
         
           <li><a href="rubix_cube.html">rubix_cube package</a> &raquo;</li>
         
-      <li>rubix_cube.plot_cube_2d module</li>
+      <li>rubix_cube.plot_cube_3d module</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/rubix_cube.plot_cube_2d.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/rubix_cube.plot_cube_3d.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -193,43 +192,49 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-rubix_cube.plot_cube_2d">
-<span id="rubix-cube-plot-cube-2d-module"></span><h1>rubix_cube.plot_cube_2d module<a class="headerlink" href="#module-rubix_cube.plot_cube_2d" title="Permalink to this headline">¶</a></h1>
-<p>2-D <code class="xref py py-class docutils literal notranslate"><span class="pre">Rubix</span> <span class="pre">Cube</span></code> plot rendering Module.</p>
+  <div class="section" id="module-rubix_cube.plot_cube_3d">
+<span id="rubix-cube-plot-cube-3d-module"></span><h1>rubix_cube.plot_cube_3d module<a class="headerlink" href="#module-rubix_cube.plot_cube_3d" title="Permalink to this headline">¶</a></h1>
+<p>3-D <code class="xref py py-class docutils literal notranslate"><span class="pre">Rubix</span> <span class="pre">Cube</span></code> plot rendering Module.</p>
 <div class="section" id="module-description">
 <h2>Module Description<a class="headerlink" href="#module-description" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div><ul>
-<li><p><a class="reference internal" href="#rubix_cube.plot_cube_2d.plot_cube_2D" title="rubix_cube.plot_cube_2d.plot_cube_2D"><code class="xref py py-func docutils literal notranslate"><span class="pre">plot_cube_2D()</span></code></a> method for plotting the <code class="xref py py-class docutils literal notranslate"><span class="pre">Rubix</span> <span class="pre">Cube</span></code>
-on a <a class="reference external" href="https://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib</span> <span class="pre">Axes</span></code></a>.</p>
-<div class="figure align-center" id="plot-cube-2d-img">
-<a class="reference internal image-reference" href="_images/plot_cube_2D.png"><img alt="_images/plot_cube_2D.png" src="_images/plot_cube_2D.png" style="width: 75%;" /></a>
-<p class="caption"><span class="caption-text">All 6 faces of the <code class="xref py py-class docutils literal notranslate"><span class="pre">Rubix</span> <span class="pre">Cube</span></code> are visible in this 2D
-rendering.</span><a class="headerlink" href="#plot-cube-2d-img" title="Permalink to this image">¶</a></p>
-</div>
-</li>
+<div><ul class="simple">
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">plot_cube_3D()</span></code> method for plotting the <code class="xref py py-class docutils literal notranslate"><span class="pre">Rubix</span> <span class="pre">Cube</span></code>
+on a <a class="reference external" href="https://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib</span> <span class="pre">Axes</span></code></a>.</p></li>
 </ul>
 </div></blockquote>
 </div>
 <div class="section" id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="rubix_cube.plot_cube_2d.plot_cube_2D">
-<code class="sig-prename descclassname">rubix_cube.plot_cube_2d.</code><code class="sig-name descname">plot_cube_2D</code><span class="sig-paren">(</span><em class="sig-param">ax: matplotlib.axes._axes.Axes</em>, <em class="sig-param">cube: rubix_cube.cube.Cube</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/plot_cube_2d.html#plot_cube_2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.plot_cube_2d.plot_cube_2D" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plots the <code class="xref py py-class docutils literal notranslate"><span class="pre">Rubix</span> <span class="pre">Cube</span></code> on a
-<a class="reference external" href="https://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib</span> <span class="pre">Axes</span></code></a> on a flattened 2-D
-representation.</p>
+<dt id="rubix_cube.plot_cube_3d.is_3d_axes">
+<code class="sig-prename descclassname">rubix_cube.plot_cube_3d.</code><code class="sig-name descname">is_3d_axes</code><span class="sig-paren">(</span><em class="sig-param">ax: matplotlib.axes._axes.Axes</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/rubix_cube/plot_cube_3d.html#is_3d_axes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.plot_cube_3d.is_3d_axes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simply checks if the current object being examined is an instance of the
+<a class="reference external" href="https://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib</span> <span class="pre">Axes</span></code></a> parameterized to be a 3-D
+plotting</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ax</strong> (<em>plt.Axes</em>) – The <a class="reference external" href="https://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib</span> <span class="pre">Axes</span></code></a>
-on which the plotting will be done.</p></li>
-<li><p><strong>cube</strong> (<a class="reference internal" href="rubix_cube.cube.html#rubix_cube.cube.Cube" title="rubix_cube.cube.Cube"><em>Cube</em></a>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">Rubix</span> <span class="pre">Cube</span></code> that will be plotted in a
-flattened 2-D representation of all 6 sides.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>ax</strong> (<em>plt.Axes</em>) – Object to be tested if it is a
+<a class="reference external" href="https://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">plt.Axes</span></code></a></p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><p><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if object is an instance of
+<a class="reference external" href="https://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib</span> <span class="pre">Axes</span></code></a> initialized to be a
+3-D projection. <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+<div class="literal-block-wrapper docutils container" id="is-3d-axes">
+<div class="code-block-caption"><span class="caption-text">Tests if the given object <code class="docutils literal notranslate"><span class="pre">ax</span></code> is a 3-D projection
+or not.</span><a class="headerlink" href="#is-3d-axes" title="Permalink to this code">¶</a></div>
+<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">)</span>           <span class="ow">and</span> <span class="n">ax</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;3d&#39;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="kc">True</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -245,10 +250,8 @@ flattened 2-D representation of all 6 sides.</p></li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="rubix_cube.plot_cube_3d.html" class="btn btn-neutral float-right" title="rubix_cube.plot_cube_3d module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="rubix_cube.cube_game.html" class="btn btn-neutral float-left" title="rubix_cube.cube_game module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="rubix_cube.plot_cube_2d.html" class="btn btn-neutral float-left" title="rubix_cube.plot_cube_2d module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

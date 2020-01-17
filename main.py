@@ -21,9 +21,11 @@ import json
 import argparse
 
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 from rubix_cube.cube_game import Cube_Game
 from rubix_cube.plot_cube_2d import plot_cube_2D
+from rubix_cube.plot_cube_3d import plot_cube_3D
 
 #==============================================================================
 #		ARG-PARSE SET-UP
@@ -102,6 +104,14 @@ print("--------------------------------------------------------------")
 for e_idx , event in enumerate(cg.game_log['events']):
 	print(f"\t*\tEvent[{e_idx}] Type : '{event['type']}'")
 print("--------------------------------------------------------------")
+
+
+fig = plt.figure(figsize=(7,7))
+ax = fig.gca(projection='3d')
+plot_cube_3D(ax , cg.game_cube)
+plt.show()
+
+
 
 
 #==============================================================================
