@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 
 from distutils.core import setup
+from setuptools import find_packages
+
 
 RELEASE_VERSION='0.1.6'
 
 setup(name = 'rubix_cube',
-      packages = ['rubix_cube'],   
+      packages = find_packages,   
       version = RELEASE_VERSION,    
       license='MIT',  
       description = 'Python Rubix Cube GUI package',
