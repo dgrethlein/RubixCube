@@ -187,13 +187,14 @@
             
   <h1>Source code for rubix_cube.plot_cube_3d</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;3-D :class:`Rubix Cube &lt;Cube&gt;` plot rendering Module.</span>
+<span class="sd">&quot;&quot;&quot;3-D Rubix :class:`Rubix Cube &lt;rubix_cube.cube.Cube&gt;` plot rendering Module.</span>
 
 <span class="sd">Module Description</span>
 <span class="sd">==================</span>
 
-<span class="sd">    *   :func:`plot_cube_3D` method for plotting the :class:`Rubix Cube &lt;Cube&gt;`</span>
-<span class="sd">        on a :class:`matplotlib Axes &lt;matplotlib.axes.Axes&gt;`.</span>
+<span class="sd">    *   :func:`plot_cube_3D` method for plotting the </span>
+<span class="sd">        :class:`Rubix Cube &lt;rubix_cube.cube.Cube&gt;` on a </span>
+<span class="sd">        :class:`matplotlib Axes &lt;matplotlib.axes.Axes&gt;`.</span>
 
 <span class="sd">Module Contents</span>
 <span class="sd">===============</span>
@@ -217,8 +218,9 @@
 <span class="kn">from</span> <span class="nn">matplotlib.axes</span> <span class="kn">import</span> <span class="n">Axes</span>
 <span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
 
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span><span class="p">,</span> <span class="n">combinations</span>
+
 <span class="kn">from</span> <span class="nn">.cube</span> <span class="kn">import</span> <span class="n">Cube</span>
-<span class="kn">from</span> <span class="nn">.cube_game</span> <span class="kn">import</span> <span class="n">Cube_Game</span>
 
 
 <div class="viewcode-block" id="is_3d_axes"><a class="viewcode-back" href="../../rubix_cube.plot_cube_3d.html#rubix_cube.plot_cube_3d.is_3d_axes">[docs]</a><span class="k">def</span> <span class="nf">is_3d_axes</span><span class="p">(</span><span class="n">ax</span> <span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -241,7 +243,7 @@
 <span class="sd">           :caption: Tests if the given object ``ax`` is a 3-D projection</span>
 <span class="sd">                or not.</span>
 
-<span class="sd">           if isinstance(ax, plt.Axes)\</span>
+<span class="sd">           if isinstance(ax, plt.Axes)</span>
 <span class="sd">           and ax.name == &#39;3d&#39;:</span>
 <span class="sd">               return True</span>
 <span class="sd">           else:</span>
@@ -254,6 +256,36 @@
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="plot_cube_3D"><a class="viewcode-back" href="../../rubix_cube.plot_cube_3d.html#rubix_cube.plot_cube_3d.plot_cube_3D">[docs]</a><span class="k">def</span> <span class="nf">plot_cube_3D</span><span class="p">(</span><span class="n">ax</span> <span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span> <span class="p">,</span> <span class="n">cube</span> <span class="p">:</span> <span class="n">Cube</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Plots the :class:`Rubix Cube &lt;rubix_cube.cube.Cube&gt;` on an interactive</span>
+<span class="sd">    3-D :class:`matplotlib Axes &lt;matplotlib.axes.Axes&gt;` with non-visible faces</span>
+<span class="sd">    from the current orientation being displayed in visible reflections.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        ax (plt.Axes): The :class:`matplotlib Axes &lt;matplotlib.axes.Axes&gt;`</span>
+<span class="sd">            on which the plotting will be done.</span>
+<span class="sd">        cube (Cube): :class:`Rubix Cube &lt;rubix_cube.cube.Cube&gt;` that will be </span>
+<span class="sd">            plotted in a 3-D projection.</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Ensures arguments are valid</span>
+    <span class="k">if</span> <span class="n">is_3d_axes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>\
+    <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cube</span> <span class="p">,</span> <span class="n">Cube</span><span class="p">)</span>\
+    <span class="ow">and</span> <span class="n">cube</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
+
+        <span class="c1"># draw cube</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">combinations</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">product</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">r</span><span class="p">))),</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">s</span><span class="o">-</span><span class="n">e</span><span class="p">))</span> <span class="o">==</span> <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">plot3D</span><span class="p">(</span><span class="o">*</span><span class="nb">zip</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">)</span></div>
+
+
+
+
+
 </pre></div>
 
            </div>

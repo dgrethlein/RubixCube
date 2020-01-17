@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-"""3-D :class:`Rubix Cube <Cube>` plot rendering Module.
+"""3-D Rubix :class:`Rubix Cube <rubix_cube.cube.Cube>` plot rendering Module.
 
 Module Description
 ==================
 
-    *   :func:`plot_cube_3D` method for plotting the :class:`Rubix Cube <Cube>`
-        on a :class:`matplotlib Axes <matplotlib.axes.Axes>`.
+    *   :func:`plot_cube_3D` method for plotting the 
+        :class:`Rubix Cube <rubix_cube.cube.Cube>` on a 
+        :class:`matplotlib Axes <matplotlib.axes.Axes>`.
 
 Module Contents
 ===============
@@ -54,7 +55,7 @@ def is_3d_axes(ax : plt.Axes) -> bool:
            :caption: Tests if the given object ``ax`` is a 3-D projection
                 or not.
 
-           if isinstance(ax, plt.Axes)\
+           if isinstance(ax, plt.Axes)
            and ax.name == '3d':
                return True
            else:
@@ -70,15 +71,15 @@ def is_3d_axes(ax : plt.Axes) -> bool:
 
 
 def plot_cube_3D(ax : plt.Axes , cube : Cube):
-    """Plots the :class:`Rubix Cube <Cube>` on an interactive 3-D 
-    :class:`matplotlib Axes <matplotlib.axes.Axes>` with non-visible faces from
-    the current orientation being displayed in visible reflections.
+    """Plots the :class:`Rubix Cube <rubix_cube.cube.Cube>` on an interactive
+    3-D :class:`matplotlib Axes <matplotlib.axes.Axes>` with non-visible faces
+    from the current orientation being displayed in visible reflections.
     
     Args:
         ax (plt.Axes): The :class:`matplotlib Axes <matplotlib.axes.Axes>`
             on which the plotting will be done.
-        cube (Cube): :class:`Rubix Cube <Cube>` that will be plotted in a
-            flattened 2-D representation of all 6 sides.
+        cube (Cube): :class:`Rubix Cube <rubix_cube.cube.Cube>` that will be 
+            plotted in a 3-D projection.
     
     """
 

@@ -106,10 +106,10 @@ for e_idx , event in enumerate(cg.game_log['events']):
 print("--------------------------------------------------------------")
 
 
-fig = plt.figure(figsize=(7,7))
-ax = fig.gca(projection='3d')
-plot_cube_3D(ax , cg.game_cube)
-plt.show()
+#fig = plt.figure(figsize=(7,7))
+#ax = fig.gca(projection='3d')
+#plot_cube_3D(ax , cg.game_cube)
+#plt.show()
 
 
 
