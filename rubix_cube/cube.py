@@ -35,10 +35,7 @@ Module Contents
            
            *    Need to finish implementing the ``get_num_solved_rings``.
            *    Need to finish implementing the ``are_equivalent_cubes``.
-           *    Need to finish implementing the ``__eq__`` operator.
-           *    Need to finish implementing the ``__ne__`` operator.
-           *    Need to finish implementing the ``__imod__`` operator
-                to call the ``are_equivalent_cubes`` function.
+
 
         .. figure:: ./../../misc/flattened_cube.png
            :name: flattened_cube
@@ -56,6 +53,7 @@ Module Contents
 import os
 import sys
 import json
+import copy
 
 import warnings
 
@@ -145,10 +143,16 @@ class Cube(object):
     #      OVERLOADED OPERATOR(s)
     #==========================================================================
     def __eq__(self, other) -> bool:
+        """Tests if the :class:`Rubix Cube <rubix_cube.cube.Cube>` faces are
+        exactly identical between the two objects.
+        
+        Args:
+            other (TYPE): Description
+        
+        Returns:
+            bool: Description
+        
         """
-
-        """
-
         if self.is_well_formed()\
         and isinstance(other , self.__class__)\
         and other.is_well_formed():
@@ -164,11 +168,92 @@ class Cube(object):
 
 
     def __ne__(self, other) -> bool:
+        """Tests if the :class:`Rubix Cube <rubix_cube.cube.Cube>` faces are
+        ``NOT`` exactly identical between the two objects.
+        
+        Args:
+            other (TYPE): Description
+        
+        Returns:
+            bool: Description
+        
         """
-
-        """
-
         return not (self == other)
+
+
+    def __mod__(self, other) -> bool:
+        """Tests if the :class:`Rubix Cube <rubix_cube.cube.Cube>` faces are
+        exactly identical between the two objects after re-orientation. 
+        Essentially are the cubes identical after rotation?
+        
+        Args:
+            other (TYPE): Description
+
+        Returns:
+            bool: 
+        
+        """
+        return self.is_equivalent_to(other)
+
+
+    def is_equivalent_to(self, other) -> bool:
+        """
+        
+        Args:
+            other (TYPE): Description
+
+        Returns:
+            bool: 
+
+        """
+        if self.is_well_formed()\
+        and isinstance(other , self.__class__)\
+        and other.is_well_formed():
+        
+            other_test_seqs = [[Cube.rotate_roll,
+                                Cube.rotate_roll,
+                                Cube.rotate_roll],
+                               [Cube.rotate_yaw,
+                                Cube.rotate_roll,
+                                Cube.rotate_roll,
+                                Cube.rotate_roll],
+                               [Cube.rotate_yaw,
+                                Cube.rotate_yaw,
+                                Cube.rotate_roll,
+                                Cube.rotate_roll,
+                                Cube.rotate_roll],
+                               [Cube.rotate_yaw_inverse,
+                                Cube.rotate_roll,
+                                Cube.rotate_roll,
+                                Cube.rotate_roll],
+                               [Cube.rotate_pitch,
+                                Cube.rotate_roll,
+                                Cube.rotate_roll,
+                                Cube.rotate_roll],
+                               [Cube.rotate_pitch_inverse,
+                                Cube.rotate_roll,
+                                Cube.rotate_roll,
+                                Cube.rotate_roll]]
+
+            # Tests if exact match
+            if self.__eq__(other):
+                return True
+
+            # Tests the 24 sequences of re-orientations for exact matches
+            for seq in other_test_seqs:
+
+                # Makes a local copy to manipulate
+                l_other = copy.deepcopy(other)
+
+                # Performs each move
+                for mv in seq:
+                    mv(l_other)
+
+                    # Tests for exact match
+                    if self.__eq__(l_other):
+                        return True
+
+        return False
 
     #==========================================================================
     #       PROPERTY INTERFACE(s)

@@ -227,10 +227,7 @@
 <span class="sd">           </span>
 <span class="sd">           *    Need to finish implementing the ``get_num_solved_rings``.</span>
 <span class="sd">           *    Need to finish implementing the ``are_equivalent_cubes``.</span>
-<span class="sd">           *    Need to finish implementing the ``__eq__`` operator.</span>
-<span class="sd">           *    Need to finish implementing the ``__ne__`` operator.</span>
-<span class="sd">           *    Need to finish implementing the ``__imod__`` operator</span>
-<span class="sd">                to call the ``are_equivalent_cubes`` function.</span>
+
 
 <span class="sd">        .. figure:: ./../../misc/flattened_cube.png</span>
 <span class="sd">           :name: flattened_cube</span>
@@ -248,6 +245,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">copy</span>
 
 <span class="kn">import</span> <span class="nn">warnings</span>
 
@@ -332,6 +330,122 @@
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">faces</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">faces</span> <span class="o">=</span> <span class="n">faces</span>          </div>
 
+
+    <span class="c1">#==========================================================================</span>
+    <span class="c1">#      OVERLOADED OPERATOR(s)</span>
+    <span class="c1">#==========================================================================</span>
+<div class="viewcode-block" id="Cube.__eq__"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.__eq__">[docs]</a>    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Tests if the :class:`Rubix Cube &lt;rubix_cube.cube.Cube&gt;` faces are</span>
+<span class="sd">        exactly identical between the two objects.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            other (TYPE): Description</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: Description</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">()</span>\
+        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span> <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>\
+        <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
+
+            <span class="k">for</span> <span class="n">face</span> <span class="p">,</span> <span class="n">other_face</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span> <span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">faces</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="n">face</span><span class="p">],</span><span class="n">other</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="n">other_face</span><span class="p">]):</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Cube.__ne__"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.__ne__">[docs]</a>    <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Tests if the :class:`Rubix Cube &lt;rubix_cube.cube.Cube&gt;` faces are</span>
+<span class="sd">        ``NOT`` exactly identical between the two objects.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            other (TYPE): Description</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: Description</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span> <span class="o">==</span> <span class="n">other</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Cube.__mod__"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.__mod__">[docs]</a>    <span class="k">def</span> <span class="fm">__mod__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Tests if the :class:`Rubix Cube &lt;rubix_cube.cube.Cube&gt;` faces are</span>
+<span class="sd">        exactly identical between the two objects after re-orientation. </span>
+<span class="sd">        Essentially are the cubes identical after rotation?</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            other (TYPE): Description</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: </span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_equivalent_to</span><span class="p">(</span><span class="n">other</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Cube.is_equivalent_to"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.is_equivalent_to">[docs]</a>    <span class="k">def</span> <span class="nf">is_equivalent_to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            other (TYPE): Description</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: </span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">()</span>\
+        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span> <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>\
+        <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
+        
+            <span class="n">other_test_seqs</span> <span class="o">=</span> <span class="p">[[</span><span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">,</span>
+                                <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">,</span>
+                                <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">],</span>
+                               <span class="p">[</span><span class="n">Cube</span><span class="o">.</span><span class="n">rotate_yaw</span><span class="p">,</span>
+                                <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">,</span>
+                                <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">,</span>
+                                <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">],</span>
+                               <span class="p">[</span><span class="n">Cube</span><span class="o">.</span><span class="n">rotate_yaw</span><span class="p">,</span>
+                                <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_yaw</span><span class="p">,</span>
+                                <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">,</span>
+                                <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">,</span>
+                                <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">],</span>
+                               <span class="p">[</span><span class="n">Cube</span><span class="o">.</span><span class="n">rotate_yaw_inverse</span><span class="p">,</span>
+                                <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">,</span>
+                                <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">,</span>
+                                <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">],</span>
+                               <span class="p">[</span><span class="n">Cube</span><span class="o">.</span><span class="n">rotate_pitch</span><span class="p">,</span>
+                                <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">,</span>
+                                <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">,</span>
+                                <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">],</span>
+                               <span class="p">[</span><span class="n">Cube</span><span class="o">.</span><span class="n">rotate_pitch_inverse</span><span class="p">,</span>
+                                <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">,</span>
+                                <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">,</span>
+                                <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">]]</span>
+
+            <span class="c1"># Tests if exact match</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+            <span class="c1"># Tests the 24 sequences of re-orientations for exact matches</span>
+            <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">other_test_seqs</span><span class="p">:</span>
+
+                <span class="c1"># Makes a local copy to manipulate</span>
+                <span class="n">l_other</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+                <span class="c1"># Performs each move</span>
+                <span class="k">for</span> <span class="n">mv</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>
+                    <span class="n">mv</span><span class="p">(</span><span class="n">l_other</span><span class="p">)</span>
+
+                    <span class="c1"># Tests for exact match</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="n">l_other</span><span class="p">):</span>
+                        <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="kc">False</span></div>
 
     <span class="c1">#==========================================================================</span>
     <span class="c1">#       PROPERTY INTERFACE(s)</span>

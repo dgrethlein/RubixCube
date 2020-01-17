@@ -229,10 +229,6 @@ move-set. (<a class="reference external" href="https://www.rubiks.com/en-us/blog
 <ul class="simple">
 <li><p>Need to finish implementing the <code class="docutils literal notranslate"><span class="pre">get_num_solved_rings</span></code>.</p></li>
 <li><p>Need to finish implementing the <code class="docutils literal notranslate"><span class="pre">are_equivalent_cubes</span></code>.</p></li>
-<li><p>Need to finish implementing the <code class="docutils literal notranslate"><span class="pre">__eq__</span></code> operator.</p></li>
-<li><p>Need to finish implementing the <code class="docutils literal notranslate"><span class="pre">__ne__</span></code> operator.</p></li>
-<li><p>Need to finish implementing the <code class="docutils literal notranslate"><span class="pre">__imod__</span></code> operator
-to call the <code class="docutils literal notranslate"><span class="pre">are_equivalent_cubes</span></code> function.</p></li>
 </ul>
 </div>
 <div class="figure align-center" id="flattened-cube">
@@ -344,6 +340,24 @@ the <a class="reference internal" href="#rubix_cube.cube.Cube" title="rubix_cube
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="rubix_cube.cube.Cube.__eq__">
+<code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param">other</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.__eq__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests if the <a class="reference internal" href="#rubix_cube.cube.Cube" title="rubix_cube.cube.Cube"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rubix</span> <span class="pre">Cube</span></code></a> faces are
+exactly identical between the two objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> (<em>TYPE</em>) – Description</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Description</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="rubix_cube.cube.Cube.__init__">
 <code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">colors: Dict[str</em>, <em class="sig-param">str] = None</em>, <em class="sig-param">faces: Dict[str</em>, <em class="sig-param">numpy.array] = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p><a class="reference internal" href="#rubix_cube.cube.Cube" title="rubix_cube.cube.Cube"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cube</span></code></a> class constructor.</p>
@@ -401,6 +415,43 @@ returning <code class="docutils literal notranslate"><span class="pre">True</spa
 <a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.colors.is_color_like.html#matplotlib.colors.is_color_like" title="(in Matplotlib v3.1.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">matplotlib.colors.is_color_like()</span></code></a>.</p>
 </p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="rubix_cube.cube.Cube.__mod__">
+<code class="sig-name descname">__mod__</code><span class="sig-paren">(</span><em class="sig-param">other</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.__mod__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.__mod__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests if the <a class="reference internal" href="#rubix_cube.cube.Cube" title="rubix_cube.cube.Cube"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rubix</span> <span class="pre">Cube</span></code></a> faces are
+exactly identical between the two objects after re-orientation.
+Essentially are the cubes identical after rotation?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> (<em>TYPE</em>) – Description</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="rubix_cube.cube.Cube.__ne__">
+<code class="sig-name descname">__ne__</code><span class="sig-paren">(</span><em class="sig-param">other</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.__ne__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.__ne__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests if the <a class="reference internal" href="#rubix_cube.cube.Cube" title="rubix_cube.cube.Cube"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rubix</span> <span class="pre">Cube</span></code></a> faces are
+<code class="docutils literal notranslate"><span class="pre">NOT</span></code> exactly identical between the two objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> (<em>TYPE</em>) – Description</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Description</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -471,6 +522,22 @@ currently initialized <a class="reference internal" href="#rubix_cube.cube.Cube"
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="rubix_cube.cube.Cube.is_equivalent_to">
+<code class="sig-name descname">is_equivalent_to</code><span class="sig-paren">(</span><em class="sig-param">other</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.is_equivalent_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.is_equivalent_to" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> (<em>TYPE</em>) – Description</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
