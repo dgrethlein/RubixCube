@@ -389,7 +389,7 @@ class Cube_Game(object):
 
             self.game_log['events'].append({'type' : cube_func})
 
-    
+
     def get_scramble_sequence(n_steps : int = 50,
                               cube_funcs : List[str] = None) -> List[str]:
         """Compiles a sequence of moves for scrambling the :attr:`game_cube`
@@ -494,6 +494,35 @@ class Cube_Game(object):
         return sequence
 
 
+    def compute_inverse_log_sequence(self) -> List[str]:
+        """Computes the inverse sequence of moves from the :attr:`game_log` 
+        that ``SHOULD`` lead to the :class:`Rubix Cube <rubix_cube.cube.Cube>`
+        being solved!
+
+        Returns:
+            List[str]: **sequence** - A list of cube manipulation function 
+            str(s) for use with :func:`manipulate_cube` function.
+        
+        """
+
+        # Ensures the game is valid
+        if self.game_cube.is_well_formed()\
+        and isinstance(self.game_log, dict)\
+        and 'events' in self.game_log:
+
+            # Gets a reversed list of all log event types
+            event_types = [event['type'] for event in\
+                                            np.flip(self.game_log['events'])]
+
+            # Filters down to cube-moves only
+            log_moves = list(filter(lambda e_type: e_type in\
+                                            Cube_Game.INVERSE_FUNCS, 
+                                            event_types))
+
+            # Computes the inverse sequence
+            sequence = [Cube_Game.INVERSE_FUNCS[mv] for mv in log_moves]
+
+            return sequence 
 
 
 

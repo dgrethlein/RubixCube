@@ -440,8 +440,8 @@ class Cube(object):
 
         if self.is_well_formed():
 
-            for face in self.faces:
-                if self.is_solved_face(self.faces[faces]):
+            for face in self.faces.values():
+                if self.is_solved_face(face):
                     num_faces_solved += 1
 
         return num_faces_solved
@@ -544,7 +544,8 @@ class Cube(object):
         """
         if self.is_well_formed():
 
-            self.faces['BACK_FACE'] = np.rot90(self.faces['BACK_FACE'])
+            self.faces['BACK_FACE'] = np.rot90(self.faces['BACK_FACE'],
+                                               axes=(1,0))
 
             temp = self.faces['DOWN_FACE'][2,:].copy()
             self.faces['DOWN_FACE'][2,:] = self.faces['LEFT_FACE'][:,0]
@@ -558,13 +559,12 @@ class Cube(object):
         """
         if self.is_well_formed():
 
-            self.faces['BACK_FACE'] = np.rot90(self.faces['BACK_FACE'], 
-                                               axes=(1,0))
+            self.faces['BACK_FACE'] = np.rot90(self.faces['BACK_FACE'])
 
             temp = self.faces['DOWN_FACE'][2,:].copy()
-            self.faces['DOWN_FACE'][2,:] = self.faces['RIGHT_FACE'][:,2]
+            self.faces['DOWN_FACE'][2,:] = np.flip(self.faces['RIGHT_FACE'][:,2])
             self.faces['RIGHT_FACE'][:,2] = self.faces['UP_FACE'][0,:]
-            self.faces['UP_FACE'][0,:] = self.faces['LEFT_FACE'][:,0]
+            self.faces['UP_FACE'][0,:] = np.flip(self.faces['LEFT_FACE'][:,0])
             self.faces['LEFT_FACE'][:,0] = temp
 
 

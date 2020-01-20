@@ -64,8 +64,7 @@ while True:
 		plt.close(fig)
 		break
 
-	elif move == "Scramble"\
-	or move == "scramble":
+	elif move.lower() == "scramble":
 		
 		sequence = Cube_Game.get_scramble_sequence()
 		
@@ -90,6 +89,37 @@ while True:
 				plt.close(fig)
 
 			cg.game_log['events'].append({'type' : '<<__END_SCRAMBLE__>>'})
+
+			continue
+
+	elif move.lower() == "solve"\
+	and cg.game_cube.get_num_solved_faces() != 6:
+
+		# Computes the solution via reversal through the logs
+		inv_log_sequence = cg.compute_inverse_log_sequence()
+
+		if len(inv_log_sequence) > 0:
+
+			plt.close(fig)
+
+			for mv in inv_log_sequence:
+				fig , ax = plt.subplots(figsize=(8,5))
+				ax.set_xlim(left=-600,right=900)
+				ax.set_ylim(top=500,bottom=-500)	
+				
+				plot_cube_2D(ax=ax, cube=cg.game_cube)
+
+				plt.show(block=False)
+
+				plt.pause(0.05)
+
+				cg.manipulate_cube(mv)
+
+				plt.close(fig)
+
+				if cg.game_cube.get_num_solved_faces() == 6:
+					cg.game_log['events'].append({'type' : '<<__SOLVE_CUBE__>>'})
+					break
 
 			continue
 

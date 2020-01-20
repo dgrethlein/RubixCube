@@ -11,6 +11,9 @@ github:
 	@make html
 	@cp -a ./docs/build/html/. ./docs
 
+run_tests:
+	@python3 -m unittest ./rubix_cube/tests/test_cube_game.py
+	
 release:
 	@python3 ./setup.py sdist
 

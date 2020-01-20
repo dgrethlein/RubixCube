@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>rubix_cube.cube_game &mdash; Rubix Cube 0.1.6 documentation</title>
+  <title>rubix_cube.cube_game &mdash; Rubix Cube 0.1.8 documentation</title>
   
 
   
@@ -581,7 +581,7 @@
 
             <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;type&#39;</span> <span class="p">:</span> <span class="n">cube_func</span><span class="p">})</span></div>
 
-    
+
 <div class="viewcode-block" id="Cube_Game.get_scramble_sequence"><a class="viewcode-back" href="../../rubix_cube.cube_game.html#rubix_cube.cube_game.Cube_Game.get_scramble_sequence">[docs]</a>    <span class="k">def</span> <span class="nf">get_scramble_sequence</span><span class="p">(</span><span class="n">n_steps</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
                               <span class="n">cube_funcs</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Compiles a sequence of moves for scrambling the :attr:`game_cube`</span>
@@ -683,9 +683,38 @@
 
             <span class="n">sequence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">choice_func</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">sequence</span></div></div>
+        <span class="k">return</span> <span class="n">sequence</span></div>
 
 
+<div class="viewcode-block" id="Cube_Game.compute_inverse_log_sequence"><a class="viewcode-back" href="../../rubix_cube.cube_game.html#rubix_cube.cube_game.Cube_Game.compute_inverse_log_sequence">[docs]</a>    <span class="k">def</span> <span class="nf">compute_inverse_log_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Computes the inverse sequence of moves from the :attr:`game_log` </span>
+<span class="sd">        that ``SHOULD`` lead to the :class:`Rubix Cube &lt;rubix_cube.cube.Cube&gt;`</span>
+<span class="sd">        being solved!</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List[str]: **sequence** - A list of cube manipulation function </span>
+<span class="sd">            str(s) for use with :func:`manipulate_cube` function.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Ensures the game is valid</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_cube</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">()</span>\
+        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game_log</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>\
+        <span class="ow">and</span> <span class="s1">&#39;events&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span><span class="p">:</span>
+
+            <span class="c1"># Gets a reversed list of all log event types</span>
+            <span class="n">event_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">event</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span>\
+                                            <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game_log</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">])]</span>
+
+            <span class="c1"># Filters down to cube-moves only</span>
+            <span class="n">log_moves</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e_type</span><span class="p">:</span> <span class="n">e_type</span> <span class="ow">in</span>\
+                                            <span class="n">Cube_Game</span><span class="o">.</span><span class="n">INVERSE_FUNCS</span><span class="p">,</span> 
+                                            <span class="n">event_types</span><span class="p">))</span>
+
+            <span class="c1"># Computes the inverse sequence</span>
+            <span class="n">sequence</span> <span class="o">=</span> <span class="p">[</span><span class="n">Cube_Game</span><span class="o">.</span><span class="n">INVERSE_FUNCS</span><span class="p">[</span><span class="n">mv</span><span class="p">]</span> <span class="k">for</span> <span class="n">mv</span> <span class="ow">in</span> <span class="n">log_moves</span><span class="p">]</span>
+
+            <span class="k">return</span> <span class="n">sequence</span> </div></div>
 
 
 
