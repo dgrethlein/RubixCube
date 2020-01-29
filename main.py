@@ -58,8 +58,7 @@ while True:
 
 	move = input("Move the Cube <Q to quit>: ")
 
-	if "Q" in move\
-	or "q" in move:
+	if move.lower() == 'q':
 		cg.game_log['events'].append({'type' : '<<__QUIT_GAME__>>'})
 		plt.close(fig)
 		break
