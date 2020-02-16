@@ -198,7 +198,7 @@
 
 <span class="sd">Collection of methods that define the main Rubix :class:`Cube Game &lt;Cube_Game&gt;`</span>
 <span class="sd">class and how it manipulates a :class:`Cube &lt;rubix_cube.cube.Cube&gt;`</span>
-<span class="sd">object, prints to console, logs a history of both moves and re-orientations, </span>
+<span class="sd">object, prints to console, logs a history of both moves and re-orientations,</span>
 <span class="sd">scrambles the state of the cube, times game-play, and performs file-system</span>
 <span class="sd">loading and saving of games.</span>
 
@@ -206,7 +206,7 @@
 <span class="sd">Module Contents</span>
 <span class="sd">===============</span>
 
-<span class="sd">    *   :class:`Cube_Game` details code for manipulating :class:`Rubix </span>
+<span class="sd">    *   :class:`Cube_Game` details code for manipulating :class:`Rubix</span>
 <span class="sd">        Cube(s) &lt;rubix_cube.cube.Cube&gt;`.</span>
 
 <span class="sd">        .. todo::</span>
@@ -221,7 +221,7 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span> 
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span> <span class="p">,</span> <span class="n">randrange</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
@@ -248,9 +248,9 @@
 <span class="sd">        __game_log (dict): Historical record of all moves, rotations, and other</span>
 <span class="sd">            game events that manipulate the :attr:`game_cube`.</span>
 <span class="sd">        __game_name (str): Name of the game.</span>
-<span class="sd">        __verbose (bool): [DEBUG]-style console output. Default value is </span>
+<span class="sd">        __verbose (bool): [DEBUG]-style console output. Default value is</span>
 <span class="sd">            ``False``.</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1">#==========================================================================</span>
@@ -352,36 +352,36 @@
                  <span class="n">scramble</span> <span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
                  <span class="n">verbose</span> <span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;:class:`Cube_Game` class constructor</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            cube (Cube, optional): :class:`Cube` that will be directly</span>
 <span class="sd">                manipulated throughout gameplay.</span>
 <span class="sd">            game_name (str, optional): Name of the current game being played.</span>
 <span class="sd">            game_log (Dict, optional): Dictionary that contains a history of</span>
 <span class="sd">                moves and other game events.</span>
-<span class="sd">            scramble (bool, optional): Whether or not the game should scramble </span>
+<span class="sd">            scramble (bool, optional): Whether or not the game should scramble</span>
 <span class="sd">                the :attr:`__game_cube` upon initialization. Default value is</span>
 <span class="sd">                ``False``.</span>
 <span class="sd">            verbose (bool, optional): [DEBUG]-style console output. Default</span>
 <span class="sd">                value is ``False``.</span>
-<span class="sd">        </span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Sets Up Default Game</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">game_name</span> <span class="o">=</span> <span class="s1">&#39;Untitled_Cube_Game&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">game_name</span> <span class="o">=</span> <span class="n">game_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">game_cube</span> <span class="o">=</span> <span class="n">Cube</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;events&#39;</span> <span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;type&#39;</span> <span class="p">:</span> <span class="s1">&#39;&lt;&lt;__NEW_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;name&#39;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_name</span><span class="p">}]}</span>
 
         <span class="c1"># Attempts to reset property values with argument values.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">game_cube</span> <span class="o">=</span> <span class="n">cube</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game_name</span> <span class="o">=</span> <span class="n">game_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span> <span class="o">=</span> <span class="n">game_log</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
 
         <span class="c1"># Initializes a default cube</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_cube</span> <span class="o">==</span> <span class="n">Cube</span><span class="p">():</span>
-            
+
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[DEBUG]</span><span class="se">\t</span><span class="s2">New DEFAULT Cube created for game : &#39;</span><span class="si">{self.game_name}</span><span class="s2">&#39;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -390,7 +390,7 @@
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[DEBUG]</span><span class="se">\t</span><span class="s2">New DEFAULT ``game_log`` created for game : &#39;</span><span class="si">{self.game_name}</span><span class="s2">&#39;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        
+
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;type&#39;</span> <span class="p">:</span> <span class="s1">&#39;&lt;&lt;__NEW_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
                                             <span class="s1">&#39;name&#39;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_name</span><span class="p">})</span>
@@ -422,7 +422,7 @@
         <span class="sd">&quot;&quot;&quot;Name of the Game</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__game_name</span>
-    
+
 
     <span class="nd">@game_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">game_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span> <span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -478,7 +478,7 @@
 <span class="sd">                          &#39;&lt;&lt;__RESUME_GAME__&gt;&gt;&#39;,</span>
 <span class="sd">                          &#39;&lt;&lt;__SOLVE_CUBE__&gt;&gt;&#39;,</span>
 <span class="sd">                          &#39;&lt;&lt;__QUIT_GAME__&gt;&gt;&#39;]</span>
-<span class="sd">        </span>
+
 <span class="sd">        .. code-block::</span>
 <span class="sd">           :name: game_log</span>
 <span class="sd">           :linenos:</span>
@@ -522,7 +522,7 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">verbose</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="o">=</span> <span class="n">verbose</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="o">=</span> <span class="kc">False</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="o">=</span> <span class="kc">False</span>
 
 
     <span class="c1">#==========================================================================</span>
@@ -533,14 +533,14 @@
 <span class="sd">        :class:`Cube` class to turn the layers or rotate the orientation.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            cube_func (str): Look-up key to recover the proper :class:`Cube` </span>
+<span class="sd">            cube_func (str): Look-up key to recover the proper :class:`Cube`</span>
 <span class="sd">                method to call from :attr:`CUBE_FUNCS` class attribute to call</span>
 <span class="sd">                a move using the :attr:`game_cube`.</span>
 
 <span class="sd">        .. code-block::</span>
 <span class="sd">           :name: move_cube_CUBE_FUNCS</span>
 <span class="sd">           :linenos:</span>
-<span class="sd">           :caption: Parameter ``cube_func`` will determine which </span>
+<span class="sd">           :caption: Parameter ``cube_func`` will determine which</span>
 <span class="sd">                :attr:`game_cube` move function is called. If not found,</span>
 <span class="sd">                nothing happens.</span>
 
@@ -590,20 +590,20 @@
 <span class="sd">        ``cube_funcs``.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            n_steps (int, optional): The number of :class:`Rubix Cube &lt;Cube&gt;` </span>
+<span class="sd">            n_steps (int, optional): The number of :class:`Rubix Cube &lt;Cube&gt;`</span>
 <span class="sd">                manipulations to be applied to the :attr:`game_cube`.</span>
 
 <span class="sd">                Note:</span>
-<span class="sd">                    Valid range of values, 0 &lt; ``n_steps`` &lt;= 500. Won&#39;t </span>
+<span class="sd">                    Valid range of values, 0 &lt; ``n_steps`` &lt;= 500. Won&#39;t</span>
 <span class="sd">                    call any :class:`Cube` function(s) if not in range.</span>
 
 <span class="sd">            cube_funcs (List[str], optional): Sub-list of :attr:`CUBE_FUNCS`</span>
 <span class="sd">                that defines the options for manipulating the cube. Default</span>
-<span class="sd">                value is ``None`` which allows all functions in </span>
+<span class="sd">                value is ``None`` which allows all functions in</span>
 <span class="sd">                :attr:`CUBE_FUNCS` to be selected.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
-<span class="sd">            List[str]: **sequence** - A list of cube manipulation function </span>
+<span class="sd">            List[str]: **sequence** - A list of cube manipulation function</span>
 <span class="sd">            str(s) for use with :func:`manipulate_cube` function.</span>
 
 <span class="sd">        Note:</span>
@@ -611,14 +611,14 @@
 
 <span class="sd">            *   ``&lt;&lt;ACTION&gt;&gt;`` , ``&lt;&lt;ACTION_INVERSE&gt;&gt;``</span>
 <span class="sd">            *   ``&lt;&lt;ACTION&gt;&gt;``, ``&lt;&lt;ACTION&gt;&gt;``, ``&lt;&lt;ACTION&gt;&gt;``, ``&lt;&lt;ACTION&gt;&gt;``</span>
-<span class="sd">        </span>
+
 <span class="sd">            .. code-block::</span>
 <span class="sd">               :name: scramble_cube_INVERSE_FUNCS</span>
 <span class="sd">               :linenos:</span>
 <span class="sd">               :caption: :class:`Cube_Game` static :attr:`INVERSE_FUNCS` attribute</span>
 <span class="sd">                    for looking up the inverse function for each potential cube</span>
 <span class="sd">                    manipulation.</span>
-<span class="sd">            </span>
+
 <span class="sd">               INVERSE_FUNCS = {&#39;U&#39;  : &#39;Ui&#39;,</span>
 <span class="sd">                                &#39;Ui&#39; : &#39;U&#39;,</span>
 <span class="sd">                                &#39;D&#39;  : &#39;Di&#39;,</span>
@@ -645,7 +645,7 @@
 <span class="sd">                                &#39;Zi&#39; : &#39;Z&#39;}</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-    
+
         <span class="c1"># Default length for sequence of random moves to be generated</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_steps</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>\
         <span class="ow">or</span> <span class="ow">not</span> <span class="p">(</span><span class="n">n_steps</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">n_steps</span> <span class="o">&lt;=</span> <span class="mi">500</span><span class="p">):</span>
@@ -687,14 +687,14 @@
 
 
 <div class="viewcode-block" id="Cube_Game.compute_inverse_log_sequence"><a class="viewcode-back" href="../../rubix_cube.cube_game.html#rubix_cube.cube_game.Cube_Game.compute_inverse_log_sequence">[docs]</a>    <span class="k">def</span> <span class="nf">compute_inverse_log_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Computes the inverse sequence of moves from the :attr:`game_log` </span>
+        <span class="sd">&quot;&quot;&quot;Computes the inverse sequence of moves from the :attr:`game_log`</span>
 <span class="sd">        that ``SHOULD`` lead to the :class:`Rubix Cube &lt;rubix_cube.cube.Cube&gt;`</span>
 <span class="sd">        being solved!</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            List[str]: **sequence** - A list of cube manipulation function </span>
+<span class="sd">            List[str]: **sequence** - A list of cube manipulation function</span>
 <span class="sd">            str(s) for use with :func:`manipulate_cube` function.</span>
-<span class="sd">        </span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Ensures the game is valid</span>
@@ -708,13 +708,13 @@
 
             <span class="c1"># Filters down to cube-moves only</span>
             <span class="n">log_moves</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e_type</span><span class="p">:</span> <span class="n">e_type</span> <span class="ow">in</span>\
-                                            <span class="n">Cube_Game</span><span class="o">.</span><span class="n">INVERSE_FUNCS</span><span class="p">,</span> 
+                                            <span class="n">Cube_Game</span><span class="o">.</span><span class="n">INVERSE_FUNCS</span><span class="p">,</span>
                                             <span class="n">event_types</span><span class="p">))</span>
 
             <span class="c1"># Computes the inverse sequence</span>
             <span class="n">sequence</span> <span class="o">=</span> <span class="p">[</span><span class="n">Cube_Game</span><span class="o">.</span><span class="n">INVERSE_FUNCS</span><span class="p">[</span><span class="n">mv</span><span class="p">]</span> <span class="k">for</span> <span class="n">mv</span> <span class="ow">in</span> <span class="n">log_moves</span><span class="p">]</span>
 
-            <span class="k">return</span> <span class="n">sequence</span> </div></div>
+            <span class="k">return</span> <span class="n">sequence</span></div></div>
 
 
 

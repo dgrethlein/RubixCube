@@ -6,7 +6,7 @@ Module Description
 
 Collection of methods that define the main Rubix :class:`Cube Game <Cube_Game>`
 class and how it manipulates a :class:`Cube <rubix_cube.cube.Cube>`
-object, prints to console, logs a history of both moves and re-orientations, 
+object, prints to console, logs a history of both moves and re-orientations,
 scrambles the state of the cube, times game-play, and performs file-system
 loading and saving of games.
 
@@ -14,7 +14,7 @@ loading and saving of games.
 Module Contents
 ===============
 
-    *   :class:`Cube_Game` details code for manipulating :class:`Rubix 
+    *   :class:`Cube_Game` details code for manipulating :class:`Rubix
         Cube(s) <rubix_cube.cube.Cube>`.
 
         .. todo::
@@ -29,7 +29,7 @@ Module Contents
 
 """
 
-from pathlib import Path 
+from pathlib import Path
 from random import randint , randrange
 
 import os
@@ -56,9 +56,9 @@ class Cube_Game(object):
         __game_log (dict): Historical record of all moves, rotations, and other
             game events that manipulate the :attr:`game_cube`.
         __game_name (str): Name of the game.
-        __verbose (bool): [DEBUG]-style console output. Default value is 
+        __verbose (bool): [DEBUG]-style console output. Default value is
             ``False``.
-    
+
     """
 
     #==========================================================================
@@ -160,36 +160,36 @@ class Cube_Game(object):
                  scramble : bool = False,
                  verbose : bool = False):
         """:class:`Cube_Game` class constructor
-        
+
         Args:
             cube (Cube, optional): :class:`Cube` that will be directly
                 manipulated throughout gameplay.
             game_name (str, optional): Name of the current game being played.
             game_log (Dict, optional): Dictionary that contains a history of
                 moves and other game events.
-            scramble (bool, optional): Whether or not the game should scramble 
+            scramble (bool, optional): Whether or not the game should scramble
                 the :attr:`__game_cube` upon initialization. Default value is
                 ``False``.
             verbose (bool, optional): [DEBUG]-style console output. Default
                 value is ``False``.
-        
+
         """
 
         # Sets Up Default Game
         self.game_name = 'Untitled_Cube_Game'
+        self.game_name = game_name
         self.game_cube = Cube()
         self.game_log = {'events' : [{'type' : '<<__NEW_GAME__>>',
                               'name' : self.game_name}]}
 
         # Attempts to reset property values with argument values.
         self.game_cube = cube
-        self.game_name = game_name
         self.game_log = game_log
         self.verbose = verbose
 
         # Initializes a default cube
         if self.game_cube == Cube():
-            
+
             if self.verbose:
                 print(f"\n[DEBUG]\tNew DEFAULT Cube created for game : '{self.game_name}'\n")
 
@@ -198,7 +198,7 @@ class Cube_Game(object):
 
             if self.verbose:
                 print(f"\n[DEBUG]\tNew DEFAULT ``game_log`` created for game : '{self.game_name}'\n")
-        
+
         else:
             self.game_log['events'].append({'type' : '<<__NEW_GAME__>>',
                                             'name' : self.game_name})
@@ -230,7 +230,7 @@ class Cube_Game(object):
         """Name of the Game
         """
         return self.__game_name
-    
+
 
     @game_name.setter
     def game_name(self, name : str):
@@ -286,7 +286,7 @@ class Cube_Game(object):
                           '<<__RESUME_GAME__>>',
                           '<<__SOLVE_CUBE__>>',
                           '<<__QUIT_GAME__>>']
-        
+
         .. code-block::
            :name: game_log
            :linenos:
@@ -330,7 +330,7 @@ class Cube_Game(object):
         if isinstance(verbose, bool):
             self.__verbose = verbose
         else:
-            self.__verbose = False 
+            self.__verbose = False
 
 
     #==========================================================================
@@ -341,14 +341,14 @@ class Cube_Game(object):
         :class:`Cube` class to turn the layers or rotate the orientation.
 
         Args:
-            cube_func (str): Look-up key to recover the proper :class:`Cube` 
+            cube_func (str): Look-up key to recover the proper :class:`Cube`
                 method to call from :attr:`CUBE_FUNCS` class attribute to call
                 a move using the :attr:`game_cube`.
 
         .. code-block::
            :name: move_cube_CUBE_FUNCS
            :linenos:
-           :caption: Parameter ``cube_func`` will determine which 
+           :caption: Parameter ``cube_func`` will determine which
                 :attr:`game_cube` move function is called. If not found,
                 nothing happens.
 
@@ -398,20 +398,20 @@ class Cube_Game(object):
         ``cube_funcs``.
 
         Args:
-            n_steps (int, optional): The number of :class:`Rubix Cube <Cube>` 
+            n_steps (int, optional): The number of :class:`Rubix Cube <Cube>`
                 manipulations to be applied to the :attr:`game_cube`.
 
                 Note:
-                    Valid range of values, 0 < ``n_steps`` <= 500. Won't 
+                    Valid range of values, 0 < ``n_steps`` <= 500. Won't
                     call any :class:`Cube` function(s) if not in range.
 
             cube_funcs (List[str], optional): Sub-list of :attr:`CUBE_FUNCS`
                 that defines the options for manipulating the cube. Default
-                value is ``None`` which allows all functions in 
+                value is ``None`` which allows all functions in
                 :attr:`CUBE_FUNCS` to be selected.
-        
+
         Returns:
-            List[str]: **sequence** - A list of cube manipulation function 
+            List[str]: **sequence** - A list of cube manipulation function
             str(s) for use with :func:`manipulate_cube` function.
 
         Note:
@@ -419,14 +419,14 @@ class Cube_Game(object):
 
             *   ``<<ACTION>>`` , ``<<ACTION_INVERSE>>``
             *   ``<<ACTION>>``, ``<<ACTION>>``, ``<<ACTION>>``, ``<<ACTION>>``
-        
+
             .. code-block::
                :name: scramble_cube_INVERSE_FUNCS
                :linenos:
                :caption: :class:`Cube_Game` static :attr:`INVERSE_FUNCS` attribute
                     for looking up the inverse function for each potential cube
                     manipulation.
-            
+
                INVERSE_FUNCS = {'U'  : 'Ui',
                                 'Ui' : 'U',
                                 'D'  : 'Di',
@@ -453,7 +453,7 @@ class Cube_Game(object):
                                 'Zi' : 'Z'}
 
         """
-    
+
         # Default length for sequence of random moves to be generated
         if not isinstance(n_steps, int)\
         or not (n_steps > 0 and n_steps <= 500):
@@ -495,14 +495,14 @@ class Cube_Game(object):
 
 
     def compute_inverse_log_sequence(self) -> List[str]:
-        """Computes the inverse sequence of moves from the :attr:`game_log` 
+        """Computes the inverse sequence of moves from the :attr:`game_log`
         that ``SHOULD`` lead to the :class:`Rubix Cube <rubix_cube.cube.Cube>`
         being solved!
 
         Returns:
-            List[str]: **sequence** - A list of cube manipulation function 
+            List[str]: **sequence** - A list of cube manipulation function
             str(s) for use with :func:`manipulate_cube` function.
-        
+
         """
 
         # Ensures the game is valid
@@ -516,13 +516,13 @@ class Cube_Game(object):
 
             # Filters down to cube-moves only
             log_moves = list(filter(lambda e_type: e_type in\
-                                            Cube_Game.INVERSE_FUNCS, 
+                                            Cube_Game.INVERSE_FUNCS,
                                             event_types))
 
             # Computes the inverse sequence
             sequence = [Cube_Game.INVERSE_FUNCS[mv] for mv in log_moves]
 
-            return sequence 
+            return sequence
 
 
 
