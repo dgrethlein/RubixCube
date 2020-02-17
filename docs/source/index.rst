@@ -7,11 +7,11 @@
 Welcome to Rubix Cube's documentation!
 ======================================
 
-Installation can be done via ``pip install rubix-cube``.
+Installation can be done via ``git clone https://github.com/dgrethlein/RubixCube .``.
 
 
-.. raw:: html 
-	
+.. raw:: html
+
 	<video width="700" height="500" autoplay loop controls>
 	  <source src="./_static/scramble_2d.mov">
 	  Your browser does not support the video tag.
