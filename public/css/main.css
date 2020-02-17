@@ -1,0 +1,14 @@
+/* David Grethlein, djg329@drexel.edu
+   Rubix Cube Main CSS Sheets */
+
+body {
+    font-family: "Montserrat";
+    font-size: 1rem;
+    background: #fff;
+}
+
+header {
+    font-family: "Montserrat";
+    font-size: 1rem;
+    background: #006298;
+}
