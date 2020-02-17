@@ -1,0 +1,32 @@
+<! -- David Grethlein, djg329@drexel.edu -->
+<! -- Rubix Cube Base Template -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Rubix Cube Solver - {% block title %}{% endblock %}</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+
+    <script src="/lib/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/lib/popper/popper.min.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+    <header>
+        <div class="container">
+            Howdy Rubix Cube people!
+        </div>
+    </header>
+
+    <main>
+        <div class="container content">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+<body>
