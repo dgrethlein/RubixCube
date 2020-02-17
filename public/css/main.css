@@ -10,5 +10,9 @@ body {
 header {
     font-family: "Montserrat";
     font-size: 1rem;
-    background: #006298;
+    background: #009b48;
+}
+
+.nav_item {
+    padding-left: 15px;
 }

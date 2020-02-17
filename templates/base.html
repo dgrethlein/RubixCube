@@ -11,6 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/lib/bootstrap/css/bootstrap-social.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="/css/main.css" rel="stylesheet">
 
     <script src="/lib/jquery/jquery-3.3.1.min.js"></script>
@@ -37,7 +39,46 @@
 
     <header>
         <div class="container">
-            Howdy Rubix Cube people!
+            <div class="row">
+                <div class="col-sm">
+                    <nav class="navbar navbar-expand-md navbar-dark">
+                        <a class="navbar-brand" href="/"><img src="img/twisty_cube.png" style="max-height: 40px;"></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item{% if active == 'Home' %} active{% endif %}">
+                                    <a class="btn btn-block btn-social btn-bitbucket" href="/">
+                                        <span class="fa fa-home"></span>Home
+                                    </a>
+                                </li>
+                                <li class="nav_item">
+                                    <a class="btn btn-block btn-social btn-pinterest" href="https://ruwix.com/the-rubiks-cube/how-to-solve-the-rubiks-cube-beginners-method/">
+                                        <span class="fa fa-cube"></span>How to Solve the Rubik's Cube
+                                    </a>
+                                </li>
+                                <li class="nav_item">
+                                    <a class="btn btn-block btn-social btn-openid" href="https://www.worldcubeassociation.org/results/rankings/333/single">
+                                        <span class="fa fa-trophy"></span>Global Rankings
+                                    </a>
+                                </li>
+                                <li class="nav_item">
+                                    <a class="btn btn-block btn-social btn-github" href="https://github.com/dgrethlein/RubixCube">
+                                        <span class="fa fa-github"></span>Project GitHub
+                                    </a>
+                                </li>
+                                <li class="nav_item">
+                                    <a class="btn btn-block btn-social btn-soundcloud" href="https://dgrethlein.github.io/RubixCube/">
+                                        <span class="fa fa-book"></span>Project Documentation
+                                    </a>
+                                </li>
+                            </ul>
+                    </nav>
+                </div>
+            </div>
         </div>
     </header>
 
