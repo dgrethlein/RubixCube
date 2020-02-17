@@ -7,7 +7,7 @@
 Welcome to Rubix Cube's documentation!
 ======================================
 
-Installation can be done via ``git clone https://github.com/dgrethlein/RubixCube .``.
+Installation can be done via ``git clone https://github.com/dgrethlein/RubixCube .``
 
 
 .. raw:: html
