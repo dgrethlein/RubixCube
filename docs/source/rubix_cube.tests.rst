@@ -1,6 +1,13 @@
 rubix\_cube.tests package
 =========================
 
+Submodules
+----------
+
+.. toctree::
+
+   rubix_cube.tests.test_cube_game
+
 Module contents
 ---------------
 

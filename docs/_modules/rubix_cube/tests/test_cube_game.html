@@ -1,0 +1,375 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>rubix_cube.tests.test_cube_game &mdash; Rubix Cube 0.1.8 documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://dgrethlein.github.io/RubixCube/_modules/rubix_cube/tests/test_cube_game.html"/>
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Rubix Cube
+          
+
+          
+            
+            <img src="../../../_static/twisty_cube.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">rubix_cube</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../rubix_cube.html">rubix_cube package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../rubix_cube.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../rubix_cube.util.html">rubix_cube.util package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../rubix_cube.util.html#module-rubix_cube.util">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../rubix_cube.tests.html">rubix_cube.tests package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../rubix_cube.tests.html#submodules">Submodules</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="../../../rubix_cube.tests.test_cube_game.html">rubix_cube.tests.test_cube_game module</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="../../../rubix_cube.tests.test_cube_game.html#module-description">Module Description</a></li>
+<li class="toctree-l7"><a class="reference internal" href="../../../rubix_cube.tests.test_cube_game.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="../../../rubix_cube.tests.html#module-rubix_cube.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../rubix_cube.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../rubix_cube.cube.html">rubix_cube.cube module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../rubix_cube.cube.html#module-description">Module Description</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../rubix_cube.cube.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../rubix_cube.cube_game.html">rubix_cube.cube_game module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../rubix_cube.cube_game.html#module-description">Module Description</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../rubix_cube.cube_game.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../rubix_cube.plot_cube_2d.html">rubix_cube.plot_cube_2d module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../rubix_cube.plot_cube_2d.html#module-description">Module Description</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../rubix_cube.plot_cube_2d.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../rubix_cube.plot_cube_3d.html">rubix_cube.plot_cube_3d module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../rubix_cube.plot_cube_3d.html#module-description">Module Description</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../rubix_cube.plot_cube_3d.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../rubix_cube.html#module-rubix_cube">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Rubix Cube</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>rubix_cube.tests.test_cube_game</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for rubix_cube.tests.test_cube_game</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;Rubix :class:`Cube &lt;rubix_cube.cube.Cube` class :mod:`tests` Module</span>
+
+<span class="sd">Module Description</span>
+<span class="sd">==================</span>
+
+
+<span class="sd">Module Contents</span>
+<span class="sd">===============</span>
+
+<span class="sd">.. moduleauthor:: David Grethlein &lt;djg329@drexel.edu&gt;</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="kn">from</span> <span class="nn">..cube</span> <span class="kn">import</span> <span class="n">Cube</span>
+<span class="kn">from</span> <span class="nn">..cube_game</span> <span class="kn">import</span> <span class="n">Cube_Game</span>
+
+
+<div class="viewcode-block" id="TestCubeGameMethods"><a class="viewcode-back" href="../../../rubix_cube.tests.test_cube_game.html#rubix_cube.tests.test_cube_game.TestCubeGameMethods">[docs]</a><span class="k">class</span> <span class="nc">TestCubeGameMethods</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TestCubeGameMethods.test_up"><a class="viewcode-back" href="../../../rubix_cube.tests.test_cube_game.html#rubix_cube.tests.test_cube_game.TestCubeGameMethods.test_up">[docs]</a>    <span class="k">def</span> <span class="nf">test_up</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cg</span> <span class="o">=</span> <span class="n">Cube_Game</span><span class="p">()</span>
+        <span class="n">seq</span> <span class="o">=</span> <span class="n">Cube_Game</span><span class="o">.</span><span class="n">get_scramble_sequence</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">mv</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>
+            <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span>
+
+        <span class="n">copy_cube</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">cg</span><span class="o">.</span><span class="n">game_cube</span><span class="p">)</span>
+        <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="s1">&#39;U&#39;</span><span class="p">)</span>
+        <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="s1">&#39;Ui&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">copy_cube</span> <span class="p">,</span> <span class="n">cg</span><span class="o">.</span><span class="n">game_cube</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TestCubeGameMethods.test_equator"><a class="viewcode-back" href="../../../rubix_cube.tests.test_cube_game.html#rubix_cube.tests.test_cube_game.TestCubeGameMethods.test_equator">[docs]</a>    <span class="k">def</span> <span class="nf">test_equator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cg</span> <span class="o">=</span> <span class="n">Cube_Game</span><span class="p">()</span>
+        <span class="n">seq</span> <span class="o">=</span> <span class="n">Cube_Game</span><span class="o">.</span><span class="n">get_scramble_sequence</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">mv</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>
+            <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span>
+
+        <span class="n">copy_cube</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">cg</span><span class="o">.</span><span class="n">game_cube</span><span class="p">)</span>
+        <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">)</span>
+        <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="s1">&#39;Ei&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">copy_cube</span> <span class="p">,</span> <span class="n">cg</span><span class="o">.</span><span class="n">game_cube</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TestCubeGameMethods.test_down"><a class="viewcode-back" href="../../../rubix_cube.tests.test_cube_game.html#rubix_cube.tests.test_cube_game.TestCubeGameMethods.test_down">[docs]</a>    <span class="k">def</span> <span class="nf">test_down</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cg</span> <span class="o">=</span> <span class="n">Cube_Game</span><span class="p">()</span>
+        <span class="n">seq</span> <span class="o">=</span> <span class="n">Cube_Game</span><span class="o">.</span><span class="n">get_scramble_sequence</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">mv</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>
+            <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span>
+
+        <span class="n">copy_cube</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">cg</span><span class="o">.</span><span class="n">game_cube</span><span class="p">)</span>
+        <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+        <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="s1">&#39;Di&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">copy_cube</span> <span class="p">,</span> <span class="n">cg</span><span class="o">.</span><span class="n">game_cube</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TestCubeGameMethods.test_left"><a class="viewcode-back" href="../../../rubix_cube.tests.test_cube_game.html#rubix_cube.tests.test_cube_game.TestCubeGameMethods.test_left">[docs]</a>    <span class="k">def</span> <span class="nf">test_left</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cg</span> <span class="o">=</span> <span class="n">Cube_Game</span><span class="p">()</span>
+        <span class="n">seq</span> <span class="o">=</span> <span class="n">Cube_Game</span><span class="o">.</span><span class="n">get_scramble_sequence</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">mv</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>
+            <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span>
+
+        <span class="n">copy_cube</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">cg</span><span class="o">.</span><span class="n">game_cube</span><span class="p">)</span>
+        <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
+        <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="s1">&#39;Li&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">copy_cube</span> <span class="p">,</span> <span class="n">cg</span><span class="o">.</span><span class="n">game_cube</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TestCubeGameMethods.test_middle"><a class="viewcode-back" href="../../../rubix_cube.tests.test_cube_game.html#rubix_cube.tests.test_cube_game.TestCubeGameMethods.test_middle">[docs]</a>    <span class="k">def</span> <span class="nf">test_middle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cg</span> <span class="o">=</span> <span class="n">Cube_Game</span><span class="p">()</span>
+        <span class="n">seq</span> <span class="o">=</span> <span class="n">Cube_Game</span><span class="o">.</span><span class="n">get_scramble_sequence</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">mv</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>
+            <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span>
+
+        <span class="n">copy_cube</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">cg</span><span class="o">.</span><span class="n">game_cube</span><span class="p">)</span>
+        <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span>
+        <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="s1">&#39;Mi&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">copy_cube</span> <span class="p">,</span> <span class="n">cg</span><span class="o">.</span><span class="n">game_cube</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TestCubeGameMethods.test_right"><a class="viewcode-back" href="../../../rubix_cube.tests.test_cube_game.html#rubix_cube.tests.test_cube_game.TestCubeGameMethods.test_right">[docs]</a>    <span class="k">def</span> <span class="nf">test_right</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cg</span> <span class="o">=</span> <span class="n">Cube_Game</span><span class="p">()</span>
+        <span class="n">seq</span> <span class="o">=</span> <span class="n">Cube_Game</span><span class="o">.</span><span class="n">get_scramble_sequence</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">mv</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>
+            <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span>
+
+        <span class="n">copy_cube</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">cg</span><span class="o">.</span><span class="n">game_cube</span><span class="p">)</span>
+        <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>
+        <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="s1">&#39;Ri&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">copy_cube</span> <span class="p">,</span> <span class="n">cg</span><span class="o">.</span><span class="n">game_cube</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TestCubeGameMethods.test_front"><a class="viewcode-back" href="../../../rubix_cube.tests.test_cube_game.html#rubix_cube.tests.test_cube_game.TestCubeGameMethods.test_front">[docs]</a>    <span class="k">def</span> <span class="nf">test_front</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cg</span> <span class="o">=</span> <span class="n">Cube_Game</span><span class="p">()</span>
+        <span class="n">seq</span> <span class="o">=</span> <span class="n">Cube_Game</span><span class="o">.</span><span class="n">get_scramble_sequence</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">mv</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>
+            <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span>
+
+        <span class="n">copy_cube</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">cg</span><span class="o">.</span><span class="n">game_cube</span><span class="p">)</span>
+        <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="s1">&#39;F&#39;</span><span class="p">)</span>
+        <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="s1">&#39;Fi&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">copy_cube</span> <span class="p">,</span> <span class="n">cg</span><span class="o">.</span><span class="n">game_cube</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TestCubeGameMethods.test_standing"><a class="viewcode-back" href="../../../rubix_cube.tests.test_cube_game.html#rubix_cube.tests.test_cube_game.TestCubeGameMethods.test_standing">[docs]</a>    <span class="k">def</span> <span class="nf">test_standing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cg</span> <span class="o">=</span> <span class="n">Cube_Game</span><span class="p">()</span>
+        <span class="n">seq</span> <span class="o">=</span> <span class="n">Cube_Game</span><span class="o">.</span><span class="n">get_scramble_sequence</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">mv</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>
+            <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span>
+
+        <span class="n">copy_cube</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">cg</span><span class="o">.</span><span class="n">game_cube</span><span class="p">)</span>
+        <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+        <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="s1">&#39;Si&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">copy_cube</span> <span class="p">,</span> <span class="n">cg</span><span class="o">.</span><span class="n">game_cube</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TestCubeGameMethods.test_back"><a class="viewcode-back" href="../../../rubix_cube.tests.test_cube_game.html#rubix_cube.tests.test_cube_game.TestCubeGameMethods.test_back">[docs]</a>    <span class="k">def</span> <span class="nf">test_back</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cg</span> <span class="o">=</span> <span class="n">Cube_Game</span><span class="p">()</span>
+        <span class="n">seq</span> <span class="o">=</span> <span class="n">Cube_Game</span><span class="o">.</span><span class="n">get_scramble_sequence</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">mv</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>
+            <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="n">mv</span><span class="p">)</span>
+
+        <span class="n">copy_cube</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">cg</span><span class="o">.</span><span class="n">game_cube</span><span class="p">)</span>
+        <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">)</span>
+        <span class="n">cg</span><span class="o">.</span><span class="n">manipulate_cube</span><span class="p">(</span><span class="s1">&#39;Bi&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">copy_cube</span> <span class="p">,</span> <span class="n">cg</span><span class="o">.</span><span class="n">game_cube</span><span class="p">)</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, David Grethlein
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

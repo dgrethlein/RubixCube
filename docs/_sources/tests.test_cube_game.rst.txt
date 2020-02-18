@@ -1,0 +1,7 @@
+tests.test\_cube\_game module
+=============================
+
+.. automodule:: tests.test_cube_game
+   :members:
+   :undoc-members:
+   :show-inheritance:
