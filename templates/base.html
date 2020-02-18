@@ -40,50 +40,47 @@
     <header>
         <div class="container">
             <div class="row">
-                <div class="col-sm">
-                    <nav class="navbar navbar-expand-md navbar-dark">
-                        <a class="navbar-brand" href="/"><img src="img/twisty_cube.png" style="max-height: 40px;"></a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item{% if active == 'Home' %} active{% endif %}">
-                                    <a class="btn btn-block btn-social btn-bitbucket" href="/">
-                                        <span class="fa fa-home"></span>Home
-                                    </a>
-                                </li>
-                                <li class="nav_item">
-                                    <a class="btn btn-block btn-social btn-pinterest" href="https://ruwix.com/the-rubiks-cube/how-to-solve-the-rubiks-cube-beginners-method/">
-                                        <span class="fa fa-cube"></span>How to Solve the Rubik's Cube
-                                    </a>
-                                </li>
-                                <li class="nav_item">
-                                    <a class="btn btn-block btn-social btn-openid" href="https://www.worldcubeassociation.org/results/rankings/333/single">
-                                        <span class="fa fa-trophy"></span>Global Rankings
-                                    </a>
-                                </li>
-                                <li class="nav_item">
-                                    <a class="btn btn-block btn-social btn-github" href="https://github.com/dgrethlein/RubixCube">
-                                        <span class="fa fa-github"></span>Project GitHub
-                                    </a>
-                                </li>
-                                <li class="nav_item">
-                                    <a class="btn btn-block btn-social btn-soundcloud" href="https://dgrethlein.github.io/RubixCube/">
-                                        <span class="fa fa-book"></span>Project Documentation
-                                    </a>
-                                </li>
-                            </ul>
-                    </nav>
+                <div class="col-sm" id="explore_button">
+                    <span onclick="openNav()">
+                        &#9776; Explore the Site
+                        <img src="img/twisty_cube.png" style="max-height: 40px;">
+                    </span>
                 </div>
             </div>
         </div>
+
+
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+                &times;
+            </a>
+            <a class="btn btn-block btn-social btn-pinterest" href="https://ruwix.com/the-rubiks-cube/how-to-solve-the-rubiks-cube-beginners-method/">
+                <span class="fa fa-cube"></span>How to Solve the Rubik's Cube
+            </a>
+            <a class="btn btn-block btn-social btn-openid" href="https://www.worldcubeassociation.org/results/rankings/333/single">
+                <span class="fa fa-trophy"></span>Global Rankings
+            </a>
+            <a class="btn btn-block btn-social btn-github" href="https://github.com/dgrethlein/RubixCube">
+                <span class="fa fa-github"></span>Project GitHub
+            </a>
+            <a class="btn btn-block btn-social btn-soundcloud" href="https://dgrethlein.github.io/RubixCube/">
+                <span class="fa fa-book"></span>Project Documentation
+            </a>
+        </div>
+
+        <script>
+            function openNav() {
+              document.getElementById("mySidenav").style.width = "300px";
+            }
+
+            function closeNav() {
+              document.getElementById("mySidenav").style.width = "0";
+            }
+        </script>
     </header>
 
     <main>
-        <div class="container content">
+        <div class="container content" id="main">
             {% block content %}{% endblock %}
         </div>
     </main>
