@@ -57,8 +57,15 @@ header {
   margin-left: 50px;
 }
 
-#explore_button span:hover {
+#explore_button , #log_in_button {
+  height: 100%;
+  border: none;
+  background-color: transparent;
+}
+
+#explore_col button:hover , #log_in_col button:hover {
     color: #ffd500;
+    background-color: #013220;
 }
 
 @media screen and (max-height: 450px) {
@@ -90,6 +97,10 @@ header {
 .active {
   background-color: purple;
   color: white;
+}
+
+#log_in_button {
+  float: right;
 }
 
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */

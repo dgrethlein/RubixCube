@@ -4,32 +4,6 @@
 <!DOCTYPE html>
 <html>
 
-<script>
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-        document.getElementById("main").style.marginLeft = "250px";
-        document.getElementById("header_bar").style.marginLeft = "250px";
-    }
-
-    function closeNav() {
-        /* Closes any open side nav drop downs when closing sidenav */
-        var dropdown = document.getElementsByClassName("dropdown-btn");
-        var i;
-
-        for (i = 0; i < dropdown.length; i++) {
-            dropdown[i].classList.remove('active');
-            var dropdownContent = dropdown[i].nextElementSibling;
-
-            if (dropdownContent.style.display === "block") {
-                dropdownContent.style.display = "none";
-            }
-        }
-        document.getElementById("mySidenav").style.width = "0";
-        document.getElementById("main").style.marginLeft = "auto";
-        document.getElementById("header_bar").style.marginLeft = "auto";
-    }
-</script>
-
 <head>
     <title> Rubix Cube Solver - {% block title %}{% endblock %}</title>
 
@@ -64,14 +38,44 @@
     <meta name="theme-color" content="#ffffff">
 </head>
 
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            /* Closes any open side nav drop downs when closing sidenav */
+            var dropdown = document.getElementsByClassName("dropdown-btn");
+            var i;
+
+            for (i = 0; i < dropdown.length; i++) {
+                dropdown[i].classList.remove('active');
+                var dropdownContent = dropdown[i].nextElementSibling;
+
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                }
+            }
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "auto";
+            document.getElementById("header_bar").style.marginLeft = "auto";
+        }
+    </script>
+
+
     <header>
         <div class="container" id="header_bar">
             <div class="row">
-                <div class="col-sm" id="explore_button">
-                    <span onclick="openNav()">
-                        &#9776; Explore the Site
+                <div class="col-sm" id="explore_col">
+                    <button onclick="openNav()" id="explore_button">
+                        &#9776; Learn More
                         <img src="img/twisty_cube.png" style="max-height: 60px;">
-                    </span>
+                    </button>
+                </div>
+                <div class="col-sm" id="log_in_col">
+                    <button id="log_in_button" onclick="logIn()">
+                        <i class="fas fa-user-lock"></i> Log In
+                    </button>
                 </div>
             </div>
         </div>
