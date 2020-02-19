@@ -57,13 +57,13 @@ header {
   margin-left: 50px;
 }
 
-#explore_button , #log_in_button {
+#explore_button , #log_in_button , #sign_up_button {
   height: 100%;
   border: none;
   background-color: transparent;
 }
 
-#explore_col button:hover , #log_in_col button:hover {
+#explore_col button:hover , #account_col button:hover {
     color: #ffd500;
     background-color: #013220;
 }
@@ -99,7 +99,7 @@ header {
   color: white;
 }
 
-#log_in_button {
+#account_col button{
   float: right;
 }
 
