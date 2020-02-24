@@ -34,7 +34,6 @@ Module Contents
         .. todo::
 
            *    Need to finish implementing the ``get_num_solved_rings``.
-           *    Need to finish implementing the ``get_num_matching_adjacent_tiles``.
 
 
         .. figure:: ./../../misc/flattened_cube.png
