@@ -513,7 +513,9 @@ class Cube(object):
 
 
     def get_num_matching_adjacent_tiles(self) -> int:
-        """
+        """Counts the number of tiles on the :class:`Cube` that are adjacent
+        and have the same color values. Uses successive calls to
+        :func:`get_num_matching_adjacent_tiles_face` for every face.
 
         Returns:
             int: **num_match_adj_tiles** - The number of tiles on the given

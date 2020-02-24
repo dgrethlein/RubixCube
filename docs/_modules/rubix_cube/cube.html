@@ -208,7 +208,7 @@
 <span class="sd">structure and how it is interacted with by other modules.</span>
 
 <span class="sd">Note:</span>
-<span class="sd">    Using `Western Color Scheme </span>
+<span class="sd">    Using `Western Color Scheme</span>
 <span class="sd">    &lt;https://ruwix.com/the-rubiks-cube/japanese-western-color-schemes/&gt;`_ as</span>
 <span class="sd">    default Rubix Cube coloring scheme.</span>
 
@@ -216,7 +216,7 @@
 <span class="sd">===============</span>
 
 <span class="sd">    *   :class:`Rubix Cube &lt;Cube&gt;` class that is capable of being parameterized</span>
-<span class="sd">        with a custom set of 6 unique colors (`Default Color Scheme </span>
+<span class="sd">        with a custom set of 6 unique colors (`Default Color Scheme</span>
 <span class="sd">        &lt;https://www.schemecolor.com/rubik-cube-colors.php&gt;`_) and can invoke</span>
 <span class="sd">        the following moves.</span>
 
@@ -225,16 +225,16 @@
 <span class="sd">           :align: center</span>
 <span class="sd">           :scale: 75%</span>
 
-<span class="sd">           6 cube face rotations both clock-wise and </span>
-<span class="sd">           counter-clockwise (inverse) are considered to be the standard </span>
-<span class="sd">           move-set. (`How to Solve </span>
+<span class="sd">           6 cube face rotations both clock-wise and</span>
+<span class="sd">           counter-clockwise (inverse) are considered to be the standard</span>
+<span class="sd">           move-set. (`How to Solve</span>
 <span class="sd">           &lt;https://www.rubiks.com/en-us/blog/how-to-solve-the-rubiks-cube-stage-1&gt;`_</span>
 <span class="sd">           )</span>
 
 <span class="sd">        .. todo::</span>
-<span class="sd">           </span>
+
 <span class="sd">           *    Need to finish implementing the ``get_num_solved_rings``.</span>
-<span class="sd">           *    Need to finish implementing the ``are_equivalent_cubes``.</span>
+<span class="sd">           *    Need to finish implementing the ``get_num_matching_adjacent_tiles``.</span>
 
 
 <span class="sd">        .. figure:: ./../../misc/flattened_cube.png</span>
@@ -242,7 +242,7 @@
 <span class="sd">           :align: center</span>
 <span class="sd">           :scale: 45%</span>
 
-<span class="sd">           At this view of the cube, each face is a 3x3 array indexed with </span>
+<span class="sd">           At this view of the cube, each face is a 3x3 array indexed with</span>
 <span class="sd">           [0,0] in the top-left and [2,2] in the bottom right. (`Flattened</span>
 <span class="sd">           &lt;https://rantonse.no/en/blog/2016-05-12&gt;`_)</span>
 
@@ -267,9 +267,9 @@
     <span class="sd">&quot;&quot;&quot;Data structure for representing a 3x3x3 rubix-cube.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        __colors (Dict[str,str]): Dictionary of HEX colors that define the </span>
+<span class="sd">        __colors (Dict[str,str]): Dictionary of HEX colors that define the</span>
 <span class="sd">            rendering of the :class:`Cube`&#39;s tile coloring.</span>
-<span class="sd">        __faces (Dict[str,np.ndarray]): Dictionary of </span>
+<span class="sd">        __faces (Dict[str,np.ndarray]): Dictionary of</span>
 <span class="sd">            :class:`numpy arrays &lt;numpy.ndarray&gt;` that define the rendering of</span>
 <span class="sd">            the :class:`Cube`&#39;s tile configuration.</span>
 
@@ -286,9 +286,9 @@
 <span class="sd">        Args:</span>
 <span class="sd">            colors (Dict[str,str], optional): Dictionary of color HEX strings.</span>
 <span class="sd">                Default value is ``None`` which will create a cube with default</span>
-<span class="sd">                colors :attr:`DEFAULT_FACE_COLORS`. </span>
+<span class="sd">                colors :attr:`DEFAULT_FACE_COLORS`.</span>
 
-<span class="sd">                .. code-block:: </span>
+<span class="sd">                .. code-block::</span>
 <span class="sd">                   :name: init_colors_keys</span>
 <span class="sd">                   :linenos:</span>
 <span class="sd">                   :caption: Required ``colors`` dictionary keys.</span>
@@ -305,11 +305,11 @@
 <span class="sd">                by :func:`matplotlib.colors.is_color_like`.</span>
 
 <span class="sd">            faces (Dict[str,np.array], optional): Dictionary of face names to</span>
-<span class="sd">                3x3 arrays of the the tile face values. Default value is </span>
+<span class="sd">                3x3 arrays of the the tile face values. Default value is</span>
 <span class="sd">                ``None`` which will create a solved cube with default colors.</span>
 
 <span class="sd">                .. code-block::</span>
-<span class="sd">                   :name: init_faces_keys </span>
+<span class="sd">                   :name: init_faces_keys</span>
 <span class="sd">                   :linenos:</span>
 <span class="sd">                   :caption: Required ``faces`` dictionary keys.</span>
 
@@ -321,22 +321,22 @@
 <span class="sd">                            &#39;RIGHT_FACE&#39; : ...</span>
 <span class="sd">                           }</span>
 
-<span class="sd">                All faces passed as value must be 3x3 </span>
-<span class="sd">                :class:`numpy arrays &lt;numpy.ndarray&gt;` with each element </span>
-<span class="sd">                returning ``True`` when examined by </span>
+<span class="sd">                All faces passed as value must be 3x3</span>
+<span class="sd">                :class:`numpy arrays &lt;numpy.ndarray&gt;` with each element</span>
+<span class="sd">                returning ``True`` when examined by</span>
 <span class="sd">                :func:`matplotlib.colors.is_color_like`.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Sets private attributes via properties</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">Cube</span><span class="o">.</span><span class="n">DEFAULT_FACE_COLORS</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">faces</span> <span class="o">=</span> <span class="n">Cube</span><span class="o">.</span><span class="n">DEFAULT_FACES</span> 
-        
+        <span class="bp">self</span><span class="o">.</span><span class="n">faces</span> <span class="o">=</span> <span class="n">Cube</span><span class="o">.</span><span class="n">DEFAULT_FACES</span>
+
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">colors</span>
 
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">faces</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">faces</span> <span class="o">=</span> <span class="n">faces</span>          </div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">faces</span> <span class="o">=</span> <span class="n">faces</span></div>
 
 
     <span class="c1">#==========================================================================</span>
@@ -345,13 +345,13 @@
 <div class="viewcode-block" id="Cube.__eq__"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.__eq__">[docs]</a>    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Tests if the :class:`Rubix Cube &lt;rubix_cube.cube.Cube&gt;` faces are</span>
 <span class="sd">        exactly identical between the two objects.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other (TYPE): Description</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: Description</span>
-<span class="sd">        </span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">()</span>\
         <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span> <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>\
@@ -370,46 +370,46 @@
 <div class="viewcode-block" id="Cube.__ne__"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.__ne__">[docs]</a>    <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Tests if the :class:`Rubix Cube &lt;rubix_cube.cube.Cube&gt;` faces are</span>
 <span class="sd">        ``NOT`` exactly identical between the two objects.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other (TYPE): Description</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: Description</span>
-<span class="sd">        </span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span> <span class="o">==</span> <span class="n">other</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Cube.__mod__"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.__mod__">[docs]</a>    <span class="k">def</span> <span class="fm">__mod__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Tests if the :class:`Rubix Cube &lt;rubix_cube.cube.Cube&gt;` faces are</span>
-<span class="sd">        exactly identical between the two objects after re-orientation. </span>
+<span class="sd">        exactly identical between the two objects after re-orientation.</span>
 <span class="sd">        Essentially are the cubes identical after rotation?</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other (TYPE): Description</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            bool: </span>
-<span class="sd">        </span>
+<span class="sd">            bool:</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_equivalent_to</span><span class="p">(</span><span class="n">other</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Cube.is_equivalent_to"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.is_equivalent_to">[docs]</a>    <span class="k">def</span> <span class="nf">is_equivalent_to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            other (TYPE): Description</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            bool: </span>
+<span class="sd">            bool:</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">()</span>\
         <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span> <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>\
         <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
-        
+
             <span class="n">other_test_seqs</span> <span class="o">=</span> <span class="p">[[</span><span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">,</span>
                                 <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">,</span>
                                 <span class="n">Cube</span><span class="o">.</span><span class="n">rotate_roll</span><span class="p">],</span>
@@ -461,14 +461,14 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">colors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Can only be set to be a dictionary with 6 unique color string values</span>
-<span class="sd">        that all return ``True`` when examined by </span>
-<span class="sd">        :func:`matplotlib.colors.is_color_like`. </span>
+<span class="sd">        that all return ``True`` when examined by</span>
+<span class="sd">        :func:`matplotlib.colors.is_color_like`.</span>
 
 <span class="sd">        .. code-block::</span>
 <span class="sd">           :name: colors_keys</span>
 <span class="sd">           :linenos:</span>
 <span class="sd">           :caption: Required ``colors`` dictionary keys.</span>
-<span class="sd">           </span>
+
 <span class="sd">           colors = {&#39;UP_COLOR&#39; : ...,</span>
 <span class="sd">                     &#39;DOWN_COLOR&#39; : ...,</span>
 <span class="sd">                     &#39;FRONT_COLOR&#39; : ...,</span>
@@ -479,7 +479,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__colors</span>
 
-    
+
     <span class="nd">@colors</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">colors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colors</span> <span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="nb">str</span><span class="p">]):</span>
 
@@ -503,15 +503,15 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">faces</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Can only be set to be a dictionary of 6 strings mapped to the faces</span>
-<span class="sd">        of a Rubix Cube. Each value must be a 3x3 </span>
+<span class="sd">        of a Rubix Cube. Each value must be a 3x3</span>
 <span class="sd">        :class:`numpy array &lt;numpy.ndarray&gt;` of values all of which are valid</span>
 <span class="sd">        colors that can be found within the :attr:`colors` attribute.</span>
-<span class="sd">        </span>
+
 <span class="sd">        .. code-block::</span>
 <span class="sd">           :name: faces_keys</span>
 <span class="sd">           :linenos:</span>
 <span class="sd">           :caption: Required ``faces`` dictionary keys.</span>
-<span class="sd">           </span>
+
 <span class="sd">           faces = {&#39;UP_FACE&#39; : ...,</span>
 <span class="sd">                    &#39;DOWN_FACE&#39; : ...,</span>
 <span class="sd">                    &#39;FRONT_FACE&#39; : ...,</span>
@@ -532,7 +532,7 @@
                          <span class="s1">&#39;BACK_FACE&#39;</span><span class="p">,</span>
                          <span class="s1">&#39;LEFT_FACE&#39;</span><span class="p">,</span>
                          <span class="s1">&#39;RIGHT_FACE&#39;</span><span class="p">]</span>
-        
+
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">faces</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>\
         <span class="ow">and</span> <span class="nb">all</span><span class="p">([</span><span class="n">key</span> <span class="ow">in</span> <span class="n">faces</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">required_keys</span><span class="p">]):</span>
 
@@ -544,12 +544,12 @@
 
     <span class="c1">#==========================================================================</span>
     <span class="c1">#       QUALITY ASSURANCE METHOD(s)</span>
-    <span class="c1">#========================================================================== </span>
+    <span class="c1">#==========================================================================</span>
 <div class="viewcode-block" id="Cube.is_well_formed"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.is_well_formed">[docs]</a>    <span class="k">def</span> <span class="nf">is_well_formed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Quality control method to ensure class has been properly</span>
 <span class="sd">        initialized by examining all :attr:`faces` via the quality control</span>
 <span class="sd">        method :func:`is_valid_face`.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            ``True`` if all faces are 3 x 3 arrays of valid colors</span>
 <span class="sd">            as defined by :func:`matplotlib.colors.is_color_like`,</span>
@@ -564,7 +564,7 @@
                          <span class="s1">&#39;RIGHT_FACE&#39;</span><span class="p">]</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">all</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">is_valid_face</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="n">face</span><span class="p">])</span> 
+            <span class="k">return</span> <span class="nb">all</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">is_valid_face</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="n">face</span><span class="p">])</span>
                         <span class="k">for</span> <span class="n">face</span> <span class="ow">in</span> <span class="n">required_keys</span><span class="p">])</span>
 
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
@@ -572,9 +572,9 @@
 
 
 <div class="viewcode-block" id="Cube.is_valid_face"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.is_valid_face">[docs]</a>    <span class="k">def</span> <span class="nf">is_valid_face</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">face</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Checks if the provided array could be a valid face on the </span>
+        <span class="sd">&quot;&quot;&quot;Checks if the provided array could be a valid face on the</span>
 <span class="sd">        currently initialized :class:`Cube`.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            face (np.ndarray): Array to be tested for being valid in the</span>
 <span class="sd">                context of the current :class:`Cube`.</span>
@@ -585,7 +585,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">face</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>\
         <span class="ow">and</span> <span class="n">face</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>\
-        <span class="ow">and</span> <span class="nb">all</span><span class="p">([</span><span class="nb">all</span><span class="p">([</span><span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> 
+        <span class="ow">and</span> <span class="nb">all</span><span class="p">([</span><span class="nb">all</span><span class="p">([</span><span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
                         <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">row</span><span class="p">])</span>
                             <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">face</span><span class="p">]):</span>
 
@@ -596,8 +596,12 @@
             <span class="k">return</span> <span class="kc">False</span></div>
 
 
+    <span class="c1">#==========================================================================</span>
+    <span class="c1">#       SOLUTION CHECKING METHOD(s)</span>
+    <span class="c1">#==========================================================================</span>
+
 <div class="viewcode-block" id="Cube.is_solved_face"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.is_solved_face">[docs]</a>    <span class="k">def</span> <span class="nf">is_solved_face</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">face</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Checks if the provided array could be a valid face on the </span>
+        <span class="sd">&quot;&quot;&quot;Checks if the provided array could be a valid face on the</span>
 <span class="sd">        currently initialized :class:`Cube`.</span>
 
 <span class="sd">        Args:</span>
@@ -612,15 +616,15 @@
 <span class="sd">        .. code-block::</span>
 <span class="sd">           :name: is_solved_face</span>
 <span class="sd">           :linenos:</span>
-<span class="sd">           :caption: A solved ``face`` returns ``True`` when examined by </span>
+<span class="sd">           :caption: A solved ``face`` returns ``True`` when examined by</span>
 <span class="sd">                :func:`is_valid_face` and only contains 1 unique value.</span>
 
 <span class="sd">            return len(np.unique(face) == 1)</span>
-<span class="sd">        </span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_valid_face</span><span class="p">(</span><span class="n">face</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
-        
+
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">face</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span></div>
 
@@ -631,7 +635,7 @@
 <span class="sd">        :func:`is_well_formed`, 0 otherwise.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            int: **num_faces_solved** - The number of solved faces on the </span>
+<span class="sd">            int: **num_faces_solved** - The number of solved faces on the</span>
 <span class="sd">            currently initialized :class:`Cube`.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -647,6 +651,88 @@
         <span class="k">return</span> <span class="n">num_faces_solved</span></div>
 
 
+<div class="viewcode-block" id="Cube.is_solved"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.is_solved">[docs]</a>    <span class="k">def</span> <span class="nf">is_solved</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Calls :func:`get_num_solved_faces` to check if all faces of the</span>
+<span class="sd">        :class:`Cube` are solved.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: Value representing if all faces</span>
+<span class="sd">            are solved completely.</span>
+
+<span class="sd">        .. code-block::</span>
+<span class="sd">           :name: is_solved</span>
+<span class="sd">           :linenos:</span>
+<span class="sd">           :caption: Checks to see if the number of solved faces is 6.</span>
+
+<span class="sd">           return (self.get_num_solved_faces() == 6)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_num_solved_faces</span><span class="p">()</span> <span class="o">==</span> <span class="mi">6</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Cube.get_num_matching_adjacent_tiles_face"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.get_num_matching_adjacent_tiles_face">[docs]</a>    <span class="k">def</span> <span class="nf">get_num_matching_adjacent_tiles_face</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">face</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Counts the number of tiles on the current face that are adjacent</span>
+<span class="sd">        and have the same color values.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            face (np.ndarray): Array to be tested for being solved in the</span>
+<span class="sd">                context of the current :class:`Cube`.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: **num_match_adj_tiles** - The number of tiles on the given</span>
+<span class="sd">            ``face`` that are adjacent (same row XOR same column) and have</span>
+<span class="sd">            the same color valus.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Ensures dealing with valid face</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_valid_face</span><span class="p">(</span><span class="n">face</span><span class="p">):</span>
+
+            <span class="n">num_match_adj_tiles</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># Iterates over each tile in the cube</span>
+            <span class="k">for</span> <span class="n">r_idx</span> <span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">face</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">c_idx</span> <span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+
+                    <span class="n">neighbors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+                    <span class="k">if</span> <span class="n">r_idx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">face</span><span class="p">[</span><span class="n">r_idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">c_idx</span><span class="p">])</span> <span class="c1"># Tile above</span>
+                    <span class="k">if</span> <span class="n">r_idx</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">face</span><span class="p">[</span><span class="n">r_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">c_idx</span><span class="p">])</span> <span class="c1"># Tile below</span>
+                    <span class="k">if</span> <span class="n">c_idx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">face</span><span class="p">[</span><span class="n">r_idx</span><span class="p">,</span> <span class="n">c_idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="c1"># Tile left</span>
+                    <span class="k">if</span> <span class="n">c_idx</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">face</span><span class="p">[</span><span class="n">r_idx</span><span class="p">,</span> <span class="n">c_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="c1"># Tile right</span>
+
+                    <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="n">face</span><span class="p">[</span><span class="n">r_idx</span><span class="p">,</span> <span class="n">c_idx</span><span class="p">]</span> <span class="o">==</span> <span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">neighbors</span><span class="p">]):</span>
+                        <span class="n">num_match_adj_tiles</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">return</span> <span class="n">num_match_adj_tiles</span></div>
+
+
+<div class="viewcode-block" id="Cube.get_num_matching_adjacent_tiles"><a class="viewcode-back" href="../../rubix_cube.cube.html#rubix_cube.cube.Cube.get_num_matching_adjacent_tiles">[docs]</a>    <span class="k">def</span> <span class="nf">get_num_matching_adjacent_tiles</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Counts the number of tiles on the :class:`Cube` that are adjacent</span>
+<span class="sd">        and have the same color values. Uses successive calls to</span>
+<span class="sd">        :func:`get_num_matching_adjacent_tiles_face` for every face.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: **num_match_adj_tiles** - The number of tiles on the given</span>
+<span class="sd">            :class:`Cube` that are adjacent (same row XOR same column) and have</span>
+<span class="sd">            the same color valus.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">num_match_adj_tiles</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
+
+            <span class="k">for</span> <span class="n">face</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_valid_face</span><span class="p">(</span><span class="n">face</span><span class="p">):</span>
+                    <span class="n">num_match_adj_tiles</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_num_matching_adjacent_tiles_face</span><span class="p">(</span><span class="n">face</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">num_match_adj_tiles</span></div>
+
     <span class="c1">#==========================================================================</span>
     <span class="c1">#       MOVE METHOD(s)</span>
     <span class="c1">#==========================================================================</span>
@@ -655,7 +741,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;UP_FACE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;UP_FACE&#39;</span><span class="p">],</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;UP_FACE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;UP_FACE&#39;</span><span class="p">],</span>
                                              <span class="n">axes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
 
             <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;BACK_FACE&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">,:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -700,7 +786,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;DOWN_FACE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;DOWN_FACE&#39;</span><span class="p">],</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;DOWN_FACE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;DOWN_FACE&#39;</span><span class="p">],</span>
                                                <span class="n">axes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
 
             <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;FRONT_FACE&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">,:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -715,7 +801,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;FRONT_FACE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;FRONT_FACE&#39;</span><span class="p">],</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;FRONT_FACE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;FRONT_FACE&#39;</span><span class="p">],</span>
                                                 <span class="n">axes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
 
             <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;UP_FACE&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">,:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -773,9 +859,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;LEFT_FACE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;LEFT_FACE&#39;</span><span class="p">],</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;LEFT_FACE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;LEFT_FACE&#39;</span><span class="p">],</span>
                                                <span class="n">axes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
-            
+
             <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;DOWN_FACE&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;DOWN_FACE&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;FRONT_FACE&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;FRONT_FACE&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;UP_FACE&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span>
@@ -793,7 +879,7 @@
             <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;DOWN_FACE&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;DOWN_FACE&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;BACK_FACE&#39;</span><span class="p">][:,</span><span class="mi">2</span><span class="p">])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;BACK_FACE&#39;</span><span class="p">][:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;UP_FACE&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;UP_FACE&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;FRONT_FACE&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;UP_FACE&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;FRONT_FACE&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;FRONT_FACE&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span></div>
 
 
@@ -802,7 +888,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_well_formed</span><span class="p">():</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;RIGHT_FACE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;RIGHT_FACE&#39;</span><span class="p">],</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;RIGHT_FACE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;RIGHT_FACE&#39;</span><span class="p">],</span>
                                                 <span class="n">axes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
 
             <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;UP_FACE&#39;</span><span class="p">][:,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -846,7 +932,7 @@
             <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;DOWN_FACE&#39;</span><span class="p">][:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;DOWN_FACE&#39;</span><span class="p">][:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;BACK_FACE&#39;</span><span class="p">][:,</span><span class="mi">1</span><span class="p">])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;BACK_FACE&#39;</span><span class="p">][:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;UP_FACE&#39;</span><span class="p">][:,</span><span class="mi">1</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;UP_FACE&#39;</span><span class="p">][:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;FRONT_FACE&#39;</span><span class="p">][:,</span><span class="mi">1</span><span class="p">]</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;UP_FACE&#39;</span><span class="p">][:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;FRONT_FACE&#39;</span><span class="p">][:,</span><span class="mi">1</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">faces</span><span class="p">[</span><span class="s1">&#39;FRONT_FACE&#39;</span><span class="p">][:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span></div>
 
 
