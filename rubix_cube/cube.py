@@ -8,7 +8,7 @@ Collection of methods that define the main Rubix :class:`Cube` class data
 structure and how it is interacted with by other modules.
 
 Note:
-    Using `Western Color Scheme 
+    Using `Western Color Scheme
     <https://ruwix.com/the-rubiks-cube/japanese-western-color-schemes/>`_ as
     default Rubix Cube coloring scheme.
 
@@ -16,7 +16,7 @@ Module Contents
 ===============
 
     *   :class:`Rubix Cube <Cube>` class that is capable of being parameterized
-        with a custom set of 6 unique colors (`Default Color Scheme 
+        with a custom set of 6 unique colors (`Default Color Scheme
         <https://www.schemecolor.com/rubik-cube-colors.php>`_) and can invoke
         the following moves.
 
@@ -25,16 +25,16 @@ Module Contents
            :align: center
            :scale: 75%
 
-           6 cube face rotations both clock-wise and 
-           counter-clockwise (inverse) are considered to be the standard 
-           move-set. (`How to Solve 
+           6 cube face rotations both clock-wise and
+           counter-clockwise (inverse) are considered to be the standard
+           move-set. (`How to Solve
            <https://www.rubiks.com/en-us/blog/how-to-solve-the-rubiks-cube-stage-1>`_
            )
 
         .. todo::
-           
+
            *    Need to finish implementing the ``get_num_solved_rings``.
-           *    Need to finish implementing the ``are_equivalent_cubes``.
+           *    Need to finish implementing the ``get_num_matching_adjacent_tiles``.
 
 
         .. figure:: ./../../misc/flattened_cube.png
@@ -42,7 +42,7 @@ Module Contents
            :align: center
            :scale: 45%
 
-           At this view of the cube, each face is a 3x3 array indexed with 
+           At this view of the cube, each face is a 3x3 array indexed with
            [0,0] in the top-left and [2,2] in the bottom right. (`Flattened
            <https://rantonse.no/en/blog/2016-05-12>`_)
 
@@ -67,9 +67,9 @@ class Cube(object):
     """Data structure for representing a 3x3x3 rubix-cube.
 
     Attributes:
-        __colors (Dict[str,str]): Dictionary of HEX colors that define the 
+        __colors (Dict[str,str]): Dictionary of HEX colors that define the
             rendering of the :class:`Cube`'s tile coloring.
-        __faces (Dict[str,np.ndarray]): Dictionary of 
+        __faces (Dict[str,np.ndarray]): Dictionary of
             :class:`numpy arrays <numpy.ndarray>` that define the rendering of
             the :class:`Cube`'s tile configuration.
 
@@ -86,9 +86,9 @@ class Cube(object):
         Args:
             colors (Dict[str,str], optional): Dictionary of color HEX strings.
                 Default value is ``None`` which will create a cube with default
-                colors :attr:`DEFAULT_FACE_COLORS`. 
+                colors :attr:`DEFAULT_FACE_COLORS`.
 
-                .. code-block:: 
+                .. code-block::
                    :name: init_colors_keys
                    :linenos:
                    :caption: Required ``colors`` dictionary keys.
@@ -105,11 +105,11 @@ class Cube(object):
                 by :func:`matplotlib.colors.is_color_like`.
 
             faces (Dict[str,np.array], optional): Dictionary of face names to
-                3x3 arrays of the the tile face values. Default value is 
+                3x3 arrays of the the tile face values. Default value is
                 ``None`` which will create a solved cube with default colors.
 
                 .. code-block::
-                   :name: init_faces_keys 
+                   :name: init_faces_keys
                    :linenos:
                    :caption: Required ``faces`` dictionary keys.
 
@@ -121,22 +121,22 @@ class Cube(object):
                             'RIGHT_FACE' : ...
                            }
 
-                All faces passed as value must be 3x3 
-                :class:`numpy arrays <numpy.ndarray>` with each element 
-                returning ``True`` when examined by 
+                All faces passed as value must be 3x3
+                :class:`numpy arrays <numpy.ndarray>` with each element
+                returning ``True`` when examined by
                 :func:`matplotlib.colors.is_color_like`.
 
         """
 
         # Sets private attributes via properties
         self.colors = Cube.DEFAULT_FACE_COLORS
-        self.faces = Cube.DEFAULT_FACES 
-        
+        self.faces = Cube.DEFAULT_FACES
+
         if isinstance(colors, dict):
             self.colors = colors
 
             if isinstance(faces, dict):
-                self.faces = faces          
+                self.faces = faces
 
 
     #==========================================================================
@@ -145,13 +145,13 @@ class Cube(object):
     def __eq__(self, other) -> bool:
         """Tests if the :class:`Rubix Cube <rubix_cube.cube.Cube>` faces are
         exactly identical between the two objects.
-        
+
         Args:
             other (TYPE): Description
-        
+
         Returns:
             bool: Description
-        
+
         """
         if self.is_well_formed()\
         and isinstance(other , self.__class__)\
@@ -170,46 +170,46 @@ class Cube(object):
     def __ne__(self, other) -> bool:
         """Tests if the :class:`Rubix Cube <rubix_cube.cube.Cube>` faces are
         ``NOT`` exactly identical between the two objects.
-        
+
         Args:
             other (TYPE): Description
-        
+
         Returns:
             bool: Description
-        
+
         """
         return not (self == other)
 
 
     def __mod__(self, other) -> bool:
         """Tests if the :class:`Rubix Cube <rubix_cube.cube.Cube>` faces are
-        exactly identical between the two objects after re-orientation. 
+        exactly identical between the two objects after re-orientation.
         Essentially are the cubes identical after rotation?
-        
+
         Args:
             other (TYPE): Description
 
         Returns:
-            bool: 
-        
+            bool:
+
         """
         return self.is_equivalent_to(other)
 
 
     def is_equivalent_to(self, other) -> bool:
         """
-        
+
         Args:
             other (TYPE): Description
 
         Returns:
-            bool: 
+            bool:
 
         """
         if self.is_well_formed()\
         and isinstance(other , self.__class__)\
         and other.is_well_formed():
-        
+
             other_test_seqs = [[Cube.rotate_roll,
                                 Cube.rotate_roll,
                                 Cube.rotate_roll],
@@ -261,14 +261,14 @@ class Cube(object):
     @property
     def colors(self):
         """Can only be set to be a dictionary with 6 unique color string values
-        that all return ``True`` when examined by 
-        :func:`matplotlib.colors.is_color_like`. 
+        that all return ``True`` when examined by
+        :func:`matplotlib.colors.is_color_like`.
 
         .. code-block::
            :name: colors_keys
            :linenos:
            :caption: Required ``colors`` dictionary keys.
-           
+
            colors = {'UP_COLOR' : ...,
                      'DOWN_COLOR' : ...,
                      'FRONT_COLOR' : ...,
@@ -279,7 +279,7 @@ class Cube(object):
         """
         return self.__colors
 
-    
+
     @colors.setter
     def colors(self, colors : Dict[str,str]):
 
@@ -303,15 +303,15 @@ class Cube(object):
     @property
     def faces(self) -> Dict[str,np.ndarray]:
         """Can only be set to be a dictionary of 6 strings mapped to the faces
-        of a Rubix Cube. Each value must be a 3x3 
+        of a Rubix Cube. Each value must be a 3x3
         :class:`numpy array <numpy.ndarray>` of values all of which are valid
         colors that can be found within the :attr:`colors` attribute.
-        
+
         .. code-block::
            :name: faces_keys
            :linenos:
            :caption: Required ``faces`` dictionary keys.
-           
+
            faces = {'UP_FACE' : ...,
                     'DOWN_FACE' : ...,
                     'FRONT_FACE' : ...,
@@ -332,7 +332,7 @@ class Cube(object):
                          'BACK_FACE',
                          'LEFT_FACE',
                          'RIGHT_FACE']
-        
+
         if isinstance(faces, dict)\
         and all([key in faces for key in required_keys]):
 
@@ -344,12 +344,12 @@ class Cube(object):
 
     #==========================================================================
     #       QUALITY ASSURANCE METHOD(s)
-    #========================================================================== 
+    #==========================================================================
     def is_well_formed(self) -> bool:
         """Quality control method to ensure class has been properly
         initialized by examining all :attr:`faces` via the quality control
         method :func:`is_valid_face`.
-        
+
         Returns:
             ``True`` if all faces are 3 x 3 arrays of valid colors
             as defined by :func:`matplotlib.colors.is_color_like`,
@@ -364,7 +364,7 @@ class Cube(object):
                          'RIGHT_FACE']
 
         try:
-            return all([self.is_valid_face(self.faces[face]) 
+            return all([self.is_valid_face(self.faces[face])
                         for face in required_keys])
 
         except KeyError:
@@ -372,9 +372,9 @@ class Cube(object):
 
 
     def is_valid_face(self, face : np.ndarray) -> bool:
-        """Checks if the provided array could be a valid face on the 
+        """Checks if the provided array could be a valid face on the
         currently initialized :class:`Cube`.
-            
+
         Args:
             face (np.ndarray): Array to be tested for being valid in the
                 context of the current :class:`Cube`.
@@ -385,7 +385,7 @@ class Cube(object):
         """
         if isinstance(face, np.ndarray)\
         and face.shape == (3,3)\
-        and all([all([val in self.colors.values() 
+        and all([all([val in self.colors.values()
                         for val in row])
                             for row in face]):
 
@@ -396,8 +396,12 @@ class Cube(object):
             return False
 
 
+    #==========================================================================
+    #       SOLUTION CHECKING METHOD(s)
+    #==========================================================================
+
     def is_solved_face(self, face: np.ndarray) -> bool:
-        """Checks if the provided array could be a valid face on the 
+        """Checks if the provided array could be a valid face on the
         currently initialized :class:`Cube`.
 
         Args:
@@ -412,15 +416,15 @@ class Cube(object):
         .. code-block::
            :name: is_solved_face
            :linenos:
-           :caption: A solved ``face`` returns ``True`` when examined by 
+           :caption: A solved ``face`` returns ``True`` when examined by
                 :func:`is_valid_face` and only contains 1 unique value.
 
             return len(np.unique(face) == 1)
-        
+
         """
         if not self.is_valid_face(face):
             return False
-        
+
         else:
             return len(np.unique(face)) == 1
 
@@ -431,7 +435,7 @@ class Cube(object):
         :func:`is_well_formed`, 0 otherwise.
 
         Returns:
-            int: **num_faces_solved** - The number of solved faces on the 
+            int: **num_faces_solved** - The number of solved faces on the
             currently initialized :class:`Cube`.
 
         """
@@ -447,6 +451,86 @@ class Cube(object):
         return num_faces_solved
 
 
+    def is_solved(self) -> bool:
+        """Calls :func:`get_num_solved_faces` to check if all faces of the
+        :class:`Cube` are solved.
+
+        Returns:
+            bool: Value representing if all faces
+            are solved completely.
+
+        .. code-block::
+           :name: is_solved
+           :linenos:
+           :caption: Checks to see if the number of solved faces is 6.
+
+           return (self.get_num_solved_faces() == 6)
+
+        """
+
+        return (self.get_num_solved_faces() == 6)
+
+
+    def get_num_matching_adjacent_tiles_face(self, face : np.ndarray) -> int:
+        """Counts the number of tiles on the current face that are adjacent
+        and have the same color values.
+
+        Args:
+            face (np.ndarray): Array to be tested for being solved in the
+                context of the current :class:`Cube`.
+
+        Returns:
+            int: **num_match_adj_tiles** - The number of tiles on the given
+            ``face`` that are adjacent (same row XOR same column) and have
+            the same color valus.
+
+        """
+
+        # Ensures dealing with valid face
+        if self.is_valid_face(face):
+
+            num_match_adj_tiles = 0
+
+            # Iterates over each tile in the cube
+            for r_idx , row in enumerate(face):
+                for c_idx , col in enumerate(row):
+
+                    neighbors = list()
+
+                    if r_idx > 0:
+                        neighbors.append(face[r_idx - 1, c_idx]) # Tile above
+                    if r_idx < 2:
+                        neighbors.append(face[r_idx + 1, c_idx]) # Tile below
+                    if c_idx > 0:
+                        neighbors.append(face[r_idx, c_idx - 1]) # Tile left
+                    if c_idx < 2:
+                        neighbors.append(face[r_idx, c_idx + 1]) # Tile right
+
+                    if any([face[r_idx, c_idx] == c for c in neighbors]):
+                        num_match_adj_tiles += 1
+
+            return num_match_adj_tiles
+
+
+    def get_num_matching_adjacent_tiles(self) -> int:
+        """
+
+        Returns:
+            int: **num_match_adj_tiles** - The number of tiles on the given
+            :class:`Cube` that are adjacent (same row XOR same column) and have
+            the same color valus.
+        """
+
+        num_match_adj_tiles = 0
+
+        if self.is_well_formed():
+
+            for face in self.faces.values():
+                if self.is_valid_face(face):
+                    num_match_adj_tiles += self.get_num_matching_adjacent_tiles_face(face)
+
+        return num_match_adj_tiles
+
     #==========================================================================
     #       MOVE METHOD(s)
     #==========================================================================
@@ -455,7 +539,7 @@ class Cube(object):
         """
         if self.is_well_formed():
 
-            self.faces['UP_FACE'] = np.rot90(self.faces['UP_FACE'], 
+            self.faces['UP_FACE'] = np.rot90(self.faces['UP_FACE'],
                                              axes=(1,0))
 
             temp = self.faces['BACK_FACE'][0,:].copy()
@@ -500,7 +584,7 @@ class Cube(object):
         """
         if self.is_well_formed():
 
-            self.faces['DOWN_FACE'] = np.rot90(self.faces['DOWN_FACE'], 
+            self.faces['DOWN_FACE'] = np.rot90(self.faces['DOWN_FACE'],
                                                axes=(1,0))
 
             temp = self.faces['FRONT_FACE'][2,:].copy()
@@ -515,7 +599,7 @@ class Cube(object):
         """
         if self.is_well_formed():
 
-            self.faces['FRONT_FACE'] = np.rot90(self.faces['FRONT_FACE'], 
+            self.faces['FRONT_FACE'] = np.rot90(self.faces['FRONT_FACE'],
                                                 axes=(1,0))
 
             temp = self.faces['UP_FACE'][2,:].copy()
@@ -573,9 +657,9 @@ class Cube(object):
         """
         if self.is_well_formed():
 
-            self.faces['LEFT_FACE'] = np.rot90(self.faces['LEFT_FACE'], 
+            self.faces['LEFT_FACE'] = np.rot90(self.faces['LEFT_FACE'],
                                                axes=(1,0))
-            
+
             temp = self.faces['DOWN_FACE'][:,0].copy()
             self.faces['DOWN_FACE'][:,0] = self.faces['FRONT_FACE'][:,0]
             self.faces['FRONT_FACE'][:,0] = self.faces['UP_FACE'][:,0]
@@ -593,7 +677,7 @@ class Cube(object):
             temp = self.faces['DOWN_FACE'][:,0].copy()
             self.faces['DOWN_FACE'][:,0] = np.flip(self.faces['BACK_FACE'][:,2])
             self.faces['BACK_FACE'][:,2] = np.flip(self.faces['UP_FACE'][:,0])
-            self.faces['UP_FACE'][:,0] = self.faces['FRONT_FACE'][:,0] 
+            self.faces['UP_FACE'][:,0] = self.faces['FRONT_FACE'][:,0]
             self.faces['FRONT_FACE'][:,0] = temp
 
 
@@ -602,7 +686,7 @@ class Cube(object):
         """
         if self.is_well_formed():
 
-            self.faces['RIGHT_FACE'] = np.rot90(self.faces['RIGHT_FACE'], 
+            self.faces['RIGHT_FACE'] = np.rot90(self.faces['RIGHT_FACE'],
                                                 axes=(1,0))
 
             temp = self.faces['UP_FACE'][:,2].copy()
@@ -646,7 +730,7 @@ class Cube(object):
             temp = self.faces['DOWN_FACE'][:,1].copy()
             self.faces['DOWN_FACE'][:,1] = np.flip(self.faces['BACK_FACE'][:,1])
             self.faces['BACK_FACE'][:,1] = np.flip(self.faces['UP_FACE'][:,1])
-            self.faces['UP_FACE'][:,1] = self.faces['FRONT_FACE'][:,1] 
+            self.faces['UP_FACE'][:,1] = self.faces['FRONT_FACE'][:,1]
             self.faces['FRONT_FACE'][:,1] = temp
 
 

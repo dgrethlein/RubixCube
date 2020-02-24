@@ -386,6 +386,7 @@ class Cube_Game(object):
 
             if self.verbose:
                 print(f"[DEBUG]\tCalling game cube function: '{cube_func}'")
+                print(f"\t\tNum Matching Adjacent Tiles : {self.game_cube.get_num_matching_adjacent_tiles()}")
 
             self.game_log['events'].append({'type' : cube_func})
 
