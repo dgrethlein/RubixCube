@@ -16,30 +16,106 @@ Home
     </div>
     <script src="js/three.js"></script>
     <script>
-        var scene = new THREE.Scene();
-        var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+// three.js shape to line
 
-        var renderer = new THREE.WebGLRenderer();
-        renderer.setSize( window.innerWidth, window.innerHeight );
-        document.body.appendChild( renderer.domElement );
+var renderer, scene, camera;
 
-        var geometry = new THREE.BoxGeometry();
-        var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-        var cube = new THREE.Mesh( geometry, material );
-        scene.add( cube );
+var line;
+var MAX_POINTS = 500;
+var drawCount;
+var value = 1;
+var delta = -0.01;
 
-        camera.position.z = 5;
+init();
+animate();
 
-        var animate = function () {
-            requestAnimationFrame( animate );
+function init() {
 
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.01;
+      // info
+      var info = document.createElement('div');
+      info.style.position = 'absolute';
+      info.style.top = '30px';
+      info.style.width = '100%';
+      info.style.textAlign = 'center';
+      info.style.color = '#fff';
+      info.style.fontWeight = 'bold';
+      info.style.backgroundColor = 'transparent';
+      info.style.zIndex = '1';
+      info.style.fontFamily = 'Monospace';
+      info.innerHTML = "three.js - change colors of faces";
+      document.body.appendChild(info);
 
-            renderer.render( scene, camera );
-        };
+      // renderer
+      renderer = new THREE.WebGLRenderer();
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
 
-        animate();
+      // scene
+      scene = new THREE.Scene();
+
+      // camera
+      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+      camera.position.set(0, 100, 500);
+
+      // material
+      var material = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        vertexColors: THREE.FaceColors
+      });
+
+      // geometry
+      geometry = new THREE.BoxGeometry(100, 100, 100);
+
+      // colors
+      red = new THREE.Color(1, 0, 0);
+      green = new THREE.Color(0, 1, 0);
+      blue = new THREE.Color(0, 0, 1);
+      var colors = [red, green, blue];
+
+      for (var i = 0; i < 3; i++) {
+        geometry.faces[4 * i].color = colors[i];
+        geometry.faces[4 * i + 1].color = colors[i];
+        geometry.faces[4 * i + 2].color = colors[i];
+        /*geometry.faces[4 * i + 3].color = colors[i];*/
+      }
+
+      // mesh
+      box = new THREE.Mesh(geometry, material);
+      scene.add(box);
+    }
+
+    // render
+    function render() {
+      renderer.render(scene, camera);
+    }
+
+    function animateBox() {
+      angle = 0.02;
+      box.rotateX(-1.0*angle)
+      box.rotateY(angle);
+      box.rotateZ(angle);
+    }
+
+    function changeFaceColors() {
+      if (value <= 0) {
+        delta = 0.01;
+      }
+      else if(value >= 1) {
+        delta = -0.01;
+      }
+      red.r = green.g = blue.b = value += delta;
+      geometry.colorsNeedUpdate = true;
+    }
+
+    // animate
+    function animate() {
+      animateBox();
+      //changeFaceColors();
+      requestAnimationFrame(animate);
+      render();
+    }
+
     </script>
 </section>
 
