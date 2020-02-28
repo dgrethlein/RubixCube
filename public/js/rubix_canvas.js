@@ -70,7 +70,7 @@ function revolve_around_Z_axis(object , degrees) {
 }
 
 function up_layer_cubes() {
-    var up_cubes = cube_arr.filter(cube => cube.position.y > 20);
+    var up_cubes = cube_arr.filter(cube => cube.position.y > 25);
 
     return up_cubes;
 }
@@ -86,6 +86,43 @@ function down_layer_cubes() {
 
     return dn_cubes;
 }
+
+function front_layer_cubes() {
+    var fr_cubes = cube_arr.filter(cube => cube.position.z > 25);
+
+    return fr_cubes;
+}
+
+function standing_layer_cubes() {
+    var st_cubes = cube_arr.filter(cube => cube.position.z < 25 && cube.position.z > -25);
+
+    return st_cubes;
+}
+
+function back_layer_cubes() {
+    var bk_cubes = cube_arr.filter(cube => cube.position.z < -25);
+
+    return bk_cubes;
+}
+
+function left_layer_cubes() {
+    var lf_cubes = cube_arr.filter(cube => cube.position.x < -25);
+
+    return lf_cubes;
+}
+
+function middle_layer_cubes() {
+    var md_cubes = cube_arr.filter(cube => cube.position.x < 25 && cube.position.x > -25);
+
+    return md_cubes;
+}
+
+function right_layer_cubes() {
+    var rg_cubes = cube_arr.filter(cube => cube.position.x > 25);
+
+    return rg_cubes;
+}
+
 
 
 
@@ -104,7 +141,10 @@ function init() {
     info.style.zIndex = '1';
 
 
+
+
     document.body.appendChild(info);
+
 
     // ray-caster
     raycaster = new THREE.Raycaster();
@@ -121,15 +161,16 @@ function init() {
 
     // camera
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
-    camera.position.set(250, 250, 500);
+    camera.position.set(0, 0, 500);
 
 
+    // Scene ambient lighting (soft white)
     var light1 = new THREE.AmbientLight( 0x404040 , 5);
     scene.add(light1);
-    /*var light2 = new THREE.DirectionalLight( 0xffffff, 1.5);
-    light2.position.set(-1,-1,-1).normalize();
-    scene.add(light2);*/
 
+    // Axes helper for debugging 3d graphics sides
+    var axesHelper = new THREE.AxesHelper( 500 );
+    scene.add(axesHelper);
 
 
     var geometry = new THREE.BoxGeometry(40,40,40);
@@ -137,14 +178,14 @@ function init() {
                                                   vertexColors : THREE.FaceColors});
 
     // colors
-    var green = new THREE.Color( 0x009b48 );
-    var red = new THREE.Color( 0xb90000 );
-    var blue = new THREE.Color( 0x0045ad );
-    var orange = new THREE.Color( 0xff5900 );
-    var white = new THREE.Color( 0xffffff );
-    var yellow = new THREE.Color( 0xffd500 );
+    var front_color = new THREE.Color( 0x009b48 ); //Default Green
+    var back_color = new THREE.Color( 0x0045ad );  // Default Blue
+    var left_color = new THREE.Color( 0xff5900 );  // Default Orange
+    var right_color = new THREE.Color( 0xb90000 ); // Default Red
+    var up_color = new THREE.Color( 0xffffff );    // Default White
+    var down_color = new THREE.Color( 0xffd500 );  // Default Yellow
 
-    var colors = [red, orange, green, blue, white, yellow];
+    var colors = [ right_color, left_color, up_color, down_color, front_color, back_color ];
 
     for (var row_idx = 0; row_idx < 3; row_idx++) {
         for (var col_idx = 0; col_idx < 3; col_idx++) {
@@ -170,6 +211,47 @@ function init() {
             }
         }
     }
+
+    document.addEventListener("keydown", onDocumentKeyDown, false);
+
+
+
+    function onDocumentKeyDown(event) {
+        var keyCode = event.which || event.keyCode;
+        var strKey = String.fromCharCode(keyCode);
+
+        console.log(`KeyCode[${keyCode}] Str[${strKey}]`);
+
+        if (strKey == 'L') {
+            var lf_cubes = left_layer_cubes();
+
+            for ( var l_idx = 0; l_idx < lf_cubes.length; l_idx++ ) {
+                var l_cube = lf_cubes[l_idx];
+                revolve_around_X_axis(l_cube, 10);
+            }
+
+        }
+        if (strKey == 'M') {
+            var md_cubes = middle_layer_cubes();
+
+            for ( var m_idx = 0; m_idx < md_cubes.length; m_idx++ ) {
+                var m_cube = md_cubes[m_idx];
+                revolve_around_X_axis(m_cube, 10);
+            }
+
+        }
+        if (strKey == 'R') {
+            var rg_cubes = right_layer_cubes();
+
+            for ( var r_idx = 0; r_idx < rg_cubes.length; r_idx++ ) {
+                var r_cube = rg_cubes[r_idx];
+                revolve_around_X_axis(r_cube, 10);
+            }
+
+        }
+
+    };
+
     camera.lookAt( scene.position );
 }
 
@@ -187,10 +269,10 @@ function animateBox() {
     let angle = 0.02;
 
     //revolve_around_X_axis(camera, -10*angle);
-    revolve_around_Y_axis(camera, 15*angle);
+    revolve_around_Y_axis(camera, 5*angle);
     //revolve_around_Z_axis(camera, 10*angle);
 
-    var up_cubes = up_layer_cubes();
+    /*var up_cubes = up_layer_cubes();
     var eq_cubes = equator_layer_cubes();
     var dn_cubes = down_layer_cubes();
 
@@ -211,7 +293,7 @@ function animateBox() {
         var dn_cube = dn_cubes[d_idx];
 
         revolve_around_Y_axis(dn_cube, 20*angle);
-    }
+    }*/
 
 }
 
