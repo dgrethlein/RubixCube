@@ -69,6 +69,7 @@ function revolve_around_Z_axis(object , degrees) {
     object.rotateOnWorldAxis(new THREE.Vector3(0,0,1), 1.0 * radians);
 }
 
+// Identifying different layers of the rubix cube by their positions
 function up_layer_cubes() {
     var up_cubes = cube_arr.filter(cube => cube.position.y > 25);
 
@@ -248,6 +249,54 @@ function init() {
                 revolve_around_X_axis(r_cube, 10);
             }
 
+        }
+        if (strKey == 'F') {
+            var ft_cubes = front_layer_cubes();
+
+            for ( var f_idx = 0; f_idx < ft_cubes.length; f_idx++ ) {
+                var f_cube = ft_cubes[f_idx];
+                revolve_around_Z_axis(f_cube, 10);
+            }
+        }
+        if (strKey == 'S') {
+            var st_cubes = standing_layer_cubes();
+
+            for ( var s_idx = 0; s_idx < st_cubes.length; s_idx++ ) {
+                var s_cube = st_cubes[s_idx];
+                revolve_around_Z_axis(s_cube, 10);
+            }
+        }
+        if (strKey == 'B') {
+            var bk_cubes = back_layer_cubes();
+
+            for ( var b_idx = 0; b_idx < bk_cubes.length; b_idx++ ) {
+                var b_cube = bk_cubes[b_idx];
+                revolve_around_Z_axis(b_cube, 10);
+            }
+        }
+        if (strKey == 'U') {
+            var up_cubes = up_layer_cubes();
+
+            for ( var u_idx = 0; u_idx < up_cubes.length; u_idx++ ) {
+                var u_cube = up_cubes[u_idx];
+                revolve_around_Y_axis(u_cube, 10);
+            }
+        }
+        if (strKey == 'E') {
+            var eq_cubes = equator_layer_cubes();
+
+            for ( var e_idx = 0; e_idx < eq_cubes.length; e_idx++ ) {
+                var e_cube = eq_cubes[e_idx];
+                revolve_around_Y_axis(e_cube, 10);
+            }
+        }
+        if (strKey == 'D') {
+            var dw_cubes = down_layer_cubes();
+
+            for ( var d_idx = 0; d_idx < dw_cubes.length; d_idx++ ) {
+                var d_cube = dw_cubes[d_idx];
+                revolve_around_Y_axis(d_cube, 10);
+            }
         }
 
     };
