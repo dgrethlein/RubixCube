@@ -69,6 +69,26 @@ function revolve_around_Z_axis(object , degrees) {
     object.rotateOnWorldAxis(new THREE.Vector3(0,0,1), 1.0 * radians);
 }
 
+function up_layer_cubes() {
+    var up_cubes = cube_arr.filter(cube => cube.position.y > 20);
+
+    return up_cubes;
+}
+
+function equator_layer_cubes() {
+    var eq_cubes = cube_arr.filter(cube => cube.position.y < 25 && cube.position.y > -25);
+
+    return eq_cubes;
+}
+
+function down_layer_cubes() {
+    var dn_cubes = cube_arr.filter(cube => cube.position.y < -25);
+
+    return dn_cubes;
+}
+
+
+
 function init() {
 
 
@@ -104,34 +124,38 @@ function init() {
     camera.position.set(250, 250, 500);
 
 
-    var light = new THREE.DirectionalLight( 0xffffff , 1);
-    light.position.set(1,1,1).normalize();
-    scene.add(light);
+    var light1 = new THREE.AmbientLight( 0x404040 , 5);
+    scene.add(light1);
+    /*var light2 = new THREE.DirectionalLight( 0xffffff, 1.5);
+    light2.position.set(-1,-1,-1).normalize();
+    scene.add(light2);*/
 
 
 
     var geometry = new THREE.BoxGeometry(40,40,40);
-    var material = new THREE.MeshBasicMaterial({color : 0xffffff,
-                                                vertexColors : THREE.FaceColors});
+    var material = new THREE.MeshLambertMaterial({color : 0xffffff,
+                                                  vertexColors : THREE.FaceColors});
 
     // colors
-    var red = new THREE.Color(1, 0, 0);
-    var green = new THREE.Color(0, 1, 0);
-    var blue = new THREE.Color(0, 0, 1);
-    var colors = [red, green, blue];
+    var green = new THREE.Color( 0x009b48 );
+    var red = new THREE.Color( 0xb90000 );
+    var blue = new THREE.Color( 0x0045ad );
+    var orange = new THREE.Color( 0xff5900 );
+    var white = new THREE.Color( 0xffffff );
+    var yellow = new THREE.Color( 0xffd500 );
+
+    var colors = [red, orange, green, blue, white, yellow];
 
     for (var row_idx = 0; row_idx < 3; row_idx++) {
         for (var col_idx = 0; col_idx < 3; col_idx++) {
             for (var dep_idx = 0; dep_idx < 3; dep_idx++) {
 
                 for (var i = 0; i < 3; i++) {
-                    if (row_idx == 0) {
-                        geometry.faces[4 * i].color = colors[i];
-                        geometry.faces[4 * i + 1].color = colors[i];
-                    }
 
-                    geometry.faces[4 * i + 2].color = colors[i];
-                    geometry.faces[4 * i + 3].color = colors[i];
+                    geometry.faces[4 * i].color = colors[2*i];
+                    geometry.faces[4 * i + 1].color = colors[2*i];
+                    geometry.faces[4 * i + 2].color = colors[2*i+1];
+                    geometry.faces[4 * i + 3].color = colors[2*i+1];
                 }
 
                 // mesh
@@ -162,14 +186,33 @@ function render() {
 function animateBox() {
     let angle = 0.02;
 
-    for (var cube_idx = 0; cube_idx < cube_arr.length; cube_idx++) {
+    //revolve_around_X_axis(camera, -10*angle);
+    revolve_around_Y_axis(camera, 15*angle);
+    //revolve_around_Z_axis(camera, 10*angle);
 
-        var cube = cube_arr[cube_idx];
+    var up_cubes = up_layer_cubes();
+    var eq_cubes = equator_layer_cubes();
+    var dn_cubes = down_layer_cubes();
 
-        revolve_around_X_axis(cube, -1*angle);
-        revolve_around_Z_axis(cube, 2.5*angle);
-        revolve_around_Y_axis(cube, 1.5*angle);
+    for (var u_idx = 0; u_idx < up_cubes.length; u_idx++) {
+
+        var up_cube = up_cubes[u_idx];
+
+        revolve_around_Y_axis(up_cube, 10*angle);
     }
+    for (var e_idx = 0; e_idx < eq_cubes.length; e_idx++) {
+
+        var eq_cube = eq_cubes[e_idx];
+
+        revolve_around_Y_axis(eq_cube, -20*angle);
+    }
+    for (var d_idx = 0; d_idx < dn_cubes.length; d_idx++) {
+
+        var dn_cube = dn_cubes[d_idx];
+
+        revolve_around_Y_axis(dn_cube, 20*angle);
+    }
+
 }
 
 function onDocumentMouseMove( event ) {
