@@ -1,7 +1,7 @@
 // three.js shape to line
 
 
-var renderer, scene, camera;
+var renderer, scene, camera , raycaster;
 
 var line;
 var MAX_POINTS = 500;
@@ -13,34 +13,26 @@ var cube_arr = [];
 var last = false;
 var quaternion = new THREE.Quaternion;
 var axis = new THREE.Vector3(0,1,0);
+var mouse = new THREE.Vector2();
 
 init();
 
-
-var controls = new THREE.DragControls( cube_arr, camera, renderer.domElement );
-
-// add event listener to highlight dragged objects
-
-controls.addEventListener( 'hoveron', function ( event ) {
-
-    //event.object.material.emissive.set( 0xaaaaaa );
-
-} );
-
-controls.addEventListener( 'hoveroff', function ( event ) {
-
-    //event.object.material.emissive.set( 0x000000 );
-
-} );
+// Camera rotating around centered cube controls
+var controls = new THREE.OrbitControls( camera, renderer.domElement );
+controls.enableZoom = false;
+controls.enablePan = false;
+controls.update();
 
 animate();
 
 
+// Conversion between degrees and radians
 function degrees_to_radians(degrees) {
     var pi = Math.PI;
     return degrees * (pi / 180.0);
 }
 
+// Revolving objects around world axes (adaptive orientation)
 function revolve_around_X_axis(object , degrees) {
     var y = object.position.y;
     var z = object.position.z;
@@ -94,10 +86,14 @@ function init() {
 
     document.body.appendChild(info);
 
+    // ray-caster
+    raycaster = new THREE.Raycaster();
+
     // renderer
     renderer = new THREE.WebGLRenderer();
+
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth  * 2 / 3, window.innerHeight * 2 / 3);
     document.body.appendChild(renderer.domElement);
 
     // scene
@@ -108,35 +104,11 @@ function init() {
     camera.position.set(250, 250, 500);
 
 
-    /*renderer.domElement.addEventListener( 'mousedown', event => {
+    var light = new THREE.DirectionalLight( 0xffffff , 1);
+    light.position.set(1,1,1).normalize();
+    scene.add(light);
 
-        last = new THREE.Vector2( event.clientX, event.clientY );
 
-    });
-
-    renderer.domElement.addEventListener( 'mousemove', event => {
-
-        if( last ){
-
-            let delta = event.clientX - last.x;
-
-            camera.position.applyQuaternion(quaternion.setFromAxisAngle(axis, Math.PI * 2 * (delta / innerWidth)
-            ));
-            camera.lookAt( scene.position );
-
-            last.set( event.clientX, event.clientY );
-
-        }
-
-        renderer.render( scene, camera );
-
-    });
-
-    renderer.domElement.addEventListener( 'mouseup', event => {
-
-        last = false;
-
-    });*/
 
     var geometry = new THREE.BoxGeometry(40,40,40);
     var material = new THREE.MeshBasicMaterial({color : 0xffffff,
@@ -181,6 +153,8 @@ function init() {
 
 // render
 function render() {
+
+
     renderer.render(scene, camera);
 }
 
@@ -192,16 +166,26 @@ function animateBox() {
 
         var cube = cube_arr[cube_idx];
 
-        //revolve_around_X_axis(cube, -1);
-        //revolve_around_Z_axis(cube, 0.1);
-        //revolve_around_Y_axis(cube, 0.5);
+        revolve_around_X_axis(cube, -1*angle);
+        revolve_around_Z_axis(cube, 2.5*angle);
+        revolve_around_Y_axis(cube, 1.5*angle);
     }
+}
+
+function onDocumentMouseMove( event ) {
+
+    event.preventDefault();
+
+    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
 }
 
 
 // animate
 function animate() {
   animateBox();
+  controls.update();
   //changeFaceColors();
   requestAnimationFrame(animate);
   render();
