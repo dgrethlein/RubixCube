@@ -1,4 +1,8 @@
-# Sphinx-contrib-github 
+node_modules/
+three.js-master/
+package-lock.json
+
+# Sphinx-contrib-github
 .github.auth
 
 # Byte-compiled / optimized / DLL files
