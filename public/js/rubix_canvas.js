@@ -202,7 +202,8 @@ function init() {
     info.setAttribute("id", "canvasDiv");
     info.style.position = 'absolute';
     info.style.top = '30px';
-    info.style.width = '100%';
+    info.style.width = '50%';
+    info.style.margin = "auto";
     info.style.textAlign = 'center';
     info.style.color = '#fff';
     info.style.backgroundColor = 'transparent';
@@ -228,7 +229,7 @@ function init() {
 
     // camera
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
-    camera.position.set(200, 250, 350);
+    camera.position.set(250, 250, 350);
 
 
     // Scene ambient lighting (soft white)

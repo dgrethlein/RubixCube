@@ -103,7 +103,8 @@ header {
   float: right;
 }
 
-#canvasDiv {
+
+canvas {
   max-width: 100%;
 }
 
