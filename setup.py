@@ -4,7 +4,7 @@ from distutils.core import setup
 from setuptools import find_packages
 
 
-RELEASE_VERSION='0.1.8'
+RELEASE_VERSION='0.1.9'
 
 setup(name = 'rubix_cube',
       packages = find_packages(),

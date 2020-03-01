@@ -22,7 +22,7 @@ copyright = '2020, David Grethlein'
 author = 'David Grethlein'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.8'
+release = '0.1.9'
 
 
 # -- General configuration ---------------------------------------------------
@@ -83,8 +83,8 @@ html_theme_options = {
     'canonical_url' : 'https://dgrethlein.github.io/RubixCube/'
 }
 
-html_logo = '../../misc/twisty_cube.png' 
-# Taken from: 
+html_logo = '../../misc/twisty_cube.png'
+# Taken from:
 # https://www.todayifoundout.com/index.php/2011/10/
 # every-possible-state-of-a-standard-rubiks-cube-ca
 # n-be-solved-in-20-moves-or-less/
