@@ -11,6 +11,8 @@ var drawCount;
 var value = 1;
 var delta = -0.01;
 var cube_arr = [];
+var keys = [];
+keys[16] = false;   // pre-ensures shift key works
 var controls;
 var last = false;
 var quaternion = new THREE.Quaternion;
@@ -310,14 +312,19 @@ function init() {
 
     // Listens for keyboard button presses
     document.addEventListener("keydown", onDocumentKeyDown, false);
+    document.addEventListener("keyup", function (e) {
+        keys[e.keyCode] = false;
+    },
+    false);
 
     function onDocumentKeyDown(event) {
         var keyCode = event.which || event.keyCode;
         var strKey = String.fromCharCode(keyCode);
+        keys[keyCode] = true
 
         console.log(`KeyCode[${keyCode}] Str[${strKey}]`);
 
-        if (strKey == 'L' && !anim_L && activeCanvas) {
+        if (strKey == 'L' && !keys[16] && !anim_L && activeCanvas) {
 
             // Must avoid conflicts with other movements
             if (!anim_Li &&
@@ -333,9 +340,25 @@ function init() {
 
                 anim_L = true;
             }
-
         }
-        if (strKey == 'M' && !anim_M) {
+        if (strKey == 'L' && keys[16] && !anim_Li && activeCanvas) {
+
+            // Must avoid conflicts with other movements
+            if (!anim_L &&
+                !anim_U && !anim_Ui &&
+                !anim_E && !anim_Ei &&
+                !anim_D && !anim_Di &&
+                !anim_F && !anim_Fi &&
+                !anim_S && !anim_Si &&
+                !anim_B && !anim_Bi &&
+                !anim_X && !anim_Xi &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
+
+                anim_Li = true;
+            }
+        }
+        if (strKey == 'M' && !keys[16] && !anim_M && activeCanvas) {
 
             // Must avoid conflicts with other movements
             if (!anim_Mi &&
@@ -351,9 +374,26 @@ function init() {
 
                 anim_M = true;
             }
+        }
+        if (strKey == 'M' && keys[16] && !anim_Mi && activeCanvas) {
+
+            // Must avoid conflicts with other movements
+            if (!anim_M &&
+                !anim_U && !anim_Ui &&
+                !anim_E && !anim_Ei &&
+                !anim_D && !anim_Di &&
+                !anim_F && !anim_Fi &&
+                !anim_S && !anim_Si &&
+                !anim_B && !anim_Bi &&
+                !anim_X && !anim_Xi &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
+
+                anim_Mi = true;
+            }
 
         }
-        if (strKey == 'R' && !anim_R) {
+        if (strKey == 'R' && !keys[16] && !anim_R && activeCanvas) {
 
             // Must avoid conflicts with other movements
             if (!anim_Ri &&
@@ -370,7 +410,24 @@ function init() {
                 anim_R = true;
             }
         }
-        if (strKey == 'F' && !anim_F) {
+        if (strKey == 'R' && keys[16] && !anim_Ri && activeCanvas) {
+
+            // Must avoid conflicts with other movements
+            if (!anim_R &&
+                !anim_U && !anim_Ui &&
+                !anim_E && !anim_Ei &&
+                !anim_D && !anim_Di &&
+                !anim_F && !anim_Fi &&
+                !anim_S && !anim_Si &&
+                !anim_B && !anim_Bi &&
+                !anim_X && !anim_Xi &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
+
+                anim_Ri = true;
+            }
+        }
+        if (strKey == 'F' && !keys[16] && !anim_F && activeCanvas) {
             // Must avoid conflicts with other movements
             if (!anim_Fi &&
                 !anim_U && !anim_Ui &&
@@ -386,7 +443,23 @@ function init() {
                 anim_F = true;
             }
         }
-        if (strKey == 'S' && !anim_S) {
+        if (strKey == 'F' && keys[16] && !anim_Fi && activeCanvas) {
+            // Must avoid conflicts with other movements
+            if (!anim_F &&
+                !anim_U && !anim_Ui &&
+                !anim_E && !anim_Ei &&
+                !anim_D && !anim_Di &&
+                !anim_L && !anim_Li &&
+                !anim_M && !anim_Mi &&
+                !anim_R && !anim_Ri &&
+                !anim_X && !anim_Xi &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
+
+                anim_Fi = true;
+            }
+        }
+        if (strKey == 'S' && !keys[16] && !anim_S && activeCanvas) {
             // Must avoid conflicts with other movements
             if (!anim_Si &&
                 !anim_U && !anim_Ui &&
@@ -402,7 +475,23 @@ function init() {
                 anim_S = true;
             }
         }
-        if (strKey == 'B' && !anim_B) {
+        if (strKey == 'S' && keys[16] && !anim_Si && activeCanvas) {
+            // Must avoid conflicts with other movements
+            if (!anim_S &&
+                !anim_U && !anim_Ui &&
+                !anim_E && !anim_Ei &&
+                !anim_D && !anim_Di &&
+                !anim_L && !anim_Li &&
+                !anim_M && !anim_Mi &&
+                !anim_R && !anim_Ri &&
+                !anim_X && !anim_Xi &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
+
+                anim_Si = true;
+            }
+        }
+        if (strKey == 'B' && !keys[16] && !anim_B && activeCanvas) {
             // Must avoid conflicts with other movements
             if (!anim_Bi &&
                 !anim_U && !anim_Ui &&
@@ -418,7 +507,23 @@ function init() {
                 anim_B = true;
             }
         }
-        if (strKey == 'U' && !anim_U) {
+        if (strKey == 'B' && keys[16] && !anim_Bi && activeCanvas) {
+            // Must avoid conflicts with other movements
+            if (!anim_B &&
+                !anim_U && !anim_Ui &&
+                !anim_E && !anim_Ei &&
+                !anim_D && !anim_Di &&
+                !anim_L && !anim_Li &&
+                !anim_M && !anim_Mi &&
+                !anim_R && !anim_Ri &&
+                !anim_X && !anim_Xi &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
+
+                anim_Bi = true;
+            }
+        }
+        if (strKey == 'U' && !keys[16] && !anim_U && activeCanvas) {
             // Must avoid conflicts with other movements
             if (!anim_Ui &&
                 !anim_F && !anim_Fi &&
@@ -434,7 +539,23 @@ function init() {
                 anim_U = true;
             }
         }
-        if (strKey == 'E' && !anim_E) {
+        if (strKey == 'U' && keys[16] && !anim_Ui && activeCanvas) {
+            // Must avoid conflicts with other movements
+            if (!anim_U &&
+                !anim_F && !anim_Fi &&
+                !anim_S && !anim_Si &&
+                !anim_B && !anim_Bi &&
+                !anim_L && !anim_Li &&
+                !anim_M && !anim_Mi &&
+                !anim_R && !anim_Ri &&
+                !anim_X && !anim_Xi &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
+
+                anim_Ui = true;
+            }
+        }
+        if (strKey == 'E' && !keys[16] && !anim_E && activeCanvas) {
             // Must avoid conflicts with other movements
             if (!anim_Ei &&
                 !anim_F && !anim_Fi &&
@@ -450,7 +571,23 @@ function init() {
                 anim_E = true;
             }
         }
-        if (strKey == 'D' && !anim_D) {
+        if (strKey == 'E' && keys[16] && !anim_Ei && activeCanvas) {
+            // Must avoid conflicts with other movements
+            if (!anim_E &&
+                !anim_F && !anim_Fi &&
+                !anim_S && !anim_Si &&
+                !anim_B && !anim_Bi &&
+                !anim_L && !anim_Li &&
+                !anim_M && !anim_Mi &&
+                !anim_R && !anim_Ri &&
+                !anim_X && !anim_Xi &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
+
+                anim_Ei = true;
+            }
+        }
+        if (strKey == 'D' && !keys[16] && !anim_D && activeCanvas) {
             // Must avoid conflicts with other movements
             if (!anim_Di &&
                 !anim_F && !anim_Fi &&
@@ -466,7 +603,23 @@ function init() {
                 anim_D = true;
             }
         }
-        if (strKey == "X" && !anim_X) {
+        if (strKey == 'D' && keys[16] && !anim_Di && activeCanvas) {
+            // Must avoid conflicts with other movements
+            if (!anim_D &&
+                !anim_F && !anim_Fi &&
+                !anim_S && !anim_Si &&
+                !anim_B && !anim_Bi &&
+                !anim_L && !anim_Li &&
+                !anim_M && !anim_Mi &&
+                !anim_R && !anim_Ri &&
+                !anim_X && !anim_Xi &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
+
+                anim_Di = true;
+            }
+        }
+        if (strKey == "X" && !anim_X && !keys[16] && activeCanvas) {
             // Must avoid conflicts with other movements
             if (!anim_Xi &&
                 !anim_F && !anim_Fi &&
@@ -484,7 +637,25 @@ function init() {
                 anim_X = true;
             }
         }
-        if (strKey == "Y" && !anim_Y) {
+        if (strKey == "X" && !anim_Xi && keys[16] && activeCanvas) {
+            // Must avoid conflicts with other movements
+            if (!anim_X &&
+                !anim_F && !anim_Fi &&
+                !anim_S && !anim_Si &&
+                !anim_B && !anim_Bi &&
+                !anim_L && !anim_Li &&
+                !anim_M && !anim_Mi &&
+                !anim_R && !anim_Ri &&
+                !anim_U && !anim_Ui &&
+                !anim_E && !anim_Ei &&
+                !anim_D && !anim_Di &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
+
+                anim_Xi = true;
+            }
+        }
+        if (strKey == "Y" && !anim_Y && !keys[16] && activeCanvas) {
             // Must avoid conflicts with other movements
             if (!anim_Yi &&
                 !anim_F && !anim_Fi &&
@@ -502,7 +673,25 @@ function init() {
                 anim_Y = true;
             }
         }
-        if (strKey == "Z" && !anim_Z) {
+        if (strKey == "Y" && !anim_Yi && keys[16] && activeCanvas) {
+            // Must avoid conflicts with other movements
+            if (!anim_Y &&
+                !anim_F && !anim_Fi &&
+                !anim_S && !anim_Si &&
+                !anim_B && !anim_Bi &&
+                !anim_L && !anim_Li &&
+                !anim_M && !anim_Mi &&
+                !anim_R && !anim_Ri &&
+                !anim_U && !anim_Ui &&
+                !anim_E && !anim_Ei &&
+                !anim_D && !anim_Di &&
+                !anim_X && !anim_Xi &&
+                !anim_Z && !anim_Zi) {
+
+                anim_Yi = true;
+            }
+        }
+        if (strKey == "Z" && !anim_Z && !keys[16] && activeCanvas) {
             // Must avoid conflicts with other movements
             if (!anim_Zi &&
                 !anim_F && !anim_Fi &&
@@ -518,6 +707,24 @@ function init() {
                 !anim_X && !anim_Xi) {
 
                 anim_Z = true;
+            }
+        }
+        if (strKey == "Z" && !anim_Zi && keys[16] && activeCanvas) {
+            // Must avoid conflicts with other movements
+            if (!anim_Z &&
+                !anim_F && !anim_Fi &&
+                !anim_S && !anim_Si &&
+                !anim_B && !anim_Bi &&
+                !anim_L && !anim_Li &&
+                !anim_M && !anim_Mi &&
+                !anim_R && !anim_Ri &&
+                !anim_U && !anim_Ui &&
+                !anim_E && !anim_Ei &&
+                !anim_D && !anim_Di &&
+                !anim_Y && !anim_Yi &&
+                !anim_X && !anim_Xi) {
+
+                anim_Zi = true;
             }
         }
     };
@@ -554,6 +761,23 @@ function animateLayers() {
         anim_L = false;
         L_count = 0;
     }
+    // Left Inverse Quarter Turn
+    if (anim_Li && Li_count < 9) {
+
+        var lf_cubes = left_layer_cubes();
+
+        for ( var l_idx = 0; l_idx < lf_cubes.length; l_idx++ ) {
+            var l_cube = lf_cubes[l_idx];
+
+            revolve_around_X_axis(l_cube, -10);
+
+        }
+        Li_count++;
+    }
+    else if (anim_Li && Li_count == 9) {
+        anim_Li = false;
+        Li_count = 0;
+    }
 
     // Middle Quarter Turn
     if (anim_M && M_count < 9) {
@@ -569,6 +793,21 @@ function animateLayers() {
     else if (anim_M && M_count == 9) {
         anim_M = false;
         M_count = 0;
+    }
+    // Middle Inverse Quarter Turn
+    if (anim_Mi && Mi_count < 9) {
+
+        var md_cubes = middle_layer_cubes();
+
+        for ( var m_idx = 0; m_idx < md_cubes.length; m_idx++ ) {
+            var m_cube = md_cubes[m_idx];
+            revolve_around_X_axis(m_cube, -10);
+        }
+        Mi_count++;
+    }
+    else if (anim_Mi && Mi_count == 9) {
+        anim_Mi = false;
+        Mi_count = 0;
     }
 
     // Right Quarter Turn
@@ -586,6 +825,21 @@ function animateLayers() {
         anim_R = false;
         R_count = 0;
     }
+    // Right Inverse Quarter Turn
+    if (anim_Ri && Ri_count < 9) {
+
+        var rg_cubes = right_layer_cubes();
+
+        for ( var r_idx = 0; r_idx < rg_cubes.length; r_idx++ ) {
+            var r_cube = rg_cubes[r_idx];
+            revolve_around_X_axis(r_cube, 10);
+        }
+        Ri_count++;
+    }
+    else if (anim_Ri && Ri_count == 9) {
+        anim_Ri = false;
+        Ri_count = 0;
+    }
 
     // Front Quarter Turn
     if (anim_F && F_count < 9) {
@@ -601,6 +855,21 @@ function animateLayers() {
     else if (anim_F && F_count == 9) {
         anim_F = false;
         F_count = 0;
+    }
+    // Front Inverse Quarter Turn
+    if (anim_Fi && Fi_count < 9) {
+
+        var ft_cubes = front_layer_cubes();
+
+        for ( var f_idx = 0; f_idx < ft_cubes.length; f_idx++ ) {
+            var f_cube = ft_cubes[f_idx];
+            revolve_around_Z_axis(f_cube, 10);
+        }
+        Fi_count++;
+    }
+    else if (anim_Fi && Fi_count == 9) {
+        anim_Fi = false;
+        Fi_count = 0;
     }
 
     // Standing Quarter Turn
@@ -618,6 +887,21 @@ function animateLayers() {
         anim_S = false;
         S_count = 0;
     }
+    // Standing Inverse Quarter Turn
+    if (anim_Si && Si_count < 9) {
+
+        var st_cubes = standing_layer_cubes();
+
+        for ( var s_idx = 0; s_idx < st_cubes.length; s_idx++ ) {
+            var s_cube = st_cubes[s_idx];
+            revolve_around_Z_axis(s_cube, 10);
+        }
+        Si_count++;
+    }
+    else if (anim_Si && Si_count == 9) {
+        anim_Si = false;
+        Si_count = 0;
+    }
 
     // Back Quarter Turn
     if (anim_B && B_count < 9) {
@@ -633,6 +917,21 @@ function animateLayers() {
     else if (anim_B && B_count == 9) {
         anim_B = false;
         B_count = 0;
+    }
+    // Back Inverse Quarter Turn
+    if (anim_Bi && Bi_count < 9) {
+
+        var bk_cubes = back_layer_cubes();
+
+        for ( var b_idx = 0; b_idx < bk_cubes.length; b_idx++ ) {
+            var b_cube = bk_cubes[b_idx];
+            revolve_around_Z_axis(b_cube, -10);
+        }
+        Bi_count++;
+    }
+    else if (anim_Bi && Bi_count == 9) {
+        anim_Bi = false;
+        Bi_count = 0;
     }
 
     // Up Quarter Turn
@@ -652,6 +951,23 @@ function animateLayers() {
         anim_U = false;
         U_count = 0;
     }
+    // Up Inverse Quarter Turn
+    if (anim_Ui && Ui_count < 9) {
+
+        var up_cubes = up_layer_cubes();
+
+        for ( var u_idx = 0; u_idx < up_cubes.length; u_idx++ ) {
+            var u_cube = up_cubes[u_idx];
+
+            revolve_around_Y_axis(u_cube, 10);
+
+        }
+        Ui_count++;
+    }
+    else if (anim_Ui && Ui_count == 9) {
+        anim_Ui = false;
+        Ui_count = 0;
+    }
 
     // Equator Quarter Turn
     if (anim_E && E_count < 9) {
@@ -669,6 +985,22 @@ function animateLayers() {
         anim_E = false;
         E_count = 0;
     }
+    // Equator Inverse Quarter Turn
+    if (anim_Ei && Ei_count < 9) {
+
+        var eq_cubes = equator_layer_cubes();
+
+        for ( var e_idx = 0; e_idx < eq_cubes.length; e_idx++ ) {
+            var e_cube = eq_cubes[e_idx];
+
+            revolve_around_Y_axis(e_cube, -10);
+        }
+        Ei_count++;
+    }
+    else if (anim_Ei && Ei_count == 9) {
+        anim_Ei = false;
+        Ei_count = 0;
+    }
 
     // Down Quarter Turn
     if (anim_D && D_count < 9) {
@@ -685,6 +1017,21 @@ function animateLayers() {
         anim_D = false;
         D_count = 0;
     }
+    // Down Inverse Quarter Turn
+    if (anim_Di && Di_count < 9) {
+
+        var dw_cubes = down_layer_cubes();
+
+        for ( var d_idx = 0; d_idx < dw_cubes.length; d_idx++ ) {
+            var d_cube = dw_cubes[d_idx];
+            revolve_around_Y_axis(d_cube, -10);
+        }
+        Di_count++;
+    }
+    else if (anim_Di && Di_count == 9) {
+        anim_Di = false;
+        Di_count = 0;
+    }
 
     // X-Axis Quarter Rotation
     if (anim_X && X_count < 9) {
@@ -698,6 +1045,19 @@ function animateLayers() {
     else if (anim_X && X_count == 9) {
         anim_X = false;
         X_count = 0;
+    }
+    // X-Axis Inverse Quarter Rotation
+    if (anim_Xi && Xi_count < 9) {
+        for ( var c_idx = 0; c_idx < cube_arr.length; c_idx++ ) {
+            var cube = cube_arr[c_idx];
+
+            revolve_around_X_axis(cube, 10);
+        }
+        Xi_count++;
+    }
+    else if (anim_Xi && Xi_count == 9) {
+        anim_Xi = false;
+        Xi_count = 0;
     }
 
     // Y-Axis Quarter Rotation
@@ -713,6 +1073,19 @@ function animateLayers() {
         anim_Y = false;
         Y_count = 0;
     }
+    // Y-Axis Inverse Quarter Rotation
+    if (anim_Yi && Yi_count < 9) {
+        for ( var c_idx = 0; c_idx < cube_arr.length; c_idx++ ) {
+            var cube = cube_arr[c_idx];
+
+            revolve_around_Y_axis(cube, 10);
+        }
+        Yi_count++;
+    }
+    else if (anim_Yi && Yi_count == 9) {
+        anim_Yi = false;
+        Yi_count = 0;
+    }
 
     // Z-Axis Quarter Rotation
     if (anim_Z && Z_count < 9) {
@@ -726,6 +1099,19 @@ function animateLayers() {
     else if (anim_Z && Z_count == 9) {
         anim_Z = false;
         Z_count = 0;
+    }
+    // Z-Axis Inverse Quarter Rotation
+    if (anim_Zi && Zi_count < 9) {
+        for ( var c_idx = 0; c_idx < cube_arr.length; c_idx++ ) {
+            var cube = cube_arr[c_idx];
+
+            revolve_around_Z_axis(cube, 10);
+        }
+        Zi_count++;
+    }
+    else if (anim_Zi && Zi_count == 9) {
+        anim_Zi = false;
+        Zi_count = 0;
     }
 
 }
