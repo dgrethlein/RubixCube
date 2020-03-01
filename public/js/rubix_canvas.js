@@ -3,26 +3,75 @@
 
 var renderer, scene, camera , raycaster;
 
+var activeCanvas = false;
+
 var line;
 var MAX_POINTS = 500;
 var drawCount;
 var value = 1;
 var delta = -0.01;
 var cube_arr = [];
-
+var controls;
 var last = false;
 var quaternion = new THREE.Quaternion;
 var axis = new THREE.Vector3(0,1,0);
 var mouse = new THREE.Vector2();
 
+// Flags for indicating which animation is in progress
+var anim_L = false;
+var L_count = 0;
+var anim_Li = false;
+var Li_count = 0;
+var anim_M = false;
+var M_count = 0;
+var anim_Mi = false;
+var Mi_count = 0;
+var anim_R = false;
+var R_count = 0;
+var anim_Ri = false;
+var Ri_count = 0;
+
+var anim_U = false;
+var U_count = 0;
+var anim_Ui = false;
+var Ui_count = 0;
+var anim_E = false;
+var E_count = 0;
+var anim_Ei = false;
+var Ei_count = 0;
+var anim_D = false;
+var D_count = 0
+var anim_Di = false;
+var Di_count = 0;
+
+var anim_F = false;
+var F_count = 0
+var anim_Fi = false;
+var Fi_count = 0;
+var anim_S = false;
+var S_count = 0;
+var anim_Si = false;
+var Si_count = 0;
+var anim_B = false;
+var B_count = 0;
+var anim_Bi = false;
+var Bi_count = 0;
+
+// Re-orientation flags
+var anim_X = false;
+var X_count = 0;
+var anim_Xi = false;
+var Xi_count = 0;
+var anim_Y = false;
+var Y_count = 0;
+var anim_Yi = false;
+var Yi_count = 0;
+var anim_Z = false;
+var Z_count = 0;
+var anim_Zi = false;
+var Zi_count = 0;
+
 init();
-
-// Camera rotating around centered cube controls
-var controls = new THREE.OrbitControls( camera, renderer.domElement );
-controls.enableZoom = false;
-controls.enablePan = false;
-controls.update();
-
 animate();
 
 
@@ -124,8 +173,23 @@ function right_layer_cubes() {
     return rg_cubes;
 }
 
+function closeNav() {
+    /* Closes any open side nav drop downs when closing sidenav */
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
 
+    for (i = 0; i < dropdown.length; i++) {
+        dropdown[i].classList.remove('active');
+        var dropdownContent = dropdown[i].nextElementSibling;
 
+        if (dropdownContent.style.display === "block") {
+            dropdownContent.style.display = "none";
+        }
+    }
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft = "auto";
+    document.getElementById("header_bar").style.marginLeft = "auto";
+}
 
 function init() {
 
@@ -133,15 +197,15 @@ function init() {
 
     // io
     var info = document.createElement('div');
+    info.setAttribute("id", "canvasDiv");
     info.style.position = 'absolute';
     info.style.top = '30px';
-    info.style.width = '80%';
+    info.style.width = '100%';
     info.style.textAlign = 'center';
     info.style.color = '#fff';
     info.style.backgroundColor = 'transparent';
     info.style.zIndex = '1';
-
-
+    info.tabIndex = '1';
 
 
     document.body.appendChild(info);
@@ -154,7 +218,7 @@ function init() {
     renderer = new THREE.WebGLRenderer();
 
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth  * 2 / 3, window.innerHeight * 2 / 3);
+    renderer.setSize(window.innerWidth , window.innerHeight );
     document.body.appendChild(renderer.domElement);
 
     // scene
@@ -162,7 +226,7 @@ function init() {
 
     // camera
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
-    camera.position.set(0, 0, 500);
+    camera.position.set(200, 250, 350);
 
 
     // Scene ambient lighting (soft white)
@@ -172,6 +236,15 @@ function init() {
     // Axes helper for debugging 3d graphics sides
     var axesHelper = new THREE.AxesHelper( 500 );
     scene.add(axesHelper);
+
+      // SKYBOX/FOG
+    var skyBoxGeometry = new THREE.CubeGeometry(10000, 10000, 10000);
+    var skyBoxMaterial = new THREE.MeshBasicMaterial({
+        color: 0x0f0f0f,
+        side: THREE.BackSide
+    });
+    var skyBox = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial);
+    scene.add(skyBox);
 
 
     var geometry = new THREE.BoxGeometry(40,40,40);
@@ -188,6 +261,7 @@ function init() {
 
     var colors = [ right_color, left_color, up_color, down_color, front_color, back_color ];
 
+    // Constructs the 27 cubies
     for (var row_idx = 0; row_idx < 3; row_idx++) {
         for (var col_idx = 0; col_idx < 3; col_idx++) {
             for (var dep_idx = 0; dep_idx < 3; dep_idx++) {
@@ -213,9 +287,29 @@ function init() {
         }
     }
 
+    // Camera rotating around centered cube controls
+    controls = new THREE.OrbitControls( camera, renderer.domElement );
+    controls.enableZoom = false;
+    controls.enablePan = false;
+    controls.update();
+
+    document.addEventListener("click", checkToSetActiveCanvas, false);
+
+    function checkToSetActiveCanvas(event) {
+
+        var target = event.target.tagName;
+
+        if (target == 'CANVAS') {
+            activeCanvas = true;
+            closeNav();
+        }
+        else {
+            activeCanvas = false;
+        }
+    }
+
+    // Listens for keyboard button presses
     document.addEventListener("keydown", onDocumentKeyDown, false);
-
-
 
     function onDocumentKeyDown(event) {
         var keyCode = event.which || event.keyCode;
@@ -223,82 +317,209 @@ function init() {
 
         console.log(`KeyCode[${keyCode}] Str[${strKey}]`);
 
-        if (strKey == 'L') {
-            var lf_cubes = left_layer_cubes();
+        if (strKey == 'L' && !anim_L && activeCanvas) {
 
-            for ( var l_idx = 0; l_idx < lf_cubes.length; l_idx++ ) {
-                var l_cube = lf_cubes[l_idx];
-                revolve_around_X_axis(l_cube, 10);
+            // Must avoid conflicts with other movements
+            if (!anim_Li &&
+                !anim_U && !anim_Ui &&
+                !anim_E && !anim_Ei &&
+                !anim_D && !anim_Di &&
+                !anim_F && !anim_Fi &&
+                !anim_S && !anim_Si &&
+                !anim_B && !anim_Bi &&
+                !anim_X && !anim_Xi &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
+
+                anim_L = true;
             }
 
         }
-        if (strKey == 'M') {
-            var md_cubes = middle_layer_cubes();
+        if (strKey == 'M' && !anim_M) {
 
-            for ( var m_idx = 0; m_idx < md_cubes.length; m_idx++ ) {
-                var m_cube = md_cubes[m_idx];
-                revolve_around_X_axis(m_cube, 10);
+            // Must avoid conflicts with other movements
+            if (!anim_Mi &&
+                !anim_U && !anim_Ui &&
+                !anim_E && !anim_Ei &&
+                !anim_D && !anim_Di &&
+                !anim_F && !anim_Fi &&
+                !anim_S && !anim_Si &&
+                !anim_B && !anim_Bi &&
+                !anim_X && !anim_Xi &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
+
+                anim_M = true;
             }
 
         }
-        if (strKey == 'R') {
-            var rg_cubes = right_layer_cubes();
+        if (strKey == 'R' && !anim_R) {
 
-            for ( var r_idx = 0; r_idx < rg_cubes.length; r_idx++ ) {
-                var r_cube = rg_cubes[r_idx];
-                revolve_around_X_axis(r_cube, 10);
-            }
+            // Must avoid conflicts with other movements
+            if (!anim_Ri &&
+                !anim_U && !anim_Ui &&
+                !anim_E && !anim_Ei &&
+                !anim_D && !anim_Di &&
+                !anim_F && !anim_Fi &&
+                !anim_S && !anim_Si &&
+                !anim_B && !anim_Bi &&
+                !anim_X && !anim_Xi &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
 
-        }
-        if (strKey == 'F') {
-            var ft_cubes = front_layer_cubes();
-
-            for ( var f_idx = 0; f_idx < ft_cubes.length; f_idx++ ) {
-                var f_cube = ft_cubes[f_idx];
-                revolve_around_Z_axis(f_cube, 10);
-            }
-        }
-        if (strKey == 'S') {
-            var st_cubes = standing_layer_cubes();
-
-            for ( var s_idx = 0; s_idx < st_cubes.length; s_idx++ ) {
-                var s_cube = st_cubes[s_idx];
-                revolve_around_Z_axis(s_cube, 10);
+                anim_R = true;
             }
         }
-        if (strKey == 'B') {
-            var bk_cubes = back_layer_cubes();
+        if (strKey == 'F' && !anim_F) {
+            // Must avoid conflicts with other movements
+            if (!anim_Fi &&
+                !anim_U && !anim_Ui &&
+                !anim_E && !anim_Ei &&
+                !anim_D && !anim_Di &&
+                !anim_L && !anim_Li &&
+                !anim_M && !anim_Mi &&
+                !anim_R && !anim_Ri &&
+                !anim_X && !anim_Xi &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
 
-            for ( var b_idx = 0; b_idx < bk_cubes.length; b_idx++ ) {
-                var b_cube = bk_cubes[b_idx];
-                revolve_around_Z_axis(b_cube, 10);
+                anim_F = true;
             }
         }
-        if (strKey == 'U') {
-            var up_cubes = up_layer_cubes();
+        if (strKey == 'S' && !anim_S) {
+            // Must avoid conflicts with other movements
+            if (!anim_Si &&
+                !anim_U && !anim_Ui &&
+                !anim_E && !anim_Ei &&
+                !anim_D && !anim_Di &&
+                !anim_L && !anim_Li &&
+                !anim_M && !anim_Mi &&
+                !anim_R && !anim_Ri &&
+                !anim_X && !anim_Xi &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
 
-            for ( var u_idx = 0; u_idx < up_cubes.length; u_idx++ ) {
-                var u_cube = up_cubes[u_idx];
-                revolve_around_Y_axis(u_cube, 10);
+                anim_S = true;
             }
         }
-        if (strKey == 'E') {
-            var eq_cubes = equator_layer_cubes();
+        if (strKey == 'B' && !anim_B) {
+            // Must avoid conflicts with other movements
+            if (!anim_Bi &&
+                !anim_U && !anim_Ui &&
+                !anim_E && !anim_Ei &&
+                !anim_D && !anim_Di &&
+                !anim_L && !anim_Li &&
+                !anim_M && !anim_Mi &&
+                !anim_R && !anim_Ri &&
+                !anim_X && !anim_Xi &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
 
-            for ( var e_idx = 0; e_idx < eq_cubes.length; e_idx++ ) {
-                var e_cube = eq_cubes[e_idx];
-                revolve_around_Y_axis(e_cube, 10);
+                anim_B = true;
             }
         }
-        if (strKey == 'D') {
-            var dw_cubes = down_layer_cubes();
+        if (strKey == 'U' && !anim_U) {
+            // Must avoid conflicts with other movements
+            if (!anim_Ui &&
+                !anim_F && !anim_Fi &&
+                !anim_S && !anim_Si &&
+                !anim_B && !anim_Bi &&
+                !anim_L && !anim_Li &&
+                !anim_M && !anim_Mi &&
+                !anim_R && !anim_Ri &&
+                !anim_X && !anim_Xi &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
 
-            for ( var d_idx = 0; d_idx < dw_cubes.length; d_idx++ ) {
-                var d_cube = dw_cubes[d_idx];
-                revolve_around_Y_axis(d_cube, 10);
+                anim_U = true;
             }
         }
+        if (strKey == 'E' && !anim_E) {
+            // Must avoid conflicts with other movements
+            if (!anim_Ei &&
+                !anim_F && !anim_Fi &&
+                !anim_S && !anim_Si &&
+                !anim_B && !anim_Bi &&
+                !anim_L && !anim_Li &&
+                !anim_M && !anim_Mi &&
+                !anim_R && !anim_Ri &&
+                !anim_X && !anim_Xi &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
 
+                anim_E = true;
+            }
+        }
+        if (strKey == 'D' && !anim_D) {
+            // Must avoid conflicts with other movements
+            if (!anim_Di &&
+                !anim_F && !anim_Fi &&
+                !anim_S && !anim_Si &&
+                !anim_B && !anim_Bi &&
+                !anim_L && !anim_Li &&
+                !anim_M && !anim_Mi &&
+                !anim_R && !anim_Ri &&
+                !anim_X && !anim_Xi &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
+
+                anim_D = true;
+            }
+        }
+        if (strKey == "X" && !anim_X) {
+            // Must avoid conflicts with other movements
+            if (!anim_Xi &&
+                !anim_F && !anim_Fi &&
+                !anim_S && !anim_Si &&
+                !anim_B && !anim_Bi &&
+                !anim_L && !anim_Li &&
+                !anim_M && !anim_Mi &&
+                !anim_R && !anim_Ri &&
+                !anim_U && !anim_Ui &&
+                !anim_E && !anim_Ei &&
+                !anim_D && !anim_Di &&
+                !anim_Y && !anim_Yi &&
+                !anim_Z && !anim_Zi) {
+
+                anim_X = true;
+            }
+        }
+        if (strKey == "Y" && !anim_Y) {
+            // Must avoid conflicts with other movements
+            if (!anim_Yi &&
+                !anim_F && !anim_Fi &&
+                !anim_S && !anim_Si &&
+                !anim_B && !anim_Bi &&
+                !anim_L && !anim_Li &&
+                !anim_M && !anim_Mi &&
+                !anim_R && !anim_Ri &&
+                !anim_U && !anim_Ui &&
+                !anim_E && !anim_Ei &&
+                !anim_D && !anim_Di &&
+                !anim_X && !anim_Xi &&
+                !anim_Z && !anim_Zi) {
+
+                anim_Y = true;
+            }
+        }
+        if (strKey == "Z" && !anim_Z) {
+            // Must avoid conflicts with other movements
+            if (!anim_Zi &&
+                !anim_F && !anim_Fi &&
+                !anim_S && !anim_Si &&
+                !anim_B && !anim_Bi &&
+                !anim_L && !anim_Li &&
+                !anim_M && !anim_Mi &&
+                !anim_R && !anim_Ri &&
+                !anim_U && !anim_Ui &&
+                !anim_E && !anim_Ei &&
+                !anim_D && !anim_Di &&
+                !anim_Y && !anim_Yi &&
+                !anim_X && !anim_Xi) {
+
+                anim_Z = true;
+            }
+        }
     };
 
     camera.lookAt( scene.position );
@@ -309,40 +530,203 @@ function init() {
 // render
 function render() {
 
-
+    //revolve_around_Y_axis(camera, 0.2)
     renderer.render(scene, camera);
 }
 
 
-function animateBox() {
-    let angle = 0.02;
+function animateLayers() {
 
-    //revolve_around_X_axis(camera, -10*angle);
-    revolve_around_Y_axis(camera, 5*angle);
-    //revolve_around_Z_axis(camera, 10*angle);
+    // Left Quarter Turn
+    if (anim_L && L_count < 9) {
 
-    /*var up_cubes = up_layer_cubes();
-    var eq_cubes = equator_layer_cubes();
-    var dn_cubes = down_layer_cubes();
+        var lf_cubes = left_layer_cubes();
 
-    for (var u_idx = 0; u_idx < up_cubes.length; u_idx++) {
+        for ( var l_idx = 0; l_idx < lf_cubes.length; l_idx++ ) {
+            var l_cube = lf_cubes[l_idx];
 
-        var up_cube = up_cubes[u_idx];
+            revolve_around_X_axis(l_cube, 10);
 
-        revolve_around_Y_axis(up_cube, 10*angle);
+        }
+        L_count++;
     }
-    for (var e_idx = 0; e_idx < eq_cubes.length; e_idx++) {
-
-        var eq_cube = eq_cubes[e_idx];
-
-        revolve_around_Y_axis(eq_cube, -20*angle);
+    else if (anim_L && L_count == 9) {
+        anim_L = false;
+        L_count = 0;
     }
-    for (var d_idx = 0; d_idx < dn_cubes.length; d_idx++) {
 
-        var dn_cube = dn_cubes[d_idx];
+    // Middle Quarter Turn
+    if (anim_M && M_count < 9) {
 
-        revolve_around_Y_axis(dn_cube, 20*angle);
-    }*/
+        var md_cubes = middle_layer_cubes();
+
+        for ( var m_idx = 0; m_idx < md_cubes.length; m_idx++ ) {
+            var m_cube = md_cubes[m_idx];
+            revolve_around_X_axis(m_cube, 10);
+        }
+        M_count++;
+    }
+    else if (anim_M && M_count == 9) {
+        anim_M = false;
+        M_count = 0;
+    }
+
+    // Right Quarter Turn
+    if (anim_R && R_count < 9) {
+
+        var rg_cubes = right_layer_cubes();
+
+        for ( var r_idx = 0; r_idx < rg_cubes.length; r_idx++ ) {
+            var r_cube = rg_cubes[r_idx];
+            revolve_around_X_axis(r_cube, -10);
+        }
+        R_count++;
+    }
+    else if (anim_R && R_count == 9) {
+        anim_R = false;
+        R_count = 0;
+    }
+
+    // Front Quarter Turn
+    if (anim_F && F_count < 9) {
+
+        var ft_cubes = front_layer_cubes();
+
+        for ( var f_idx = 0; f_idx < ft_cubes.length; f_idx++ ) {
+            var f_cube = ft_cubes[f_idx];
+            revolve_around_Z_axis(f_cube, -10);
+        }
+        F_count++;
+    }
+    else if (anim_F && F_count == 9) {
+        anim_F = false;
+        F_count = 0;
+    }
+
+    // Standing Quarter Turn
+    if (anim_S && S_count < 9) {
+
+        var st_cubes = standing_layer_cubes();
+
+        for ( var s_idx = 0; s_idx < st_cubes.length; s_idx++ ) {
+            var s_cube = st_cubes[s_idx];
+            revolve_around_Z_axis(s_cube, -10);
+        }
+        S_count++;
+    }
+    else if (anim_S && S_count == 9) {
+        anim_S = false;
+        S_count = 0;
+    }
+
+    // Back Quarter Turn
+    if (anim_B && B_count < 9) {
+
+        var bk_cubes = back_layer_cubes();
+
+        for ( var b_idx = 0; b_idx < bk_cubes.length; b_idx++ ) {
+            var b_cube = bk_cubes[b_idx];
+            revolve_around_Z_axis(b_cube, 10);
+        }
+        B_count++;
+    }
+    else if (anim_B && B_count == 9) {
+        anim_B = false;
+        B_count = 0;
+    }
+
+    // Up Quarter Turn
+    if (anim_U && U_count < 9) {
+
+        var up_cubes = up_layer_cubes();
+
+        for ( var u_idx = 0; u_idx < up_cubes.length; u_idx++ ) {
+            var u_cube = up_cubes[u_idx];
+
+            revolve_around_Y_axis(u_cube, -10);
+
+        }
+        U_count++;
+    }
+    else if (anim_U && U_count == 9) {
+        anim_U = false;
+        U_count = 0;
+    }
+
+    // Equator Quarter Turn
+    if (anim_E && E_count < 9) {
+
+        var eq_cubes = equator_layer_cubes();
+
+        for ( var e_idx = 0; e_idx < eq_cubes.length; e_idx++ ) {
+            var e_cube = eq_cubes[e_idx];
+
+            revolve_around_Y_axis(e_cube, 10);
+        }
+        E_count++;
+    }
+    else if (anim_E && E_count == 9) {
+        anim_E = false;
+        E_count = 0;
+    }
+
+    // Down Quarter Turn
+    if (anim_D && D_count < 9) {
+
+        var dw_cubes = down_layer_cubes();
+
+        for ( var d_idx = 0; d_idx < dw_cubes.length; d_idx++ ) {
+            var d_cube = dw_cubes[d_idx];
+            revolve_around_Y_axis(d_cube, 10);
+        }
+        D_count++;
+    }
+    else if (anim_D && D_count == 9) {
+        anim_D = false;
+        D_count = 0;
+    }
+
+    // X-Axis Quarter Rotation
+    if (anim_X && X_count < 9) {
+        for ( var c_idx = 0; c_idx < cube_arr.length; c_idx++ ) {
+            var cube = cube_arr[c_idx];
+
+            revolve_around_X_axis(cube, -10);
+        }
+        X_count++;
+    }
+    else if (anim_X && X_count == 9) {
+        anim_X = false;
+        X_count = 0;
+    }
+
+    // Y-Axis Quarter Rotation
+    if (anim_Y && Y_count < 9) {
+        for ( var c_idx = 0; c_idx < cube_arr.length; c_idx++ ) {
+            var cube = cube_arr[c_idx];
+
+            revolve_around_Y_axis(cube, -10);
+        }
+        Y_count++;
+    }
+    else if (anim_Y && Y_count == 9) {
+        anim_Y = false;
+        Y_count = 0;
+    }
+
+    // Z-Axis Quarter Rotation
+    if (anim_Z && Z_count < 9) {
+        for ( var c_idx = 0; c_idx < cube_arr.length; c_idx++ ) {
+            var cube = cube_arr[c_idx];
+
+            revolve_around_Z_axis(cube, -10);
+        }
+        Z_count++;
+    }
+    else if (anim_Z && Z_count == 9) {
+        anim_Z = false;
+        Z_count = 0;
+    }
 
 }
 
@@ -358,7 +742,7 @@ function onDocumentMouseMove( event ) {
 
 // animate
 function animate() {
-  animateBox();
+  animateLayers();
   controls.update();
   //changeFaceColors();
   requestAnimationFrame(animate);
