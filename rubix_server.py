@@ -23,10 +23,10 @@ def index():
     return render_template('index.html')
 
 # Get a JSON-safe version of a default cube game object
-@app.route('/api/default_game.json')
-def default_cube_game():
-    d_cube = json.load(open(Path(app.root_path) / 'api/default_game.json'))
-    return d_cube
+@app.route('/api/cube_games/PUBLIC_GAMES/<path:path>')
+def send_public_game(path):
+    p_cube = json.load(open((Path(app.root_path) / 'api/cube_games/PUBLIC_GAMES') / path))
+    return p_cube
 
 @app.route('/api/CUBE_GAME_EVENT_TYPES')
 def get_cube_game_event_types():

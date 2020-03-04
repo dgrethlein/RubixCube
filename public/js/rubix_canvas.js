@@ -84,7 +84,7 @@ animate();
 
 // Loads a default cube game from file
 function getDefaultCube() {
-    return $.getJSON('/api/default_game.json', cubeData, function (data) {
+    return $.getJSON('/api/cube_games/PUBLIC_GAMES/default_game.json', cubeData, function (data) {
         cubeData = data;
     });
 }
