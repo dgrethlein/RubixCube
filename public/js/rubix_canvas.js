@@ -11,7 +11,7 @@ var drawCount;
 var value = 1;
 var delta = -0.01;
 var cube_arr = [];
-var keys = [];
+var keys = {};
 keys[16] = false;   // pre-ensures shift key works
 var controls;
 var last = false;
@@ -73,8 +73,28 @@ var Z_count = 0;
 var anim_Zi = false;
 var Zi_count = 0;
 
+var cubeGameEvents;
+var cubeData;
+var colors;
+
+
 init();
 animate();
+
+
+// Loads a default cube game from file
+function getDefaultCube() {
+    return $.getJSON('/api/default_game.json', cubeData, function (data) {
+        cubeData = data;
+    });
+}
+
+// Loads the Cube Game's Array of known Cube Game Event Types
+function getCubeGameEventTypes() {
+    return $.get('/api/CUBE_GAME_EVENT_TYPES', cubeGameEvents, function (data) {
+        cubeGameEvents = data;
+    })
+}
 
 
 // Conversion between degrees and radians
@@ -175,6 +195,7 @@ function right_layer_cubes() {
     return rg_cubes;
 }
 
+// Closing the side Navigation Bar
 function closeNav() {
     /* Closes any open side nav drop downs when closing sidenav */
     var dropdown = document.getElementsByClassName("dropdown-btn");
@@ -193,6 +214,443 @@ function closeNav() {
     document.getElementById("header_bar").style.marginLeft = "auto";
 }
 
+function checkToSetActiveCanvas(event) {
+
+    var target = event.target.tagName;
+
+    if (target == 'CANVAS') {
+        activeCanvas = true;
+        closeNav();
+    }
+    else {
+        activeCanvas = false;
+    }
+}
+
+function onDocumentKeyDown(event) {
+
+    // space and arrow keys
+    if([32, 37, 38, 39, 40].indexOf(event.keyCode) > -1) {
+        event.preventDefault();
+    }
+
+    var keyCode = event.which || event.keyCode;
+    var strKey = String.fromCharCode(keyCode);
+    keys[keyCode] = true
+
+    console.log(`KeyCode[${keyCode}] Str[${strKey}]`);
+
+    if (strKey == 'S' && !keys[16] && !anim_L && activeCanvas) {
+
+        // Must avoid conflicts with other movements
+        if (!anim_Li &&
+            !anim_U && !anim_Ui &&
+            !anim_E && !anim_Ei &&
+            !anim_D && !anim_Di &&
+            !anim_F && !anim_Fi &&
+            !anim_S && !anim_Si &&
+            !anim_B && !anim_Bi &&
+            !anim_X && !anim_Xi &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_L = true;
+        }
+    }
+    if (strKey == 'S' && keys[16] && !anim_Li && activeCanvas) {
+
+        // Must avoid conflicts with other movements
+        if (!anim_L &&
+            !anim_U && !anim_Ui &&
+            !anim_E && !anim_Ei &&
+            !anim_D && !anim_Di &&
+            !anim_F && !anim_Fi &&
+            !anim_S && !anim_Si &&
+            !anim_B && !anim_Bi &&
+            !anim_X && !anim_Xi &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_Li = true;
+        }
+    }
+    if (strKey == 'D' && !keys[16] && !anim_M && activeCanvas) {
+
+        // Must avoid conflicts with other movements
+        if (!anim_Mi &&
+            !anim_U && !anim_Ui &&
+            !anim_E && !anim_Ei &&
+            !anim_D && !anim_Di &&
+            !anim_F && !anim_Fi &&
+            !anim_S && !anim_Si &&
+            !anim_B && !anim_Bi &&
+            !anim_X && !anim_Xi &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_M = true;
+        }
+    }
+    if (strKey == 'D' && keys[16] && !anim_Mi && activeCanvas) {
+
+        // Must avoid conflicts with other movements
+        if (!anim_M &&
+            !anim_U && !anim_Ui &&
+            !anim_E && !anim_Ei &&
+            !anim_D && !anim_Di &&
+            !anim_F && !anim_Fi &&
+            !anim_S && !anim_Si &&
+            !anim_B && !anim_Bi &&
+            !anim_X && !anim_Xi &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_Mi = true;
+        }
+
+    }
+    if (strKey == 'F' && !keys[16] && !anim_R && activeCanvas) {
+
+        // Must avoid conflicts with other movements
+        if (!anim_Ri &&
+            !anim_U && !anim_Ui &&
+            !anim_E && !anim_Ei &&
+            !anim_D && !anim_Di &&
+            !anim_F && !anim_Fi &&
+            !anim_S && !anim_Si &&
+            !anim_B && !anim_Bi &&
+            !anim_X && !anim_Xi &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_R = true;
+        }
+    }
+    if (strKey == 'F' && keys[16] && !anim_Ri && activeCanvas) {
+
+        // Must avoid conflicts with other movements
+        if (!anim_R &&
+            !anim_U && !anim_Ui &&
+            !anim_E && !anim_Ei &&
+            !anim_D && !anim_Di &&
+            !anim_F && !anim_Fi &&
+            !anim_S && !anim_Si &&
+            !anim_B && !anim_Bi &&
+            !anim_X && !anim_Xi &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_Ri = true;
+        }
+    }
+    if (strKey == 'X' && !keys[16] && !anim_F && activeCanvas) {
+        // Must avoid conflicts with other movements
+        if (!anim_Fi &&
+            !anim_U && !anim_Ui &&
+            !anim_E && !anim_Ei &&
+            !anim_D && !anim_Di &&
+            !anim_L && !anim_Li &&
+            !anim_M && !anim_Mi &&
+            !anim_R && !anim_Ri &&
+            !anim_X && !anim_Xi &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_F = true;
+        }
+    }
+    if (strKey == 'X' && keys[16] && !anim_Fi && activeCanvas) {
+        // Must avoid conflicts with other movements
+        if (!anim_F &&
+            !anim_U && !anim_Ui &&
+            !anim_E && !anim_Ei &&
+            !anim_D && !anim_Di &&
+            !anim_L && !anim_Li &&
+            !anim_M && !anim_Mi &&
+            !anim_R && !anim_Ri &&
+            !anim_X && !anim_Xi &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_Fi = true;
+        }
+    }
+    if (strKey == 'C' && !keys[16] && !anim_S && activeCanvas) {
+        // Must avoid conflicts with other movements
+        if (!anim_Si &&
+            !anim_U && !anim_Ui &&
+            !anim_E && !anim_Ei &&
+            !anim_D && !anim_Di &&
+            !anim_L && !anim_Li &&
+            !anim_M && !anim_Mi &&
+            !anim_R && !anim_Ri &&
+            !anim_X && !anim_Xi &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_S = true;
+        }
+    }
+    if (strKey == 'C' && keys[16] && !anim_Si && activeCanvas) {
+        // Must avoid conflicts with other movements
+        if (!anim_S &&
+            !anim_U && !anim_Ui &&
+            !anim_E && !anim_Ei &&
+            !anim_D && !anim_Di &&
+            !anim_L && !anim_Li &&
+            !anim_M && !anim_Mi &&
+            !anim_R && !anim_Ri &&
+            !anim_X && !anim_Xi &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_Si = true;
+        }
+    }
+    if (strKey == 'V' && !keys[16] && !anim_B && activeCanvas) {
+        // Must avoid conflicts with other movements
+        if (!anim_Bi &&
+            !anim_U && !anim_Ui &&
+            !anim_E && !anim_Ei &&
+            !anim_D && !anim_Di &&
+            !anim_L && !anim_Li &&
+            !anim_M && !anim_Mi &&
+            !anim_R && !anim_Ri &&
+            !anim_X && !anim_Xi &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_B = true;
+        }
+    }
+    if (strKey == 'V' && keys[16] && !anim_Bi && activeCanvas) {
+        // Must avoid conflicts with other movements
+        if (!anim_B &&
+            !anim_U && !anim_Ui &&
+            !anim_E && !anim_Ei &&
+            !anim_D && !anim_Di &&
+            !anim_L && !anim_Li &&
+            !anim_M && !anim_Mi &&
+            !anim_R && !anim_Ri &&
+            !anim_X && !anim_Xi &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_Bi = true;
+        }
+    }
+    if (strKey == 'W' && !keys[16] && !anim_U && activeCanvas) {
+        // Must avoid conflicts with other movements
+        if (!anim_Ui &&
+            !anim_F && !anim_Fi &&
+            !anim_S && !anim_Si &&
+            !anim_B && !anim_Bi &&
+            !anim_L && !anim_Li &&
+            !anim_M && !anim_Mi &&
+            !anim_R && !anim_Ri &&
+            !anim_X && !anim_Xi &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_U = true;
+        }
+    }
+    if (strKey == 'W' && keys[16] && !anim_Ui && activeCanvas) {
+        // Must avoid conflicts with other movements
+        if (!anim_U &&
+            !anim_F && !anim_Fi &&
+            !anim_S && !anim_Si &&
+            !anim_B && !anim_Bi &&
+            !anim_L && !anim_Li &&
+            !anim_M && !anim_Mi &&
+            !anim_R && !anim_Ri &&
+            !anim_X && !anim_Xi &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_Ui = true;
+        }
+    }
+    if (strKey == 'E' && !keys[16] && !anim_E && activeCanvas) {
+        // Must avoid conflicts with other movements
+        if (!anim_Ei &&
+            !anim_F && !anim_Fi &&
+            !anim_S && !anim_Si &&
+            !anim_B && !anim_Bi &&
+            !anim_L && !anim_Li &&
+            !anim_M && !anim_Mi &&
+            !anim_R && !anim_Ri &&
+            !anim_X && !anim_Xi &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_E = true;
+        }
+    }
+    if (strKey == 'E' && keys[16] && !anim_Ei && activeCanvas) {
+        // Must avoid conflicts with other movements
+        if (!anim_E &&
+            !anim_F && !anim_Fi &&
+            !anim_S && !anim_Si &&
+            !anim_B && !anim_Bi &&
+            !anim_L && !anim_Li &&
+            !anim_M && !anim_Mi &&
+            !anim_R && !anim_Ri &&
+            !anim_X && !anim_Xi &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_Ei = true;
+        }
+    }
+    if (strKey == 'R' && !keys[16] && !anim_D && activeCanvas) {
+        // Must avoid conflicts with other movements
+        if (!anim_Di &&
+            !anim_F && !anim_Fi &&
+            !anim_S && !anim_Si &&
+            !anim_B && !anim_Bi &&
+            !anim_L && !anim_Li &&
+            !anim_M && !anim_Mi &&
+            !anim_R && !anim_Ri &&
+            !anim_X && !anim_Xi &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_D = true;
+        }
+    }
+    if (strKey == 'R' && keys[16] && !anim_Di && activeCanvas) {
+        // Must avoid conflicts with other movements
+        if (!anim_D &&
+            !anim_F && !anim_Fi &&
+            !anim_S && !anim_Si &&
+            !anim_B && !anim_Bi &&
+            !anim_L && !anim_Li &&
+            !anim_M && !anim_Mi &&
+            !anim_R && !anim_Ri &&
+            !anim_X && !anim_Xi &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_Di = true;
+        }
+    }
+    // Up Arrow Key (Revolve Around X Axis)
+    if (keys[38] && !anim_X && activeCanvas) {
+        // Must avoid conflicts with other movements
+        if (!anim_Xi &&
+            !anim_F && !anim_Fi &&
+            !anim_S && !anim_Si &&
+            !anim_B && !anim_Bi &&
+            !anim_L && !anim_Li &&
+            !anim_M && !anim_Mi &&
+            !anim_R && !anim_Ri &&
+            !anim_U && !anim_Ui &&
+            !anim_E && !anim_Ei &&
+            !anim_D && !anim_Di &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_X = true;
+        }
+    }
+    // Down Arrow Key (Inverse Revolve Around X Axis)
+    if (keys[40] && !anim_Xi && activeCanvas) {
+        // Must avoid conflicts with other movements
+        if (!anim_X &&
+            !anim_F && !anim_Fi &&
+            !anim_S && !anim_Si &&
+            !anim_B && !anim_Bi &&
+            !anim_L && !anim_Li &&
+            !anim_M && !anim_Mi &&
+            !anim_R && !anim_Ri &&
+            !anim_U && !anim_Ui &&
+            !anim_E && !anim_Ei &&
+            !anim_D && !anim_Di &&
+            !anim_Y && !anim_Yi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_Xi = true;
+        }
+    }
+    // Left Arrow Key (Revolve Around Y Axis)
+    if (keys[37] && !anim_Y && activeCanvas) {
+        // Must avoid conflicts with other movements
+        if (!anim_Yi &&
+            !anim_F && !anim_Fi &&
+            !anim_S && !anim_Si &&
+            !anim_B && !anim_Bi &&
+            !anim_L && !anim_Li &&
+            !anim_M && !anim_Mi &&
+            !anim_R && !anim_Ri &&
+            !anim_U && !anim_Ui &&
+            !anim_E && !anim_Ei &&
+            !anim_D && !anim_Di &&
+            !anim_X && !anim_Xi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_Y = true;
+        }
+    }
+    // Right Arrow Key (Inverse Revolve Around Y Axis)
+    if (keys[39] && !anim_Yi && activeCanvas) {
+        // Must avoid conflicts with other movements
+        if (!anim_Y &&
+            !anim_F && !anim_Fi &&
+            !anim_S && !anim_Si &&
+            !anim_B && !anim_Bi &&
+            !anim_L && !anim_Li &&
+            !anim_M && !anim_Mi &&
+            !anim_R && !anim_Ri &&
+            !anim_U && !anim_Ui &&
+            !anim_E && !anim_Ei &&
+            !anim_D && !anim_Di &&
+            !anim_X && !anim_Xi &&
+            !anim_Z && !anim_Zi) {
+
+            anim_Yi = true;
+        }
+    }
+    // Space Bar (Revolve Around Z Axis)
+    if (keys[32] && !anim_Z && !keys[16] && activeCanvas) {
+        // Must avoid conflicts with other movements
+        if (!anim_Zi &&
+            !anim_F && !anim_Fi &&
+            !anim_S && !anim_Si &&
+            !anim_B && !anim_Bi &&
+            !anim_L && !anim_Li &&
+            !anim_M && !anim_Mi &&
+            !anim_R && !anim_Ri &&
+            !anim_U && !anim_Ui &&
+            !anim_E && !anim_Ei &&
+            !anim_D && !anim_Di &&
+            !anim_Y && !anim_Yi &&
+            !anim_X && !anim_Xi) {
+
+            anim_Z = true;
+        }
+    }
+    // Space Bar + Shift (Inverse Revolve Around Z Axis)
+    if (keys[32] && !anim_Zi && keys[16] && activeCanvas) {
+        // Must avoid conflicts with other movements
+        if (!anim_Z &&
+            !anim_F && !anim_Fi &&
+            !anim_S && !anim_Si &&
+            !anim_B && !anim_Bi &&
+            !anim_L && !anim_Li &&
+            !anim_M && !anim_Mi &&
+            !anim_R && !anim_Ri &&
+            !anim_U && !anim_Ui &&
+            !anim_E && !anim_Ei &&
+            !anim_D && !anim_Di &&
+            !anim_Y && !anim_Yi &&
+            !anim_X && !anim_Xi) {
+
+            anim_Zi = true;
+        }
+    }
+}
+
 function init() {
 
 
@@ -202,7 +660,7 @@ function init() {
     info.setAttribute("id", "canvasDiv");
     info.style.position = 'absolute';
     info.style.top = '30px';
-    info.style.width = '50%';
+
     info.style.margin = "auto";
     info.style.textAlign = 'center';
     info.style.color = '#fff';
@@ -249,46 +707,61 @@ function init() {
     var skyBox = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial);
     scene.add(skyBox);
 
-
+    // Cubie Prototype
     var geometry = new THREE.BoxGeometry(40,40,40);
-    var material = new THREE.MeshLambertMaterial({color : 0xffffff,
+    var material = new THREE.MeshLambertMaterial({color : 0xf0f0f0,
                                                   vertexColors : THREE.FaceColors});
 
-    // colors
-    var front_color = new THREE.Color( 0x009b48 ); //Default Green
-    var back_color = new THREE.Color( 0x0045ad );  // Default Blue
-    var left_color = new THREE.Color( 0xff5900 );  // Default Orange
-    var right_color = new THREE.Color( 0xb90000 ); // Default Red
-    var up_color = new THREE.Color( 0xffffff );    // Default White
-    var down_color = new THREE.Color( 0xffd500 );  // Default Yellow
+    // Loads a Default Cube from JSON
+    getDefaultCube().done(function() {
 
-    var colors = [ right_color, left_color, up_color, down_color, front_color, back_color ];
+        // Grabs the colors indicated from the loaded game cube
+        var cube_colors = cubeData['gameLog']['gameCube']['colors'];
 
-    // Constructs the 27 cubies
-    for (var row_idx = 0; row_idx < 3; row_idx++) {
-        for (var col_idx = 0; col_idx < 3; col_idx++) {
-            for (var dep_idx = 0; dep_idx < 3; dep_idx++) {
+        // Extracts the face colors saved in file
+        var front_color = new THREE.Color( cube_colors['FRONT_COLOR'] ); // Default Green : 0x009b48
+        var back_color = new THREE.Color( cube_colors['BACK_COLOR'] );   // Default Blue : 0x0045ad
+        var left_color = new THREE.Color( cube_colors['LEFT_COLOR'] );   // Default Orange : 0xff5900
+        var right_color = new THREE.Color( cube_colors['RIGHT_COLOR'] ); // Default Red : 0xb90000
+        var up_color = new THREE.Color( cube_colors['UP_COLOR'] );       // Default White : 0xffffff
+        var down_color = new THREE.Color( cube_colors['DOWN_COLOR'] );   // Default Yellow : 0xffd500
 
-                for (var i = 0; i < 3; i++) {
+        // Assembles a color vector for painting the faces
+        colors = [ right_color, left_color, up_color, down_color, front_color, back_color ];
 
-                    geometry.faces[4 * i].color = colors[2*i];
-                    geometry.faces[4 * i + 1].color = colors[2*i];
-                    geometry.faces[4 * i + 2].color = colors[2*i+1];
-                    geometry.faces[4 * i + 3].color = colors[2*i+1];
+        // Constructs the 27 cubies
+        for (var row_idx = 0; row_idx < 3; row_idx++) {
+            for (var col_idx = 0; col_idx < 3; col_idx++) {
+                for (var dep_idx = 0; dep_idx < 3; dep_idx++) {
+
+                    for (var i = 0; i < 3; i++) {
+
+                        geometry.faces[4 * i].color = colors[2*i];
+                        geometry.faces[4 * i + 1].color = colors[2*i];
+                        geometry.faces[4 * i + 2].color = colors[2*i+1];
+                        geometry.faces[4 * i + 3].color = colors[2*i+1];
+                    }
+
+                    // mesh
+                    var box = new THREE.Mesh(geometry, material);
+                    cube_arr.push(box)
+                    box.position.set(-42 + row_idx * 42,
+                                     -42 + col_idx * 42,
+                                     -42 + dep_idx * 42)
+
+                    scene.add(box);
                 }
-
-                // mesh
-                var box = new THREE.Mesh(geometry, material);
-                cube_arr.push(box)
-                box.position.set(-42 + row_idx * 42,
-                                 -42 + col_idx * 42,
-                                 -42 + dep_idx * 42)
-
-                scene.add(box);
-                console.log(cube_arr[-1]);
             }
         }
-    }
+
+        getCubeGameEventTypes().done(function () {
+            console.log(cubeGameEvents);
+        });
+    });
+
+
+
+
 
     // Camera rotating around centered cube controls
     controls = new THREE.OrbitControls( camera, renderer.domElement );
@@ -298,437 +771,15 @@ function init() {
 
     document.addEventListener("click", checkToSetActiveCanvas, false);
 
-    function checkToSetActiveCanvas(event) {
 
-        var target = event.target.tagName;
-
-        if (target == 'CANVAS') {
-            activeCanvas = true;
-            closeNav();
-        }
-        else {
-            activeCanvas = false;
-        }
-    }
 
     // Listens for keyboard button presses
     document.addEventListener("keydown", onDocumentKeyDown, false);
     document.addEventListener("keyup", function (e) {
-        keys[e.keyCode] = false;
-    },
-    false);
+                                            keys[e.keyCode] = false;
+                                        },false);
 
-    function onDocumentKeyDown(event) {
-        var keyCode = event.which || event.keyCode;
-        var strKey = String.fromCharCode(keyCode);
-        keys[keyCode] = true
 
-        console.log(`KeyCode[${keyCode}] Str[${strKey}]`);
-
-        if (strKey == 'L' && !keys[16] && !anim_L && activeCanvas) {
-
-            // Must avoid conflicts with other movements
-            if (!anim_Li &&
-                !anim_U && !anim_Ui &&
-                !anim_E && !anim_Ei &&
-                !anim_D && !anim_Di &&
-                !anim_F && !anim_Fi &&
-                !anim_S && !anim_Si &&
-                !anim_B && !anim_Bi &&
-                !anim_X && !anim_Xi &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_L = true;
-            }
-        }
-        if (strKey == 'L' && keys[16] && !anim_Li && activeCanvas) {
-
-            // Must avoid conflicts with other movements
-            if (!anim_L &&
-                !anim_U && !anim_Ui &&
-                !anim_E && !anim_Ei &&
-                !anim_D && !anim_Di &&
-                !anim_F && !anim_Fi &&
-                !anim_S && !anim_Si &&
-                !anim_B && !anim_Bi &&
-                !anim_X && !anim_Xi &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_Li = true;
-            }
-        }
-        if (strKey == 'M' && !keys[16] && !anim_M && activeCanvas) {
-
-            // Must avoid conflicts with other movements
-            if (!anim_Mi &&
-                !anim_U && !anim_Ui &&
-                !anim_E && !anim_Ei &&
-                !anim_D && !anim_Di &&
-                !anim_F && !anim_Fi &&
-                !anim_S && !anim_Si &&
-                !anim_B && !anim_Bi &&
-                !anim_X && !anim_Xi &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_M = true;
-            }
-        }
-        if (strKey == 'M' && keys[16] && !anim_Mi && activeCanvas) {
-
-            // Must avoid conflicts with other movements
-            if (!anim_M &&
-                !anim_U && !anim_Ui &&
-                !anim_E && !anim_Ei &&
-                !anim_D && !anim_Di &&
-                !anim_F && !anim_Fi &&
-                !anim_S && !anim_Si &&
-                !anim_B && !anim_Bi &&
-                !anim_X && !anim_Xi &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_Mi = true;
-            }
-
-        }
-        if (strKey == 'R' && !keys[16] && !anim_R && activeCanvas) {
-
-            // Must avoid conflicts with other movements
-            if (!anim_Ri &&
-                !anim_U && !anim_Ui &&
-                !anim_E && !anim_Ei &&
-                !anim_D && !anim_Di &&
-                !anim_F && !anim_Fi &&
-                !anim_S && !anim_Si &&
-                !anim_B && !anim_Bi &&
-                !anim_X && !anim_Xi &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_R = true;
-            }
-        }
-        if (strKey == 'R' && keys[16] && !anim_Ri && activeCanvas) {
-
-            // Must avoid conflicts with other movements
-            if (!anim_R &&
-                !anim_U && !anim_Ui &&
-                !anim_E && !anim_Ei &&
-                !anim_D && !anim_Di &&
-                !anim_F && !anim_Fi &&
-                !anim_S && !anim_Si &&
-                !anim_B && !anim_Bi &&
-                !anim_X && !anim_Xi &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_Ri = true;
-            }
-        }
-        if (strKey == 'F' && !keys[16] && !anim_F && activeCanvas) {
-            // Must avoid conflicts with other movements
-            if (!anim_Fi &&
-                !anim_U && !anim_Ui &&
-                !anim_E && !anim_Ei &&
-                !anim_D && !anim_Di &&
-                !anim_L && !anim_Li &&
-                !anim_M && !anim_Mi &&
-                !anim_R && !anim_Ri &&
-                !anim_X && !anim_Xi &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_F = true;
-            }
-        }
-        if (strKey == 'F' && keys[16] && !anim_Fi && activeCanvas) {
-            // Must avoid conflicts with other movements
-            if (!anim_F &&
-                !anim_U && !anim_Ui &&
-                !anim_E && !anim_Ei &&
-                !anim_D && !anim_Di &&
-                !anim_L && !anim_Li &&
-                !anim_M && !anim_Mi &&
-                !anim_R && !anim_Ri &&
-                !anim_X && !anim_Xi &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_Fi = true;
-            }
-        }
-        if (strKey == 'S' && !keys[16] && !anim_S && activeCanvas) {
-            // Must avoid conflicts with other movements
-            if (!anim_Si &&
-                !anim_U && !anim_Ui &&
-                !anim_E && !anim_Ei &&
-                !anim_D && !anim_Di &&
-                !anim_L && !anim_Li &&
-                !anim_M && !anim_Mi &&
-                !anim_R && !anim_Ri &&
-                !anim_X && !anim_Xi &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_S = true;
-            }
-        }
-        if (strKey == 'S' && keys[16] && !anim_Si && activeCanvas) {
-            // Must avoid conflicts with other movements
-            if (!anim_S &&
-                !anim_U && !anim_Ui &&
-                !anim_E && !anim_Ei &&
-                !anim_D && !anim_Di &&
-                !anim_L && !anim_Li &&
-                !anim_M && !anim_Mi &&
-                !anim_R && !anim_Ri &&
-                !anim_X && !anim_Xi &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_Si = true;
-            }
-        }
-        if (strKey == 'B' && !keys[16] && !anim_B && activeCanvas) {
-            // Must avoid conflicts with other movements
-            if (!anim_Bi &&
-                !anim_U && !anim_Ui &&
-                !anim_E && !anim_Ei &&
-                !anim_D && !anim_Di &&
-                !anim_L && !anim_Li &&
-                !anim_M && !anim_Mi &&
-                !anim_R && !anim_Ri &&
-                !anim_X && !anim_Xi &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_B = true;
-            }
-        }
-        if (strKey == 'B' && keys[16] && !anim_Bi && activeCanvas) {
-            // Must avoid conflicts with other movements
-            if (!anim_B &&
-                !anim_U && !anim_Ui &&
-                !anim_E && !anim_Ei &&
-                !anim_D && !anim_Di &&
-                !anim_L && !anim_Li &&
-                !anim_M && !anim_Mi &&
-                !anim_R && !anim_Ri &&
-                !anim_X && !anim_Xi &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_Bi = true;
-            }
-        }
-        if (strKey == 'U' && !keys[16] && !anim_U && activeCanvas) {
-            // Must avoid conflicts with other movements
-            if (!anim_Ui &&
-                !anim_F && !anim_Fi &&
-                !anim_S && !anim_Si &&
-                !anim_B && !anim_Bi &&
-                !anim_L && !anim_Li &&
-                !anim_M && !anim_Mi &&
-                !anim_R && !anim_Ri &&
-                !anim_X && !anim_Xi &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_U = true;
-            }
-        }
-        if (strKey == 'U' && keys[16] && !anim_Ui && activeCanvas) {
-            // Must avoid conflicts with other movements
-            if (!anim_U &&
-                !anim_F && !anim_Fi &&
-                !anim_S && !anim_Si &&
-                !anim_B && !anim_Bi &&
-                !anim_L && !anim_Li &&
-                !anim_M && !anim_Mi &&
-                !anim_R && !anim_Ri &&
-                !anim_X && !anim_Xi &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_Ui = true;
-            }
-        }
-        if (strKey == 'E' && !keys[16] && !anim_E && activeCanvas) {
-            // Must avoid conflicts with other movements
-            if (!anim_Ei &&
-                !anim_F && !anim_Fi &&
-                !anim_S && !anim_Si &&
-                !anim_B && !anim_Bi &&
-                !anim_L && !anim_Li &&
-                !anim_M && !anim_Mi &&
-                !anim_R && !anim_Ri &&
-                !anim_X && !anim_Xi &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_E = true;
-            }
-        }
-        if (strKey == 'E' && keys[16] && !anim_Ei && activeCanvas) {
-            // Must avoid conflicts with other movements
-            if (!anim_E &&
-                !anim_F && !anim_Fi &&
-                !anim_S && !anim_Si &&
-                !anim_B && !anim_Bi &&
-                !anim_L && !anim_Li &&
-                !anim_M && !anim_Mi &&
-                !anim_R && !anim_Ri &&
-                !anim_X && !anim_Xi &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_Ei = true;
-            }
-        }
-        if (strKey == 'D' && !keys[16] && !anim_D && activeCanvas) {
-            // Must avoid conflicts with other movements
-            if (!anim_Di &&
-                !anim_F && !anim_Fi &&
-                !anim_S && !anim_Si &&
-                !anim_B && !anim_Bi &&
-                !anim_L && !anim_Li &&
-                !anim_M && !anim_Mi &&
-                !anim_R && !anim_Ri &&
-                !anim_X && !anim_Xi &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_D = true;
-            }
-        }
-        if (strKey == 'D' && keys[16] && !anim_Di && activeCanvas) {
-            // Must avoid conflicts with other movements
-            if (!anim_D &&
-                !anim_F && !anim_Fi &&
-                !anim_S && !anim_Si &&
-                !anim_B && !anim_Bi &&
-                !anim_L && !anim_Li &&
-                !anim_M && !anim_Mi &&
-                !anim_R && !anim_Ri &&
-                !anim_X && !anim_Xi &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_Di = true;
-            }
-        }
-        if (strKey == "X" && !anim_X && !keys[16] && activeCanvas) {
-            // Must avoid conflicts with other movements
-            if (!anim_Xi &&
-                !anim_F && !anim_Fi &&
-                !anim_S && !anim_Si &&
-                !anim_B && !anim_Bi &&
-                !anim_L && !anim_Li &&
-                !anim_M && !anim_Mi &&
-                !anim_R && !anim_Ri &&
-                !anim_U && !anim_Ui &&
-                !anim_E && !anim_Ei &&
-                !anim_D && !anim_Di &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_X = true;
-            }
-        }
-        if (strKey == "X" && !anim_Xi && keys[16] && activeCanvas) {
-            // Must avoid conflicts with other movements
-            if (!anim_X &&
-                !anim_F && !anim_Fi &&
-                !anim_S && !anim_Si &&
-                !anim_B && !anim_Bi &&
-                !anim_L && !anim_Li &&
-                !anim_M && !anim_Mi &&
-                !anim_R && !anim_Ri &&
-                !anim_U && !anim_Ui &&
-                !anim_E && !anim_Ei &&
-                !anim_D && !anim_Di &&
-                !anim_Y && !anim_Yi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_Xi = true;
-            }
-        }
-        if (strKey == "Y" && !anim_Y && !keys[16] && activeCanvas) {
-            // Must avoid conflicts with other movements
-            if (!anim_Yi &&
-                !anim_F && !anim_Fi &&
-                !anim_S && !anim_Si &&
-                !anim_B && !anim_Bi &&
-                !anim_L && !anim_Li &&
-                !anim_M && !anim_Mi &&
-                !anim_R && !anim_Ri &&
-                !anim_U && !anim_Ui &&
-                !anim_E && !anim_Ei &&
-                !anim_D && !anim_Di &&
-                !anim_X && !anim_Xi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_Y = true;
-            }
-        }
-        if (strKey == "Y" && !anim_Yi && keys[16] && activeCanvas) {
-            // Must avoid conflicts with other movements
-            if (!anim_Y &&
-                !anim_F && !anim_Fi &&
-                !anim_S && !anim_Si &&
-                !anim_B && !anim_Bi &&
-                !anim_L && !anim_Li &&
-                !anim_M && !anim_Mi &&
-                !anim_R && !anim_Ri &&
-                !anim_U && !anim_Ui &&
-                !anim_E && !anim_Ei &&
-                !anim_D && !anim_Di &&
-                !anim_X && !anim_Xi &&
-                !anim_Z && !anim_Zi) {
-
-                anim_Yi = true;
-            }
-        }
-        if (strKey == "Z" && !anim_Z && !keys[16] && activeCanvas) {
-            // Must avoid conflicts with other movements
-            if (!anim_Zi &&
-                !anim_F && !anim_Fi &&
-                !anim_S && !anim_Si &&
-                !anim_B && !anim_Bi &&
-                !anim_L && !anim_Li &&
-                !anim_M && !anim_Mi &&
-                !anim_R && !anim_Ri &&
-                !anim_U && !anim_Ui &&
-                !anim_E && !anim_Ei &&
-                !anim_D && !anim_Di &&
-                !anim_Y && !anim_Yi &&
-                !anim_X && !anim_Xi) {
-
-                anim_Z = true;
-            }
-        }
-        if (strKey == "Z" && !anim_Zi && keys[16] && activeCanvas) {
-            // Must avoid conflicts with other movements
-            if (!anim_Z &&
-                !anim_F && !anim_Fi &&
-                !anim_S && !anim_Si &&
-                !anim_B && !anim_Bi &&
-                !anim_L && !anim_Li &&
-                !anim_M && !anim_Mi &&
-                !anim_R && !anim_Ri &&
-                !anim_U && !anim_Ui &&
-                !anim_E && !anim_Ei &&
-                !anim_D && !anim_Di &&
-                !anim_Y && !anim_Yi &&
-                !anim_X && !anim_Xi) {
-
-                anim_Zi = true;
-            }
-        }
-    };
 
     camera.lookAt( scene.position );
 }

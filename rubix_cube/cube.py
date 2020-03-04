@@ -62,6 +62,9 @@ import numpy as np
 from matplotlib.colors import is_color_like
 
 
+
+
+
 class Cube(object):
     """Data structure for representing a 3x3x3 rubix-cube.
 
@@ -78,7 +81,7 @@ class Cube(object):
     #       CLASS CONSTRUCTOR
     #==========================================================================
     def __init__(self,
-                 colors : Dict[str,str] = None,
+                 colors : Dict[str,int] = None,
                  faces : Dict[str,np.array] = None):
         """:class:`Cube` class constructor.
 
@@ -136,6 +139,26 @@ class Cube(object):
 
             if isinstance(faces, dict):
                 self.faces = faces
+
+    #==========================================================================
+    #      FILE I/O METHOD(s)
+    #==========================================================================
+    def to_json_safe_dict(self) -> Dict:
+        """Constructs a JSON-safe dictionary for saving :class:`Cube` state to
+        JSON file.
+
+        Returns:
+            Dict: **json_dict** - JSON-safe dictionary with faces attribute dict
+            values converted from :class:`numpy.ndarray` to :class:`list`.
+        """
+
+        if self.is_well_formed():
+
+            json_dict = {"colors" : self.colors,
+                         "faces"  : dict(zip(self.faces.keys(),\
+                            [face.tolist() for face in self.faces.values()]))}
+
+            return json_dict
 
 
     #==========================================================================

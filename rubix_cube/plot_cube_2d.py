@@ -11,7 +11,7 @@ Module Description
            :name: plot_cube_2d_img
            :align: center
            :width: 75%
-           
+
            All 6 faces of the :class:`Rubix Cube <Cube>` are visible in this 2D
            rendering.
 
@@ -46,7 +46,7 @@ FACE_COORDS = {'FRONT_FACE' : (-150,50),
 
 
 def plot_cube_2D(ax : plt.Axes , cube : Cube):
-    """Plots the :class:`Rubix Cube <Cube>` on a 
+    """Plots the :class:`Rubix Cube <Cube>` on a
     :class:`matplotlib Axes <matplotlib.axes.Axes>` on a flattened 2-D
     representation.
 
@@ -88,7 +88,7 @@ def plot_cube_2D(ax : plt.Axes , cube : Cube):
                     rect = patches.Rectangle(xy=tile_coords,
                                              width=100,
                                              height=100,
-                                             facecolor=color_val,
+                                             facecolor=str(color_val),
                                              lw=2,
                                              edgecolor='black')
 

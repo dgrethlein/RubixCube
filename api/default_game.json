@@ -1,0 +1,125 @@
+{
+    "gameLog" : {
+        "gamePlayer" : "Anonymous",
+        "gameName" : "Untitled_Game",
+        "gameCube" : {
+            "colors": {
+                "UP_COLOR": "#ffffff",
+                "DOWN_COLOR": "#ffd500",
+                "FRONT_COLOR": "#009b48",
+                "BACK_COLOR": "#0045ad",
+                "LEFT_COLOR": "#ff5900",
+                "RIGHT_COLOR": "#b90000"
+            },
+            "faces": {
+                "UP_FACE": [
+                    [
+                        "#ffffff",
+                        "#ffffff",
+                        "#ffffff"
+                    ],
+                    [
+                        "#ffffff",
+                        "#ffffff",
+                        "#ffffff"
+                    ],
+                    [
+                        "#ffffff",
+                        "#ffffff",
+                        "#ffffff"
+                    ]
+                ],
+                "DOWN_FACE": [
+                    [
+                        "#ffd500",
+                        "#ffd500",
+                        "#ffd500"
+                    ],
+                    [
+                        "#ffd500",
+                        "#ffd500",
+                        "#ffd500"
+                    ],
+                    [
+                        "#ffd500",
+                        "#ffd500",
+                        "#ffd500"
+                    ]
+                ],
+                "FRONT_FACE": [
+                    [
+                        "#009b48",
+                        "#009b48",
+                        "#009b48"
+                    ],
+                    [
+                        "#009b48",
+                        "#009b48",
+                        "#009b48"
+                    ],
+                    [
+                        "#009b48",
+                        "#009b48",
+                        "#009b48"
+                    ]
+                ],
+                "BACK_FACE": [
+                    [
+                        "#0045ad",
+                        "#0045ad",
+                        "#0045ad"
+                    ],
+                    [
+                        "#0045ad",
+                        "#0045ad",
+                        "#0045ad"
+                    ],
+                    [
+                        "#0045ad",
+                        "#0045ad",
+                        "#0045ad"
+                    ]
+                ],
+                "LEFT_FACE": [
+                    [
+                        "#ff5900",
+                        "#ff5900",
+                        "#ff5900"
+                    ],
+                    [
+                        "#ff5900",
+                        "#ff5900",
+                        "#ff5900"
+                    ],
+                    [
+                        "#ff5900",
+                        "#ff5900",
+                        "#ff5900"
+                    ]
+                ],
+                "RIGHT_FACE": [
+                    [
+                        "#b90000",
+                        "#b90000",
+                        "#b90000"
+                    ],
+                    [
+                        "#b90000",
+                        "#b90000",
+                        "#b90000"
+                    ],
+                    [
+                        "#b90000",
+                        "#b90000",
+                        "#b90000"
+                    ]
+                ]
+            }
+        },
+        "events" :
+            [
+                {"type" : "<<__NEW_GAME__>>",
+                 "name" : "Untitled_Game"}
+            ]
+    }
+}

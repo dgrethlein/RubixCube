@@ -56,6 +56,7 @@ class Cube_Game(object):
         __game_log (dict): Historical record of all moves, rotations, and other
             game events that manipulate the :attr:`game_cube`.
         __game_name (str): Name of the game.
+        __player_name (str): Name of actor playing the game.
         __verbose (bool): [DEBUG]-style console output. Default value is
             ``False``.
 
@@ -155,6 +156,7 @@ class Cube_Game(object):
     #==========================================================================
     def __init__(self,
                  cube : Cube = None,
+                 player_name : str = None,
                  game_name : str = None,
                  game_log : Dict = None,
                  scramble : bool = False,
@@ -164,6 +166,8 @@ class Cube_Game(object):
         Args:
             cube (Cube, optional): :class:`Cube` that will be directly
                 manipulated throughout gameplay.
+            player_name (str, optional): Name of current actor playing with
+              :class:`Cube`.
             game_name (str, optional): Name of the current game being played.
             game_log (Dict, optional): Dictionary that contains a history of
                 moves and other game events.
@@ -176,11 +180,12 @@ class Cube_Game(object):
         """
 
         # Sets Up Default Game
-        self.game_name = 'Untitled_Cube_Game'
+        self.player_name = 'Anonymous'
+        self.game_name = 'Untitled_Game'
         self.game_name = game_name
         self.game_cube = Cube()
         self.game_log = {'events' : [{'type' : '<<__NEW_GAME__>>',
-                              'name' : self.game_name}]}
+                                      'name' : self.game_name}]}
 
         # Attempts to reset property values with argument values.
         self.game_cube = cube
@@ -239,6 +244,18 @@ class Cube_Game(object):
 
             self.__game_name = name
 
+    @property
+    def player_name(self) -> str:
+      """Name of actor playing game.
+      """
+      return self.__player_name
+
+    @player_name.setter
+    def player_name(self, name : str):
+        if isinstance(name, str)\
+        and len(name) > 0:
+
+            self.__player_name = name
 
     @property
     def game_log(self) -> Dict:
