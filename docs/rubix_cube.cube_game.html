@@ -236,7 +236,7 @@ loading and saving of games.</p>
 </div></blockquote>
 <dl class="class">
 <dt id="rubix_cube.cube_game.Cube_Game">
-<em class="property">class </em><code class="sig-prename descclassname">rubix_cube.cube_game.</code><code class="sig-name descname">Cube_Game</code><span class="sig-paren">(</span><em class="sig-param">cube: rubix_cube.cube.Cube = None</em>, <em class="sig-param">game_name: str = None</em>, <em class="sig-param">game_log: Dict = None</em>, <em class="sig-param">scramble: bool = False</em>, <em class="sig-param">verbose: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube_game.html#Cube_Game"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">rubix_cube.cube_game.</code><code class="sig-name descname">Cube_Game</code><span class="sig-paren">(</span><em class="sig-param">cube: rubix_cube.cube.Cube = None</em>, <em class="sig-param">player_name: str = None</em>, <em class="sig-param">game_name: str = None</em>, <em class="sig-param">game_log: Dict = None</em>, <em class="sig-param">scramble: bool = False</em>, <em class="sig-param">verbose: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube_game.html#Cube_Game"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Class in charge of directly interacting with and logging changes to
 an instance of the <code class="xref py py-class docutils literal notranslate"><span class="pre">Cube</span></code> class.</p>
@@ -287,6 +287,17 @@ game events that manipulate the <a class="reference internal" href="#rubix_cube.
 </dd></dl>
 
 <dl class="attribute">
+<dt id="rubix_cube.cube_game.Cube_Game.__player_name">
+<code class="sig-name descname">__player_name</code><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.__player_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of actor playing the game.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="rubix_cube.cube_game.Cube_Game.__verbose">
 <code class="sig-name descname">__verbose</code><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.__verbose" title="Permalink to this definition">¶</a></dt>
 <dd><p>[DEBUG]-style console output. Default value is
@@ -315,13 +326,15 @@ game events that manipulate the <a class="reference internal" href="#rubix_cube.
 
 <dl class="method">
 <dt id="rubix_cube.cube_game.Cube_Game.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">cube: rubix_cube.cube.Cube = None</em>, <em class="sig-param">game_name: str = None</em>, <em class="sig-param">game_log: Dict = None</em>, <em class="sig-param">scramble: bool = False</em>, <em class="sig-param">verbose: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube_game.html#Cube_Game.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">cube: rubix_cube.cube.Cube = None</em>, <em class="sig-param">player_name: str = None</em>, <em class="sig-param">game_name: str = None</em>, <em class="sig-param">game_log: Dict = None</em>, <em class="sig-param">scramble: bool = False</em>, <em class="sig-param">verbose: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube_game.html#Cube_Game.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p><a class="reference internal" href="#rubix_cube.cube_game.Cube_Game" title="rubix_cube.cube_game.Cube_Game"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cube_Game</span></code></a> class constructor</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>cube</strong> (<a class="reference internal" href="rubix_cube.cube.html#rubix_cube.cube.Cube" title="rubix_cube.cube.Cube"><em>Cube</em></a><em>, </em><em>optional</em>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">Cube</span></code> that will be directly
 manipulated throughout gameplay.</p></li>
+<li><p><strong>player_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – Name of current actor playing with
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Cube</span></code>.</p></li>
 <li><p><strong>game_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – Name of the current game being played.</p></li>
 <li><p><strong>game_log</strong> (<em>Dict</em><em>, </em><em>optional</em>) – Dictionary that contains a history of
 moves and other game events.</p></li>
@@ -621,6 +634,12 @@ nothing happens.</span><a class="headerlink" href="#move-cube-cube-funcs" title=
 </pre></div>
 </td></tr></table></div>
 </div>
+</dd></dl>
+
+<dl class="method">
+<dt id="rubix_cube.cube_game.Cube_Game.player_name">
+<em class="property">property </em><code class="sig-name descname">player_name</code><a class="headerlink" href="#rubix_cube.cube_game.Cube_Game.player_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of actor playing game.</p>
 </dd></dl>
 
 <dl class="method">

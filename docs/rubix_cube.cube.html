@@ -248,7 +248,7 @@ move-set. (<a class="reference external" href="https://www.rubiks.com/en-us/blog
 </div></blockquote>
 <dl class="class">
 <dt id="rubix_cube.cube.Cube">
-<em class="property">class </em><code class="sig-prename descclassname">rubix_cube.cube.</code><code class="sig-name descname">Cube</code><span class="sig-paren">(</span><em class="sig-param">colors: Dict[str</em>, <em class="sig-param">str] = None</em>, <em class="sig-param">faces: Dict[str</em>, <em class="sig-param">numpy.array] = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">rubix_cube.cube.</code><code class="sig-name descname">Cube</code><span class="sig-paren">(</span><em class="sig-param">colors: Dict[str</em>, <em class="sig-param">int] = None</em>, <em class="sig-param">faces: Dict[str</em>, <em class="sig-param">numpy.array] = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Data structure for representing a 3x3x3 rubix-cube.</p>
 <dl class="attribute">
@@ -366,7 +366,7 @@ exactly identical between the two objects.</p>
 
 <dl class="method">
 <dt id="rubix_cube.cube.Cube.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">colors: Dict[str</em>, <em class="sig-param">str] = None</em>, <em class="sig-param">faces: Dict[str</em>, <em class="sig-param">numpy.array] = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">colors: Dict[str</em>, <em class="sig-param">int] = None</em>, <em class="sig-param">faces: Dict[str</em>, <em class="sig-param">numpy.array] = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p><a class="reference internal" href="#rubix_cube.cube.Cube" title="rubix_cube.cube.Cube"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cube</span></code></a> class constructor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -809,6 +809,22 @@ as defined by <a class="reference external" href="https://matplotlib.org/api/_as
 <dt id="rubix_cube.cube.Cube.rotate_yaw_inverse">
 <code class="sig-name descname">rotate_yaw_inverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.rotate_yaw_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.rotate_yaw_inverse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Yaw Inverse Rotation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rubix_cube.cube.Cube.to_json_safe_dict">
+<code class="sig-name descname">to_json_safe_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<a class="reference internal" href="_modules/rubix_cube/cube.html#Cube.to_json_safe_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#rubix_cube.cube.Cube.to_json_safe_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a JSON-safe dictionary for saving <a class="reference internal" href="#rubix_cube.cube.Cube" title="rubix_cube.cube.Cube"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cube</span></code></a> state to
+JSON file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>json_dict</strong> - JSON-safe dictionary with faces attribute dict
+values converted from <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> to <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

@@ -256,6 +256,7 @@
 <span class="sd">        __game_log (dict): Historical record of all moves, rotations, and other</span>
 <span class="sd">            game events that manipulate the :attr:`game_cube`.</span>
 <span class="sd">        __game_name (str): Name of the game.</span>
+<span class="sd">        __player_name (str): Name of actor playing the game.</span>
 <span class="sd">        __verbose (bool): [DEBUG]-style console output. Default value is</span>
 <span class="sd">            ``False``.</span>
 
@@ -355,6 +356,7 @@
     <span class="c1">#==========================================================================</span>
 <div class="viewcode-block" id="Cube_Game.__init__"><a class="viewcode-back" href="../../rubix_cube.cube_game.html#rubix_cube.cube_game.Cube_Game.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">cube</span> <span class="p">:</span> <span class="n">Cube</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">player_name</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">game_name</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">game_log</span> <span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">scramble</span> <span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -364,6 +366,8 @@
 <span class="sd">        Args:</span>
 <span class="sd">            cube (Cube, optional): :class:`Cube` that will be directly</span>
 <span class="sd">                manipulated throughout gameplay.</span>
+<span class="sd">            player_name (str, optional): Name of current actor playing with</span>
+<span class="sd">              :class:`Cube`.</span>
 <span class="sd">            game_name (str, optional): Name of the current game being played.</span>
 <span class="sd">            game_log (Dict, optional): Dictionary that contains a history of</span>
 <span class="sd">                moves and other game events.</span>
@@ -376,11 +380,12 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Sets Up Default Game</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">game_name</span> <span class="o">=</span> <span class="s1">&#39;Untitled_Cube_Game&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player_name</span> <span class="o">=</span> <span class="s1">&#39;Anonymous&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">game_name</span> <span class="o">=</span> <span class="s1">&#39;Untitled_Game&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">game_name</span> <span class="o">=</span> <span class="n">game_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">game_cube</span> <span class="o">=</span> <span class="n">Cube</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;events&#39;</span> <span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;type&#39;</span> <span class="p">:</span> <span class="s1">&#39;&lt;&lt;__NEW_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
-                              <span class="s1">&#39;name&#39;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_name</span><span class="p">}]}</span>
+                                      <span class="s1">&#39;name&#39;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_name</span><span class="p">}]}</span>
 
         <span class="c1"># Attempts to reset property values with argument values.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">game_cube</span> <span class="o">=</span> <span class="n">cube</span>
@@ -439,6 +444,18 @@
 
             <span class="bp">self</span><span class="o">.</span><span class="n">__game_name</span> <span class="o">=</span> <span class="n">name</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">player_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+      <span class="sd">&quot;&quot;&quot;Name of actor playing game.</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__player_name</span>
+
+    <span class="nd">@player_name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">player_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span> <span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>\
+        <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__player_name</span> <span class="o">=</span> <span class="n">name</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">game_log</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
