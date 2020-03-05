@@ -73,29 +73,40 @@ var Z_count = 0;
 var anim_Zi = false;
 var Zi_count = 0;
 
-var cubeGameEvents;
+var gameEvents = [];
+var cubeGameEventTypes;
 var cubeData;
 var colors;
 
+var changeCubeState = false;
+var loadedMovesDone = false;
 
 init();
 animate();
 
 
 // Loads a default cube game from file
-function getDefaultCube() {
-    return $.getJSON('/api/cube_games/PUBLIC_GAMES/default_game.json', cubeData, function (data) {
+function loadCubeJSON() {
+    var script = document.getElementById('cube_js');
+    var game_name = script.getAttribute('game_cube');
+    return $.getJSON(`/api/cube_games/PUBLIC_GAMES/${game_name}.json`, cubeData, function (data) {
         cubeData = data;
     });
 }
 
-// Loads the Cube Game's Array of known Cube Game Event Types
-function getCubeGameEventTypes() {
-    return $.get('/api/CUBE_GAME_EVENT_TYPES', cubeGameEvents, function (data) {
-        cubeGameEvents = data;
-    })
+// Loads the japan game from file
+function getJapanCube() {
+    return $.getJSON('/api/cube_games/PUBLIC_GAMES/japan_game.json', cubeData, function (data) {
+        cubeData = data;
+    });
 }
 
+// Loads the checkboard game from file
+function getCheckboardCube() {
+    return $.getJSON('/api/cube_games/PUBLIC_GAMES/japan_game.json', cubeData, function (data) {
+        cubeData = data;
+    });
+}
 
 // Conversion between degrees and radians
 function degrees_to_radians(degrees) {
@@ -195,6 +206,605 @@ function right_layer_cubes() {
     return rg_cubes;
 }
 
+function turn_left_layer() {
+    // Left Quarter Turn
+    if (anim_L && L_count < 9) {
+
+        var lf_cubes = left_layer_cubes();
+
+        for ( var l_idx = 0; l_idx < lf_cubes.length; l_idx++ ) {
+            var l_cube = lf_cubes[l_idx];
+
+            revolve_around_X_axis(l_cube, 10);
+
+        }
+        L_count++;
+    }
+    else if (anim_L && L_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "L",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_L = false;
+                L_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "L"});
+            });
+    }
+}
+
+function turn_left_layer_inverse() {
+    // Left Inverse Quarter Turn
+    if (anim_Li && Li_count < 9) {
+
+        var lf_cubes = left_layer_cubes();
+
+        for ( var l_idx = 0; l_idx < lf_cubes.length; l_idx++ ) {
+            var l_cube = lf_cubes[l_idx];
+
+            revolve_around_X_axis(l_cube, -10);
+
+        }
+        Li_count++;
+    }
+    else if (anim_Li && Li_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "Li",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_Li = false;
+                Li_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "Li"});
+            });
+    }
+}
+
+function turn_middle_layer() {
+    // Middle Quarter Turn
+    if (anim_M && M_count < 9) {
+
+        var md_cubes = middle_layer_cubes();
+
+        for ( var m_idx = 0; m_idx < md_cubes.length; m_idx++ ) {
+            var m_cube = md_cubes[m_idx];
+            revolve_around_X_axis(m_cube, 10);
+        }
+        M_count++;
+    }
+    else if (anim_M && M_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "M",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_M = false;
+                M_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "M"});
+            });
+    }
+}
+
+function turn_middle_layer_inverse() {
+    // Middle Inverse Quarter Turn
+    if (anim_Mi && Mi_count < 9) {
+
+        var md_cubes = middle_layer_cubes();
+
+        for ( var m_idx = 0; m_idx < md_cubes.length; m_idx++ ) {
+            var m_cube = md_cubes[m_idx];
+            revolve_around_X_axis(m_cube, -10);
+        }
+        Mi_count++;
+    }
+    else if (anim_Mi && Mi_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "Mi",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_Mi = false;
+                Mi_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "Mi"});
+            });
+    }
+}
+
+function turn_right_layer() {
+    // Right Quarter Turn
+    if (anim_R && R_count < 9) {
+
+        var rg_cubes = right_layer_cubes();
+
+        for ( var r_idx = 0; r_idx < rg_cubes.length; r_idx++ ) {
+            var r_cube = rg_cubes[r_idx];
+            revolve_around_X_axis(r_cube, -10);
+        }
+        R_count++;
+    }
+    else if (anim_R && R_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "R",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_R = false;
+                R_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "R"});
+            });
+    }
+}
+
+function turn_right_layer_inverse() {
+    // Right Inverse Quarter Turn
+    if (anim_Ri && Ri_count < 9) {
+
+        var rg_cubes = right_layer_cubes();
+
+        for ( var r_idx = 0; r_idx < rg_cubes.length; r_idx++ ) {
+            var r_cube = rg_cubes[r_idx];
+            revolve_around_X_axis(r_cube, 10);
+        }
+        Ri_count++;
+    }
+    else if (anim_Ri && Ri_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "Ri",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_Ri = false;
+                Ri_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "Ri"});
+            });
+    }
+}
+
+function turn_up_layer() {
+    // Up Quarter Turn
+    if (anim_U && U_count < 9) {
+
+        var up_cubes = up_layer_cubes();
+
+        for ( var u_idx = 0; u_idx < up_cubes.length; u_idx++ ) {
+            var u_cube = up_cubes[u_idx];
+
+            revolve_around_Y_axis(u_cube, -10);
+
+        }
+        U_count++;
+    }
+    else if (anim_U && U_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "U",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_U = false;
+                U_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "U"});
+            });
+    }
+}
+
+function turn_up_layer_inverse() {
+    // Up Inverse Quarter Turn
+    if (anim_Ui && Ui_count < 9) {
+
+        var up_cubes = up_layer_cubes();
+
+        for ( var u_idx = 0; u_idx < up_cubes.length; u_idx++ ) {
+            var u_cube = up_cubes[u_idx];
+
+            revolve_around_Y_axis(u_cube, 10);
+
+        }
+        Ui_count++;
+    }
+    else if (anim_Ui && Ui_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "Ui",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_Ui = false;
+                Ui_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "Ui"});
+            });
+    }
+}
+
+function turn_equator_layer() {
+    // Equator Quarter Turn
+    if (anim_E && E_count < 9) {
+
+        var eq_cubes = equator_layer_cubes();
+
+        for ( var e_idx = 0; e_idx < eq_cubes.length; e_idx++ ) {
+            var e_cube = eq_cubes[e_idx];
+
+            revolve_around_Y_axis(e_cube, 10);
+        }
+        E_count++;
+    }
+    else if (anim_E && E_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "E",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_E = false;
+                E_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "E"});
+            });
+    }
+}
+
+function turn_equator_layer_inverse() {
+    // Equator Inverse Quarter Turn
+    if (anim_Ei && Ei_count < 9) {
+
+        var eq_cubes = equator_layer_cubes();
+
+        for ( var e_idx = 0; e_idx < eq_cubes.length; e_idx++ ) {
+            var e_cube = eq_cubes[e_idx];
+
+            revolve_around_Y_axis(e_cube, -10);
+        }
+        Ei_count++;
+    }
+    else if (anim_Ei && Ei_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "Ei",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_Ei = false;
+                Ei_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "Ei"});
+            });
+    }
+}
+
+function turn_down_layer() {
+    // Down Quarter Turn
+    if (anim_D && D_count < 9) {
+
+        var dw_cubes = down_layer_cubes();
+
+        for ( var d_idx = 0; d_idx < dw_cubes.length; d_idx++ ) {
+            var d_cube = dw_cubes[d_idx];
+            revolve_around_Y_axis(d_cube, 10);
+        }
+        D_count++;
+    }
+    else if (anim_D && D_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "D",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_D = false;
+                D_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "D"});
+            });
+    }
+}
+
+function turn_down_layer_inverse() {
+    // Down Inverse Quarter Turn
+    if (anim_Di && Di_count < 9) {
+
+        var dw_cubes = down_layer_cubes();
+
+        for ( var d_idx = 0; d_idx < dw_cubes.length; d_idx++ ) {
+            var d_cube = dw_cubes[d_idx];
+            revolve_around_Y_axis(d_cube, -10);
+        }
+        Di_count++;
+    }
+    else if (anim_Di && Di_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "Di",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_Di = false;
+                Di_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "Di"});
+            });
+    }
+}
+
+function turn_front_layer() {
+    // Front Quarter Turn
+    if (anim_F && F_count < 9) {
+
+        var ft_cubes = front_layer_cubes();
+
+        for ( var f_idx = 0; f_idx < ft_cubes.length; f_idx++ ) {
+            var f_cube = ft_cubes[f_idx];
+            revolve_around_Z_axis(f_cube, -10);
+        }
+        F_count++;
+    }
+    else if (anim_F && F_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "F",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_F = false;
+                F_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "F"});
+            });
+    }
+}
+
+function turn_front_layer_inverse() {
+    // Front Inverse Quarter Turn
+    if (anim_Fi && Fi_count < 9) {
+
+        var ft_cubes = front_layer_cubes();
+
+        for ( var f_idx = 0; f_idx < ft_cubes.length; f_idx++ ) {
+            var f_cube = ft_cubes[f_idx];
+            revolve_around_Z_axis(f_cube, 10);
+        }
+        Fi_count++;
+    }
+    else if (anim_Fi && Fi_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "Fi",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_Fi = false;
+                Fi_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "Fi"});
+            });
+    }
+}
+
+function turn_standing_layer() {
+    // Standing Quarter Turn
+    if (anim_S && S_count < 9) {
+
+        var st_cubes = standing_layer_cubes();
+
+        for ( var s_idx = 0; s_idx < st_cubes.length; s_idx++ ) {
+            var s_cube = st_cubes[s_idx];
+            revolve_around_Z_axis(s_cube, -10);
+        }
+        S_count++;
+    }
+    else if (anim_S && S_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "S",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_S = false;
+                S_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "S"});
+            });
+    }
+}
+
+function turn_standing_layer_inverse() {
+    // Standing Inverse Quarter Turn
+    if (anim_Si && Si_count < 9) {
+
+        var st_cubes = standing_layer_cubes();
+
+        for ( var s_idx = 0; s_idx < st_cubes.length; s_idx++ ) {
+            var s_cube = st_cubes[s_idx];
+            revolve_around_Z_axis(s_cube, 10);
+        }
+        Si_count++;
+    }
+    else if (anim_Si && Si_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "Si",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_Si = false;
+                Si_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "Si"});
+            });
+    }
+}
+
+function turn_back_layer() {
+    // Back Quarter Turn
+    if (anim_B && B_count < 9) {
+
+        var bk_cubes = back_layer_cubes();
+
+        for ( var b_idx = 0; b_idx < bk_cubes.length; b_idx++ ) {
+            var b_cube = bk_cubes[b_idx];
+            revolve_around_Z_axis(b_cube, 10);
+        }
+        B_count++;
+    }
+    else if (anim_B && B_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "B",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_B = false;
+                B_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "B"});
+            });
+    }
+}
+
+function turn_back_layer_inverse() {
+    // Back Inverse Quarter Turn
+    if (anim_Bi && Bi_count < 9) {
+
+        var bk_cubes = back_layer_cubes();
+
+        for ( var b_idx = 0; b_idx < bk_cubes.length; b_idx++ ) {
+            var b_cube = bk_cubes[b_idx];
+            revolve_around_Z_axis(b_cube, -10);
+        }
+        Bi_count++;
+    }
+    else if (anim_Bi && Bi_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "Bi",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_Bi = false;
+                Bi_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "Bi"});
+            });
+    }
+}
+
+function turn_roll() {
+    // Z-Axis Quarter Rotation
+    if (anim_Z && Z_count < 9) {
+        for ( var c_idx = 0; c_idx < cube_arr.length; c_idx++ ) {
+            var cube = cube_arr[c_idx];
+
+            revolve_around_Z_axis(cube, -10);
+        }
+        Z_count++;
+    }
+    else if (anim_Z && Z_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "Z",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_Z = false;
+                Z_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "Z"});
+            });
+    }
+}
+
+function turn_roll_inverse() {
+    // Z-Axis Inverse Quarter Rotation
+    if (anim_Zi && Zi_count < 9) {
+        for ( var c_idx = 0; c_idx < cube_arr.length; c_idx++ ) {
+            var cube = cube_arr[c_idx];
+
+            revolve_around_Z_axis(cube, 10);
+        }
+        Zi_count++;
+    }
+    else if (anim_Zi && Zi_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "Zi",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_Zi = false;
+                Zi_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "Zi"});
+            });
+    }
+}
+
+function turn_pitch() {
+    // X-Axis Quarter Rotation
+    if (anim_X && X_count < 9) {
+        for ( var c_idx = 0; c_idx < cube_arr.length; c_idx++ ) {
+            var cube = cube_arr[c_idx];
+
+            revolve_around_X_axis(cube, -10);
+        }
+        X_count++;
+    }
+    else if (anim_X && X_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "X",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_X = false;
+                X_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "X"});
+            });
+    }
+}
+
+function turn_pitch_inverse() {
+    // X-Axis Inverse Quarter Rotation
+    if (anim_Xi && Xi_count < 9) {
+        for ( var c_idx = 0; c_idx < cube_arr.length; c_idx++ ) {
+            var cube = cube_arr[c_idx];
+
+            revolve_around_X_axis(cube, 10);
+        }
+        Xi_count++;
+    }
+    else if (anim_Xi && Xi_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "Xi",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_Xi = false;
+                Xi_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "Xi"});
+            });
+    }
+}
+
+function turn_yaw() {
+    // Y-Axis Quarter Rotation
+    if (anim_Y && Y_count < 9) {
+        for ( var c_idx = 0; c_idx < cube_arr.length; c_idx++ ) {
+            var cube = cube_arr[c_idx];
+
+            revolve_around_Y_axis(cube, -10);
+        }
+        Y_count++;
+    }
+    else if (anim_Y && Y_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "Y",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_Y = false;
+                Y_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "Y"});
+            });
+    }
+}
+
+function turn_yaw_inverse() {
+    // Y-Axis Inverse Quarter Rotation
+    if (anim_Yi && Yi_count < 9) {
+        for ( var c_idx = 0; c_idx < cube_arr.length; c_idx++ ) {
+            var cube = cube_arr[c_idx];
+
+            revolve_around_Y_axis(cube, 10);
+        }
+        Yi_count++;
+    }
+    else if (anim_Yi && Yi_count == 9) {
+
+        $.post("/updateGameState",
+            { 'game_state_update' : "Yi",
+              'change_cube_state' : changeCubeState }).done(function () {
+                anim_Yi = false;
+                Yi_count = 0;
+                changeCubeState = false;
+                gameEvents.push({"type" : "Yi"});
+            });
+    }
+}
+
+
 // Closing the side Navigation Bar
 function closeNav() {
     /* Closes any open side nav drop downs when closing sidenav */
@@ -240,7 +850,7 @@ function onDocumentKeyDown(event) {
 
     console.log(`KeyCode[${keyCode}] Str[${strKey}]`);
 
-    if (strKey == 'S' && !keys[16] && !anim_L && activeCanvas) {
+    if (strKey == 'S' && !keys[16] && !anim_L && activeCanvas && loadedMovesDone) {
 
         // Must avoid conflicts with other movements
         if (!anim_Li &&
@@ -255,9 +865,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_L = true;
+            changeCubeState = true;
         }
     }
-    if (strKey == 'S' && keys[16] && !anim_Li && activeCanvas) {
+    if (strKey == 'S' && keys[16] && !anim_Li && activeCanvas && loadedMovesDone) {
 
         // Must avoid conflicts with other movements
         if (!anim_L &&
@@ -272,9 +883,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Li = true;
+            changeCubeState = true;
         }
     }
-    if (strKey == 'D' && !keys[16] && !anim_M && activeCanvas) {
+    if (strKey == 'D' && !keys[16] && !anim_M && activeCanvas && loadedMovesDone) {
 
         // Must avoid conflicts with other movements
         if (!anim_Mi &&
@@ -289,9 +901,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_M = true;
+            changeCubeState = true;
         }
     }
-    if (strKey == 'D' && keys[16] && !anim_Mi && activeCanvas) {
+    if (strKey == 'D' && keys[16] && !anim_Mi && activeCanvas && loadedMovesDone) {
 
         // Must avoid conflicts with other movements
         if (!anim_M &&
@@ -306,10 +919,11 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Mi = true;
+            changeCubeState = true;
         }
 
     }
-    if (strKey == 'F' && !keys[16] && !anim_R && activeCanvas) {
+    if (strKey == 'F' && !keys[16] && !anim_R && activeCanvas && loadedMovesDone) {
 
         // Must avoid conflicts with other movements
         if (!anim_Ri &&
@@ -324,9 +938,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_R = true;
+            changeCubeState = true;
         }
     }
-    if (strKey == 'F' && keys[16] && !anim_Ri && activeCanvas) {
+    if (strKey == 'F' && keys[16] && !anim_Ri && activeCanvas && loadedMovesDone) {
 
         // Must avoid conflicts with other movements
         if (!anim_R &&
@@ -341,9 +956,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Ri = true;
+            changeCubeState = true;
         }
     }
-    if (strKey == 'X' && !keys[16] && !anim_F && activeCanvas) {
+    if (strKey == 'X' && !keys[16] && !anim_F && activeCanvas && loadedMovesDone) {
         // Must avoid conflicts with other movements
         if (!anim_Fi &&
             !anim_U && !anim_Ui &&
@@ -357,9 +973,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_F = true;
+            changeCubeState = true;
         }
     }
-    if (strKey == 'X' && keys[16] && !anim_Fi && activeCanvas) {
+    if (strKey == 'X' && keys[16] && !anim_Fi && activeCanvas && loadedMovesDone) {
         // Must avoid conflicts with other movements
         if (!anim_F &&
             !anim_U && !anim_Ui &&
@@ -373,9 +990,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Fi = true;
+            changeCubeState = true;
         }
     }
-    if (strKey == 'C' && !keys[16] && !anim_S && activeCanvas) {
+    if (strKey == 'C' && !keys[16] && !anim_S && activeCanvas && loadedMovesDone) {
         // Must avoid conflicts with other movements
         if (!anim_Si &&
             !anim_U && !anim_Ui &&
@@ -389,9 +1007,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_S = true;
+            changeCubeState = true;
         }
     }
-    if (strKey == 'C' && keys[16] && !anim_Si && activeCanvas) {
+    if (strKey == 'C' && keys[16] && !anim_Si && activeCanvas && loadedMovesDone) {
         // Must avoid conflicts with other movements
         if (!anim_S &&
             !anim_U && !anim_Ui &&
@@ -405,9 +1024,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Si = true;
+            changeCubeState = true;
         }
     }
-    if (strKey == 'V' && !keys[16] && !anim_B && activeCanvas) {
+    if (strKey == 'V' && !keys[16] && !anim_B && activeCanvas && loadedMovesDone) {
         // Must avoid conflicts with other movements
         if (!anim_Bi &&
             !anim_U && !anim_Ui &&
@@ -421,9 +1041,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_B = true;
+            changeCubeState = true;
         }
     }
-    if (strKey == 'V' && keys[16] && !anim_Bi && activeCanvas) {
+    if (strKey == 'V' && keys[16] && !anim_Bi && activeCanvas && loadedMovesDone) {
         // Must avoid conflicts with other movements
         if (!anim_B &&
             !anim_U && !anim_Ui &&
@@ -437,9 +1058,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Bi = true;
+            changeCubeState = true;
         }
     }
-    if (strKey == 'W' && !keys[16] && !anim_U && activeCanvas) {
+    if (strKey == 'W' && !keys[16] && !anim_U && activeCanvas && loadedMovesDone) {
         // Must avoid conflicts with other movements
         if (!anim_Ui &&
             !anim_F && !anim_Fi &&
@@ -453,9 +1075,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_U = true;
+            changeCubeState = true;
         }
     }
-    if (strKey == 'W' && keys[16] && !anim_Ui && activeCanvas) {
+    if (strKey == 'W' && keys[16] && !anim_Ui && activeCanvas && loadedMovesDone) {
         // Must avoid conflicts with other movements
         if (!anim_U &&
             !anim_F && !anim_Fi &&
@@ -469,9 +1092,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Ui = true;
+            changeCubeState = true;
         }
     }
-    if (strKey == 'E' && !keys[16] && !anim_E && activeCanvas) {
+    if (strKey == 'E' && !keys[16] && !anim_E && activeCanvas && loadedMovesDone) {
         // Must avoid conflicts with other movements
         if (!anim_Ei &&
             !anim_F && !anim_Fi &&
@@ -485,9 +1109,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_E = true;
+            changeCubeState = true;
         }
     }
-    if (strKey == 'E' && keys[16] && !anim_Ei && activeCanvas) {
+    if (strKey == 'E' && keys[16] && !anim_Ei && activeCanvas && loadedMovesDone) {
         // Must avoid conflicts with other movements
         if (!anim_E &&
             !anim_F && !anim_Fi &&
@@ -501,9 +1126,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Ei = true;
+            changeCubeState = true;
         }
     }
-    if (strKey == 'R' && !keys[16] && !anim_D && activeCanvas) {
+    if (strKey == 'R' && !keys[16] && !anim_D && activeCanvas && loadedMovesDone) {
         // Must avoid conflicts with other movements
         if (!anim_Di &&
             !anim_F && !anim_Fi &&
@@ -517,9 +1143,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_D = true;
+            changeCubeState = true;
         }
     }
-    if (strKey == 'R' && keys[16] && !anim_Di && activeCanvas) {
+    if (strKey == 'R' && keys[16] && !anim_Di && activeCanvas && loadedMovesDone) {
         // Must avoid conflicts with other movements
         if (!anim_D &&
             !anim_F && !anim_Fi &&
@@ -533,10 +1160,11 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Di = true;
+            changeCubeState = true;
         }
     }
     // Up Arrow Key (Revolve Around X Axis)
-    if (keys[38] && !anim_X && activeCanvas) {
+    if (keys[38] && !anim_X && activeCanvas && loadedMovesDone) {
         // Must avoid conflicts with other movements
         if (!anim_Xi &&
             !anim_F && !anim_Fi &&
@@ -552,10 +1180,11 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_X = true;
+            changeCubeState = true;
         }
     }
     // Down Arrow Key (Inverse Revolve Around X Axis)
-    if (keys[40] && !anim_Xi && activeCanvas) {
+    if (keys[40] && !anim_Xi && activeCanvas && loadedMovesDone) {
         // Must avoid conflicts with other movements
         if (!anim_X &&
             !anim_F && !anim_Fi &&
@@ -571,10 +1200,11 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Xi = true;
+            changeCubeState = true;
         }
     }
     // Left Arrow Key (Revolve Around Y Axis)
-    if (keys[37] && !anim_Y && activeCanvas) {
+    if (keys[37] && !anim_Y && activeCanvas && loadedMovesDone) {
         // Must avoid conflicts with other movements
         if (!anim_Yi &&
             !anim_F && !anim_Fi &&
@@ -590,10 +1220,11 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Y = true;
+            changeCubeState = true;
         }
     }
     // Right Arrow Key (Inverse Revolve Around Y Axis)
-    if (keys[39] && !anim_Yi && activeCanvas) {
+    if (keys[39] && !anim_Yi && activeCanvas && loadedMovesDone) {
         // Must avoid conflicts with other movements
         if (!anim_Y &&
             !anim_F && !anim_Fi &&
@@ -609,10 +1240,11 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Yi = true;
+            changeCubeState = true;
         }
     }
     // Space Bar (Revolve Around Z Axis)
-    if (keys[32] && !anim_Z && !keys[16] && activeCanvas) {
+    if (keys[32] && !anim_Z && !keys[16] && activeCanvas && loadedMovesDone) {
         // Must avoid conflicts with other movements
         if (!anim_Zi &&
             !anim_F && !anim_Fi &&
@@ -628,10 +1260,11 @@ function onDocumentKeyDown(event) {
             !anim_X && !anim_Xi) {
 
             anim_Z = true;
+            changeCubeState = true;
         }
     }
     // Space Bar + Shift (Inverse Revolve Around Z Axis)
-    if (keys[32] && !anim_Zi && keys[16] && activeCanvas) {
+    if (keys[32] && !anim_Zi && keys[16] && activeCanvas && loadedMovesDone) {
         // Must avoid conflicts with other movements
         if (!anim_Z &&
             !anim_F && !anim_Fi &&
@@ -647,6 +1280,7 @@ function onDocumentKeyDown(event) {
             !anim_X && !anim_Xi) {
 
             anim_Zi = true;
+            changeCubeState = true;
         }
     }
 }
@@ -712,11 +1346,12 @@ function init() {
     var material = new THREE.MeshLambertMaterial({color : 0xf0f0f0,
                                                   vertexColors : THREE.FaceColors});
 
-    // Loads a Default Cube from JSON
-    getDefaultCube().done(function() {
+    // Loads a Cube from JSON
+    loadCubeJSON().done(function() {
 
         // Grabs the colors indicated from the loaded game cube
         var cube_colors = cubeData['gameLog']['gameCube']['colors'];
+        var loadedGameEvents = cubeData['gameLog']['events'];
 
         // Extracts the face colors saved in file
         var front_color = new THREE.Color( cube_colors['FRONT_COLOR'] ); // Default Green : 0x009b48
@@ -754,9 +1389,108 @@ function init() {
             }
         }
 
-        getCubeGameEventTypes().done(function () {
-            console.log(cubeGameEvents);
-        });
+        activeCanvas = true;
+        console.log(`Pre-loaded game events:`)
+        var e_idx = 0
+
+        function loadedEventsLoop() {
+            setTimeout(
+                function() {
+
+                    var loaded_event = loadedGameEvents[e_idx];
+                    var e_type = loaded_event['type'];
+
+                    console.log(e_type)
+
+                    if (e_type == "L") {
+                        anim_L = true;
+                    }
+                    else if (e_type == "Li") {
+                        anim_Li = true;
+                    }
+                    else if (e_type == "M") {
+                        anim_M = true;
+                    }
+                    else if (e_type == "Mi") {
+                        anim_Mi = true;
+                    }
+                    else if (e_type == "R") {
+                        anim_R = true;
+                    }
+                    else if (e_type == "Ri") {
+                        anim_Ri = true;
+                    }
+                    else if (e_type == "U") {
+                        anim_U = true;
+                    }
+                    else if (e_type == "Ui") {
+                        anim_Ui = true;
+                    }
+                    else if (e_type == "E") {
+                        anim_E = true;
+                    }
+                    else if (e_type == "Ei") {
+                        anim_Ei = true;
+                    }
+                    else if (e_type == "D") {
+                        anim_D = true;
+                    }
+                    else if (e_type == "Di") {
+                        anim_Di = true;
+                    }
+                    else if (e_type == "F") {
+                        anim_F = true;
+                    }
+                    else if (e_type == "Fi") {
+                        anim_Fi = true;
+                    }
+                    else if (e_type == "S") {
+                        anim_S = true;
+                    }
+                    else if (e_type ==  "Si") {
+                        anim_Si = true;
+                    }
+                    else if (e_type == "B") {
+                        anim_B = true;
+                    }
+                    else if (e_type == "Bi") {
+                        anim_Bi = true;
+                    }
+                    else if (e_type == "X") {
+                        anim_X = true;
+                    }
+                    else if (e_type == "Xi") {
+                        anim_Xi = true;
+                    }
+                    else if (e_type == "Y") {
+                        anim_Y = true;
+                    }
+                    else if (e_type == "Yi") {
+                        anim_Yi = true;
+                    }
+                    else if (e_type == "Z") {
+                        anim_Z = true;
+                    }
+                    else if (e_type == "Zi") {
+                        anim_Zi = true;
+                    }
+
+                    // Recursive calls to delayed loop (250ms per iteration)
+                    e_idx++;
+                    if ( e_idx < loadedGameEvents.length ) {
+                        loadedEventsLoop();
+                    }
+                    else {
+                        // Only gives the user control after an aditional 500 ms
+                        setTimeout( function() { loadedMovesDone = true; }, 500);
+                    }
+                },
+            250);
+        }
+        loadedEventsLoop();
+
+
+
     });
 
 
@@ -796,375 +1530,33 @@ function render() {
 
 function animateLayers() {
 
-    // Left Quarter Turn
-    if (anim_L && L_count < 9) {
+    turn_left_layer();
+    turn_left_layer_inverse();
+    turn_middle_layer();
+    turn_middle_layer_inverse();
+    turn_right_layer();
+    turn_right_layer_inverse();
 
-        var lf_cubes = left_layer_cubes();
+    turn_up_layer();
+    turn_up_layer_inverse();
+    turn_equator_layer();
+    turn_equator_layer_inverse();
+    turn_down_layer();
+    turn_down_layer_inverse();
 
-        for ( var l_idx = 0; l_idx < lf_cubes.length; l_idx++ ) {
-            var l_cube = lf_cubes[l_idx];
+    turn_front_layer();
+    turn_front_layer_inverse();
+    turn_standing_layer();
+    turn_standing_layer_inverse();
+    turn_back_layer();
+    turn_back_layer_inverse();
 
-            revolve_around_X_axis(l_cube, 10);
-
-        }
-        L_count++;
-    }
-    else if (anim_L && L_count == 9) {
-        anim_L = false;
-        L_count = 0;
-    }
-    // Left Inverse Quarter Turn
-    if (anim_Li && Li_count < 9) {
-
-        var lf_cubes = left_layer_cubes();
-
-        for ( var l_idx = 0; l_idx < lf_cubes.length; l_idx++ ) {
-            var l_cube = lf_cubes[l_idx];
-
-            revolve_around_X_axis(l_cube, -10);
-
-        }
-        Li_count++;
-    }
-    else if (anim_Li && Li_count == 9) {
-        anim_Li = false;
-        Li_count = 0;
-    }
-
-    // Middle Quarter Turn
-    if (anim_M && M_count < 9) {
-
-        var md_cubes = middle_layer_cubes();
-
-        for ( var m_idx = 0; m_idx < md_cubes.length; m_idx++ ) {
-            var m_cube = md_cubes[m_idx];
-            revolve_around_X_axis(m_cube, 10);
-        }
-        M_count++;
-    }
-    else if (anim_M && M_count == 9) {
-        anim_M = false;
-        M_count = 0;
-    }
-    // Middle Inverse Quarter Turn
-    if (anim_Mi && Mi_count < 9) {
-
-        var md_cubes = middle_layer_cubes();
-
-        for ( var m_idx = 0; m_idx < md_cubes.length; m_idx++ ) {
-            var m_cube = md_cubes[m_idx];
-            revolve_around_X_axis(m_cube, -10);
-        }
-        Mi_count++;
-    }
-    else if (anim_Mi && Mi_count == 9) {
-        anim_Mi = false;
-        Mi_count = 0;
-    }
-
-    // Right Quarter Turn
-    if (anim_R && R_count < 9) {
-
-        var rg_cubes = right_layer_cubes();
-
-        for ( var r_idx = 0; r_idx < rg_cubes.length; r_idx++ ) {
-            var r_cube = rg_cubes[r_idx];
-            revolve_around_X_axis(r_cube, -10);
-        }
-        R_count++;
-    }
-    else if (anim_R && R_count == 9) {
-        anim_R = false;
-        R_count = 0;
-    }
-    // Right Inverse Quarter Turn
-    if (anim_Ri && Ri_count < 9) {
-
-        var rg_cubes = right_layer_cubes();
-
-        for ( var r_idx = 0; r_idx < rg_cubes.length; r_idx++ ) {
-            var r_cube = rg_cubes[r_idx];
-            revolve_around_X_axis(r_cube, 10);
-        }
-        Ri_count++;
-    }
-    else if (anim_Ri && Ri_count == 9) {
-        anim_Ri = false;
-        Ri_count = 0;
-    }
-
-    // Front Quarter Turn
-    if (anim_F && F_count < 9) {
-
-        var ft_cubes = front_layer_cubes();
-
-        for ( var f_idx = 0; f_idx < ft_cubes.length; f_idx++ ) {
-            var f_cube = ft_cubes[f_idx];
-            revolve_around_Z_axis(f_cube, -10);
-        }
-        F_count++;
-    }
-    else if (anim_F && F_count == 9) {
-        anim_F = false;
-        F_count = 0;
-    }
-    // Front Inverse Quarter Turn
-    if (anim_Fi && Fi_count < 9) {
-
-        var ft_cubes = front_layer_cubes();
-
-        for ( var f_idx = 0; f_idx < ft_cubes.length; f_idx++ ) {
-            var f_cube = ft_cubes[f_idx];
-            revolve_around_Z_axis(f_cube, 10);
-        }
-        Fi_count++;
-    }
-    else if (anim_Fi && Fi_count == 9) {
-        anim_Fi = false;
-        Fi_count = 0;
-    }
-
-    // Standing Quarter Turn
-    if (anim_S && S_count < 9) {
-
-        var st_cubes = standing_layer_cubes();
-
-        for ( var s_idx = 0; s_idx < st_cubes.length; s_idx++ ) {
-            var s_cube = st_cubes[s_idx];
-            revolve_around_Z_axis(s_cube, -10);
-        }
-        S_count++;
-    }
-    else if (anim_S && S_count == 9) {
-        anim_S = false;
-        S_count = 0;
-    }
-    // Standing Inverse Quarter Turn
-    if (anim_Si && Si_count < 9) {
-
-        var st_cubes = standing_layer_cubes();
-
-        for ( var s_idx = 0; s_idx < st_cubes.length; s_idx++ ) {
-            var s_cube = st_cubes[s_idx];
-            revolve_around_Z_axis(s_cube, 10);
-        }
-        Si_count++;
-    }
-    else if (anim_Si && Si_count == 9) {
-        anim_Si = false;
-        Si_count = 0;
-    }
-
-    // Back Quarter Turn
-    if (anim_B && B_count < 9) {
-
-        var bk_cubes = back_layer_cubes();
-
-        for ( var b_idx = 0; b_idx < bk_cubes.length; b_idx++ ) {
-            var b_cube = bk_cubes[b_idx];
-            revolve_around_Z_axis(b_cube, 10);
-        }
-        B_count++;
-    }
-    else if (anim_B && B_count == 9) {
-        anim_B = false;
-        B_count = 0;
-    }
-    // Back Inverse Quarter Turn
-    if (anim_Bi && Bi_count < 9) {
-
-        var bk_cubes = back_layer_cubes();
-
-        for ( var b_idx = 0; b_idx < bk_cubes.length; b_idx++ ) {
-            var b_cube = bk_cubes[b_idx];
-            revolve_around_Z_axis(b_cube, -10);
-        }
-        Bi_count++;
-    }
-    else if (anim_Bi && Bi_count == 9) {
-        anim_Bi = false;
-        Bi_count = 0;
-    }
-
-    // Up Quarter Turn
-    if (anim_U && U_count < 9) {
-
-        var up_cubes = up_layer_cubes();
-
-        for ( var u_idx = 0; u_idx < up_cubes.length; u_idx++ ) {
-            var u_cube = up_cubes[u_idx];
-
-            revolve_around_Y_axis(u_cube, -10);
-
-        }
-        U_count++;
-    }
-    else if (anim_U && U_count == 9) {
-        anim_U = false;
-        U_count = 0;
-    }
-    // Up Inverse Quarter Turn
-    if (anim_Ui && Ui_count < 9) {
-
-        var up_cubes = up_layer_cubes();
-
-        for ( var u_idx = 0; u_idx < up_cubes.length; u_idx++ ) {
-            var u_cube = up_cubes[u_idx];
-
-            revolve_around_Y_axis(u_cube, 10);
-
-        }
-        Ui_count++;
-    }
-    else if (anim_Ui && Ui_count == 9) {
-        anim_Ui = false;
-        Ui_count = 0;
-    }
-
-    // Equator Quarter Turn
-    if (anim_E && E_count < 9) {
-
-        var eq_cubes = equator_layer_cubes();
-
-        for ( var e_idx = 0; e_idx < eq_cubes.length; e_idx++ ) {
-            var e_cube = eq_cubes[e_idx];
-
-            revolve_around_Y_axis(e_cube, 10);
-        }
-        E_count++;
-    }
-    else if (anim_E && E_count == 9) {
-        anim_E = false;
-        E_count = 0;
-    }
-    // Equator Inverse Quarter Turn
-    if (anim_Ei && Ei_count < 9) {
-
-        var eq_cubes = equator_layer_cubes();
-
-        for ( var e_idx = 0; e_idx < eq_cubes.length; e_idx++ ) {
-            var e_cube = eq_cubes[e_idx];
-
-            revolve_around_Y_axis(e_cube, -10);
-        }
-        Ei_count++;
-    }
-    else if (anim_Ei && Ei_count == 9) {
-        anim_Ei = false;
-        Ei_count = 0;
-    }
-
-    // Down Quarter Turn
-    if (anim_D && D_count < 9) {
-
-        var dw_cubes = down_layer_cubes();
-
-        for ( var d_idx = 0; d_idx < dw_cubes.length; d_idx++ ) {
-            var d_cube = dw_cubes[d_idx];
-            revolve_around_Y_axis(d_cube, 10);
-        }
-        D_count++;
-    }
-    else if (anim_D && D_count == 9) {
-        anim_D = false;
-        D_count = 0;
-    }
-    // Down Inverse Quarter Turn
-    if (anim_Di && Di_count < 9) {
-
-        var dw_cubes = down_layer_cubes();
-
-        for ( var d_idx = 0; d_idx < dw_cubes.length; d_idx++ ) {
-            var d_cube = dw_cubes[d_idx];
-            revolve_around_Y_axis(d_cube, -10);
-        }
-        Di_count++;
-    }
-    else if (anim_Di && Di_count == 9) {
-        anim_Di = false;
-        Di_count = 0;
-    }
-
-    // X-Axis Quarter Rotation
-    if (anim_X && X_count < 9) {
-        for ( var c_idx = 0; c_idx < cube_arr.length; c_idx++ ) {
-            var cube = cube_arr[c_idx];
-
-            revolve_around_X_axis(cube, -10);
-        }
-        X_count++;
-    }
-    else if (anim_X && X_count == 9) {
-        anim_X = false;
-        X_count = 0;
-    }
-    // X-Axis Inverse Quarter Rotation
-    if (anim_Xi && Xi_count < 9) {
-        for ( var c_idx = 0; c_idx < cube_arr.length; c_idx++ ) {
-            var cube = cube_arr[c_idx];
-
-            revolve_around_X_axis(cube, 10);
-        }
-        Xi_count++;
-    }
-    else if (anim_Xi && Xi_count == 9) {
-        anim_Xi = false;
-        Xi_count = 0;
-    }
-
-    // Y-Axis Quarter Rotation
-    if (anim_Y && Y_count < 9) {
-        for ( var c_idx = 0; c_idx < cube_arr.length; c_idx++ ) {
-            var cube = cube_arr[c_idx];
-
-            revolve_around_Y_axis(cube, -10);
-        }
-        Y_count++;
-    }
-    else if (anim_Y && Y_count == 9) {
-        anim_Y = false;
-        Y_count = 0;
-    }
-    // Y-Axis Inverse Quarter Rotation
-    if (anim_Yi && Yi_count < 9) {
-        for ( var c_idx = 0; c_idx < cube_arr.length; c_idx++ ) {
-            var cube = cube_arr[c_idx];
-
-            revolve_around_Y_axis(cube, 10);
-        }
-        Yi_count++;
-    }
-    else if (anim_Yi && Yi_count == 9) {
-        anim_Yi = false;
-        Yi_count = 0;
-    }
-
-    // Z-Axis Quarter Rotation
-    if (anim_Z && Z_count < 9) {
-        for ( var c_idx = 0; c_idx < cube_arr.length; c_idx++ ) {
-            var cube = cube_arr[c_idx];
-
-            revolve_around_Z_axis(cube, -10);
-        }
-        Z_count++;
-    }
-    else if (anim_Z && Z_count == 9) {
-        anim_Z = false;
-        Z_count = 0;
-    }
-    // Z-Axis Inverse Quarter Rotation
-    if (anim_Zi && Zi_count < 9) {
-        for ( var c_idx = 0; c_idx < cube_arr.length; c_idx++ ) {
-            var cube = cube_arr[c_idx];
-
-            revolve_around_Z_axis(cube, 10);
-        }
-        Zi_count++;
-    }
-    else if (anim_Zi && Zi_count == 9) {
-        anim_Zi = false;
-        Zi_count = 0;
-    }
+    turn_roll();
+    turn_roll_inverse();
+    turn_yaw();
+    turn_yaw_inverse();
+    turn_pitch();
+    turn_pitch_inverse();
 
 }
 

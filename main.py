@@ -37,7 +37,7 @@ parser = argparse.ArgumentParser(description=TOP_LEVEL_DESCRIPTION)
 subparsers = parser.add_subparsers(help=' {----- Package Command(s)  -----}')
 
 #------------------------------------------------
-#	TEST RUBIX CUBE PARSER 
+#	TEST RUBIX CUBE PARSER
 #------------------------------------------------
 test_cube_parser = subparsers.add_parser('test_cube',
 	help='Generates a solved 3x3 Rubix Cube object.')
@@ -49,7 +49,7 @@ while True:
 	fig , ax = plt.subplots(figsize=(8,5))
 	ax.set_xlim(left=-600,right=900)
 	ax.set_ylim(top=500,bottom=-500)
-	
+
 	plot_cube_2D(ax=ax,
 	             cube=cg.game_cube)
 
@@ -59,14 +59,17 @@ while True:
 	move = input("Move the Cube <Q to quit>: ")
 
 	if move.lower() == 'q':
+
+		print(json.dumps(cg.game_cube.to_json_safe_dict(), indent=4))
+
 		cg.game_log['events'].append({'type' : '<<__QUIT_GAME__>>'})
 		plt.close(fig)
 		break
 
 	elif move.lower() == "scramble":
-		
+
 		sequence = Cube_Game.get_scramble_sequence()
-		
+
 		if len(sequence) > 0:
 			cg.game_log['events'].append({'type' : '<<__START_SCRAMBLE__>>'})
 
@@ -75,8 +78,8 @@ while True:
 			for mv in sequence:
 				fig , ax = plt.subplots(figsize=(8,5))
 				ax.set_xlim(left=-600,right=900)
-				ax.set_ylim(top=500,bottom=-500)	
-				
+				ax.set_ylim(top=500,bottom=-500)
+
 				plot_cube_2D(ax=ax, cube=cg.game_cube)
 
 				plt.show(block=False)
@@ -104,8 +107,8 @@ while True:
 			for mv in inv_log_sequence:
 				fig , ax = plt.subplots(figsize=(8,5))
 				ax.set_xlim(left=-600,right=900)
-				ax.set_ylim(top=500,bottom=-500)	
-				
+				ax.set_ylim(top=500,bottom=-500)
+
 				plot_cube_2D(ax=ax, cube=cg.game_cube)
 
 				plt.show(block=False)
@@ -124,7 +127,7 @@ while True:
 
 	else:
 		cg.manipulate_cube(move)
-		
+
 	plt.close(fig)
 
 print("\n--------------------------------------------------------------")
