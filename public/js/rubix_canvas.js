@@ -119,7 +119,7 @@ function get_solution_sequence() {
 
 function perform_solution_sequence() {
 
-    if (solutionSequence.length == 0 || isSolved) {
+    if (isSolved) {
         setTimeout(function () {
                         alert('Cube Solved!');
                         autoSolve = false;
@@ -205,8 +205,12 @@ function perform_solution_sequence() {
                 anim_Zi = true;
             }
 
+            //console.log(solutionSequence);
+            //console.log(isSolved);
+
             solutionSequence.shift();
             perform_solution_sequence();
+
         }, 250);
     }
 }
@@ -1764,8 +1768,9 @@ function init() {
         loadedEventsLoop();
 
         get_solution_sequence().done(function () {
-            console.log(isSolved);
-            console.log(solutionSequence);
+            if (isSolved) {
+                alert(`Game['${game_name}'] Cube Solved!`)
+            }
         })
     });
 

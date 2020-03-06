@@ -119,7 +119,7 @@
         "events" :
             [
                 {"type" : "<<__NEW_GAME__>>",
-                 "name" : "Untitled_Game"},
+                 "name" : "Japan"},
                 {"type" : "M"},
                 {"type" : "Ei"},
                 {"type" : "Mi"},

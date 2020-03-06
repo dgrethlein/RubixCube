@@ -93,8 +93,10 @@ def get_solution_sequence():
     game_player = game_state['gamePlayer']
     game_name = game_state['gameName']
 
-    print(f"Game Name : {game_name}")
-    print(f"Game Player : {game_player}")
+    #print(f"Game Name : {game_name}")
+    #print(f"Game Player : {game_player}")
+
+    print(f"Game Is Solved : {game_state}")
 
     cube_dict = game_state['gameCube']
     for name , face in cube_dict['faces'].items():
