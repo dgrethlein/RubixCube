@@ -207,7 +207,7 @@ function perform_solution_sequence() {
 
             solutionSequence.shift();
             perform_solution_sequence();
-        }, 350);
+        }, 250);
     }
 }
 

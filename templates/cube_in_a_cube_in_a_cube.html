@@ -1,0 +1,19 @@
+<! -- David Grethlein, djg329@drexel.edu -->
+<! -- Rubix Cube Cube in a Cube in a Cube Game Template -->
+
+{% extends 'base.html' %}
+{% set active = "Home" %}
+
+{% block title %}
+Cube In A Cube In A Cube
+{% endblock %}
+
+{% block content %}
+
+
+<script src="js/three.js"></script>
+<script src="js/OrbitControls.js"></script>
+<script type="module" src="js/rubix_canvas.js" game_cube="cube_in_a_cube_in_a_cube" id="cube_js"></script>
+
+{% endblock %}
+

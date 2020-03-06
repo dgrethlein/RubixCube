@@ -1,0 +1,133 @@
+{
+    "gameLog" : {
+        "gamePlayer" : "Anonymous",
+        "gameName" : "Tetris",
+        "gameCube" : {
+            "colors": {
+                    "UP_COLOR": "#ffffff",
+                    "DOWN_COLOR": "#ffd500",
+                    "FRONT_COLOR": "#009b48",
+                    "BACK_COLOR": "#0045ad",
+                    "LEFT_COLOR": "#ff5900",
+                    "RIGHT_COLOR": "#b90000"
+                },
+            "faces": {
+                "UP_FACE": [
+                    [
+                        "#009b48",
+                        "#009b48",
+                        "#0045ad"
+                    ],
+                    [
+                        "#009b48",
+                        "#ffffff",
+                        "#0045ad"
+                    ],
+                    [
+                        "#009b48",
+                        "#0045ad",
+                        "#0045ad"
+                    ]
+                ],
+                "DOWN_FACE": [
+                    [
+                        "#0045ad",
+                        "#009b48",
+                        "#009b48"
+                    ],
+                    [
+                        "#0045ad",
+                        "#ffd500",
+                        "#009b48"
+                    ],
+                    [
+                        "#0045ad",
+                        "#0045ad",
+                        "#009b48"
+                    ]
+                ],
+                "FRONT_FACE": [
+                    [
+                        "#ff5900",
+                        "#ff5900",
+                        "#ff5900"
+                    ],
+                    [
+                        "#ff5900",
+                        "#009b48",
+                        "#ff5900"
+                    ],
+                    [
+                        "#ff5900",
+                        "#b90000",
+                        "#ff5900"
+                    ]
+                ],
+                "BACK_FACE": [
+                    [
+                        "#b90000",
+                        "#b90000",
+                        "#b90000"
+                    ],
+                    [
+                        "#b90000",
+                        "#0045ad",
+                        "#b90000"
+                    ],
+                    [
+                        "#b90000",
+                        "#ff5900",
+                        "#b90000"
+                    ]
+                ],
+                "LEFT_FACE": [
+                    [
+                        "#ffffff",
+                        "#ffd500",
+                        "#ffd500"
+                    ],
+                    [
+                        "#ffffff",
+                        "#ff5900",
+                        "#ffd500"
+                    ],
+                    [
+                        "#ffffff",
+                        "#ffffff",
+                        "#ffd500"
+                    ]
+                ],
+                "RIGHT_FACE": [
+                    [
+                        "#ffffff",
+                        "#ffd500",
+                        "#ffd500"
+                    ],
+                    [
+                        "#ffffff",
+                        "#b90000",
+                        "#ffd500"
+                    ],
+                    [
+                        "#ffffff",
+                        "#ffffff",
+                        "#ffd500"
+                    ]
+                ]
+            }
+        },
+        "events" :
+            [
+                {"type" : "<<__NEW_GAME__>>",
+                 "name" : "Tetris"},
+                {"type" : "L"},
+                {"type" : "R"},
+                {"type" : "F"},
+                {"type" : "B"},
+                {"type" : "Ui"},
+                {"type" : "Di"},
+                {"type" : "Li"},
+                {"type" : "Ri"}
+            ]
+    }
+}
