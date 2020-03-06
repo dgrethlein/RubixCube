@@ -77,35 +77,138 @@ var gameEvents = [];
 var cubeGameEventTypes;
 var cubeData;
 var colors;
+var gameState;
+
+var script = document.getElementById('cube_js');
+var game_name = script.getAttribute('game_cube');
 
 var changeCubeState = false;
 var loadedMovesDone = false;
+var autoSolve = false;
+
+// Defaults for loading a solved cube from file
+var isSolved = true;
+var numMatchTiles = 54;
+var numSolvedFaces = 6;
+
+var solutionSequence;
 
 init();
 animate();
 
 
 // Loads a default cube game from file
-function loadCubeJSON() {
-    var script = document.getElementById('cube_js');
-    var game_name = script.getAttribute('game_cube');
+function loadPublicCubeGameJSON() {
+
     return $.getJSON(`/api/cube_games/PUBLIC_GAMES/${game_name}.json`, cubeData, function (data) {
         cubeData = data;
     });
 }
 
-// Loads the japan game from file
-function getJapanCube() {
-    return $.getJSON('/api/cube_games/PUBLIC_GAMES/japan_game.json', cubeData, function (data) {
-        cubeData = data;
-    });
+// Gets the solution sequence from the server
+function get_solution_sequence() {
+
+    return $.post("/api/getSolutionSequence",
+           {'game_state' : JSON.stringify(gameState)}).done(function (data) {
+                solutionSequence = data['sequence'];
+                isSolved = data['isSolved'];
+                numSolvedFaces = data['numSolvedFaces'];
+                numMatchTiles = data['numMatchingAdjTiles'];
+           });
 }
 
-// Loads the checkboard game from file
-function getCheckboardCube() {
-    return $.getJSON('/api/cube_games/PUBLIC_GAMES/japan_game.json', cubeData, function (data) {
-        cubeData = data;
-    });
+function perform_solution_sequence() {
+
+    if (solutionSequence.length == 0 || isSolved) {
+        setTimeout(function () {
+                        alert('Cube Solved!');
+                        autoSolve = false;
+                        solutionSequence = [];
+                    }, 250);
+    }
+    else {
+        setTimeout(function () {
+            autoSolve = true;
+            changeCubeState = true;
+            var currentMove = solutionSequence[0];
+
+            if (currentMove == "L") {
+                anim_L = true;
+            }
+            else if (currentMove == "Li") {
+                anim_Li = true;
+            }
+            else if (currentMove == "M") {
+                anim_M = true;
+            }
+            else if (currentMove == "Mi") {
+                anim_Mi = true;
+            }
+            else if (currentMove == "R") {
+                anim_R = true;
+            }
+            else if (currentMove == "Ri") {
+                anim_Ri = true;
+            }
+            else if (currentMove == "U") {
+                anim_U = true;
+            }
+            else if (currentMove == "Ui") {
+                anim_Ui = true;
+            }
+            else if (currentMove == "E") {
+                anim_E = true;
+            }
+            else if (currentMove == "Ei") {
+                anim_Ei = true;
+            }
+            else if (currentMove == "D") {
+                anim_D = true;
+            }
+            else if (currentMove == "Di") {
+                anim_Di = true;
+            }
+            else if (currentMove == "F") {
+                anim_F = true;
+            }
+            else if (currentMove == "Fi") {
+                anim_Fi = true;
+            }
+            else if (currentMove == "S") {
+                anim_S = true;
+            }
+            else if (currentMove ==  "Si") {
+                anim_Si = true;
+            }
+            else if (currentMove == "B") {
+                anim_B = true;
+            }
+            else if (currentMove == "Bi") {
+                anim_Bi = true;
+            }
+            else if (currentMove == "X") {
+                anim_X = true;
+            }
+            else if (currentMove == "Xi") {
+                anim_Xi = true;
+            }
+            else if (currentMove == "Y") {
+                anim_Y = true;
+            }
+            else if (currentMove == "Yi") {
+                anim_Yi = true;
+            }
+            else if (currentMove == "Z") {
+                anim_Z = true;
+            }
+            else if (currentMove == "Zi") {
+                anim_Zi = true;
+            }
+
+            solutionSequence.shift();
+            perform_solution_sequence();
+        }, 350);
+    }
 }
 
 // Conversion between degrees and radians
@@ -222,13 +325,20 @@ function turn_left_layer() {
     }
     else if (anim_L && L_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "L",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_L = false;
                 L_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "L"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -249,13 +359,20 @@ function turn_left_layer_inverse() {
     }
     else if (anim_Li && Li_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "Li",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_Li = false;
                 Li_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "Li"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -274,13 +391,20 @@ function turn_middle_layer() {
     }
     else if (anim_M && M_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "M",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_M = false;
                 M_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "M"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -299,13 +423,20 @@ function turn_middle_layer_inverse() {
     }
     else if (anim_Mi && Mi_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "Mi",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_Mi = false;
                 Mi_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "Mi"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -324,13 +455,20 @@ function turn_right_layer() {
     }
     else if (anim_R && R_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "R",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_R = false;
                 R_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "R"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -349,13 +487,20 @@ function turn_right_layer_inverse() {
     }
     else if (anim_Ri && Ri_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "Ri",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_Ri = false;
                 Ri_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "Ri"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -376,13 +521,20 @@ function turn_up_layer() {
     }
     else if (anim_U && U_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "U",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_U = false;
                 U_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "U"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -403,13 +555,20 @@ function turn_up_layer_inverse() {
     }
     else if (anim_Ui && Ui_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "Ui",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_Ui = false;
                 Ui_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "Ui"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -429,13 +588,20 @@ function turn_equator_layer() {
     }
     else if (anim_E && E_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "E",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_E = false;
                 E_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "E"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -455,13 +621,20 @@ function turn_equator_layer_inverse() {
     }
     else if (anim_Ei && Ei_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "Ei",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_Ei = false;
                 Ei_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "Ei"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -480,13 +653,20 @@ function turn_down_layer() {
     }
     else if (anim_D && D_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "D",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_D = false;
                 D_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "D"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -505,13 +685,20 @@ function turn_down_layer_inverse() {
     }
     else if (anim_Di && Di_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "Di",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_Di = false;
                 Di_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "Di"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -530,13 +717,20 @@ function turn_front_layer() {
     }
     else if (anim_F && F_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "F",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_F = false;
                 F_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "F"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -555,13 +749,20 @@ function turn_front_layer_inverse() {
     }
     else if (anim_Fi && Fi_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "Fi",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_Fi = false;
                 Fi_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "Fi"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -580,13 +781,20 @@ function turn_standing_layer() {
     }
     else if (anim_S && S_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "S",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_S = false;
                 S_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "S"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -605,13 +813,20 @@ function turn_standing_layer_inverse() {
     }
     else if (anim_Si && Si_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "Si",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_Si = false;
                 Si_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "Si"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -630,13 +845,20 @@ function turn_back_layer() {
     }
     else if (anim_B && B_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "B",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_B = false;
                 B_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "B"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -655,13 +877,20 @@ function turn_back_layer_inverse() {
     }
     else if (anim_Bi && Bi_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "Bi",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_Bi = false;
                 Bi_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "Bi"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -678,13 +907,20 @@ function turn_roll() {
     }
     else if (anim_Z && Z_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "Z",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_Z = false;
                 Z_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "Z"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -701,13 +937,20 @@ function turn_roll_inverse() {
     }
     else if (anim_Zi && Zi_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "Zi",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_Zi = false;
                 Zi_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "Zi"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -724,13 +967,20 @@ function turn_pitch() {
     }
     else if (anim_X && X_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "X",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_X = false;
                 X_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "X"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -747,13 +997,20 @@ function turn_pitch_inverse() {
     }
     else if (anim_Xi && Xi_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "Xi",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_Xi = false;
                 Xi_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "Xi"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -770,13 +1027,20 @@ function turn_yaw() {
     }
     else if (anim_Y && Y_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "Y",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_Y = false;
                 Y_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "Y"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -793,13 +1057,20 @@ function turn_yaw_inverse() {
     }
     else if (anim_Yi && Yi_count == 9) {
 
-        $.post("/updateGameState",
+        $.post("/api/updateGameState",
             { 'game_state_update' : "Yi",
+              'game_state' : JSON.stringify(gameState),
               'change_cube_state' : changeCubeState }).done(function () {
                 anim_Yi = false;
                 Yi_count = 0;
-                changeCubeState = false;
                 gameEvents.push({"type" : "Yi"});
+            }).done(function (data) {
+                if (changeCubeState) {
+                    gameState = data;
+                    isSolved = data['isSolved'];
+                    numSolvedFaces = data['numSolvedFaces'];
+                    numMatchTiles = data['numMatchingAdjTiles']
+                }
             });
     }
 }
@@ -850,7 +1121,7 @@ function onDocumentKeyDown(event) {
 
     console.log(`KeyCode[${keyCode}] Str[${strKey}]`);
 
-    if (strKey == 'S' && !keys[16] && !anim_L && activeCanvas && loadedMovesDone) {
+    if (strKey == 'S' && !keys[16] && !anim_L && activeCanvas && loadedMovesDone && !autoSolve) {
 
         // Must avoid conflicts with other movements
         if (!anim_Li &&
@@ -865,10 +1136,9 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_L = true;
-            changeCubeState = true;
         }
     }
-    if (strKey == 'S' && keys[16] && !anim_Li && activeCanvas && loadedMovesDone) {
+    if (strKey == 'S' && keys[16] && !anim_Li && activeCanvas && loadedMovesDone && !autoSolve) {
 
         // Must avoid conflicts with other movements
         if (!anim_L &&
@@ -883,10 +1153,9 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Li = true;
-            changeCubeState = true;
         }
     }
-    if (strKey == 'D' && !keys[16] && !anim_M && activeCanvas && loadedMovesDone) {
+    if (strKey == 'D' && !keys[16] && !anim_M && activeCanvas && loadedMovesDone && !autoSolve) {
 
         // Must avoid conflicts with other movements
         if (!anim_Mi &&
@@ -901,10 +1170,9 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_M = true;
-            changeCubeState = true;
         }
     }
-    if (strKey == 'D' && keys[16] && !anim_Mi && activeCanvas && loadedMovesDone) {
+    if (strKey == 'D' && keys[16] && !anim_Mi && activeCanvas && loadedMovesDone && !autoSolve) {
 
         // Must avoid conflicts with other movements
         if (!anim_M &&
@@ -919,11 +1187,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Mi = true;
-            changeCubeState = true;
         }
 
     }
-    if (strKey == 'F' && !keys[16] && !anim_R && activeCanvas && loadedMovesDone) {
+    if (strKey == 'F' && !keys[16] && !anim_R && activeCanvas && loadedMovesDone && !autoSolve) {
 
         // Must avoid conflicts with other movements
         if (!anim_Ri &&
@@ -938,10 +1205,9 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_R = true;
-            changeCubeState = true;
         }
     }
-    if (strKey == 'F' && keys[16] && !anim_Ri && activeCanvas && loadedMovesDone) {
+    if (strKey == 'F' && keys[16] && !anim_Ri && activeCanvas && loadedMovesDone && !autoSolve) {
 
         // Must avoid conflicts with other movements
         if (!anim_R &&
@@ -956,10 +1222,9 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Ri = true;
-            changeCubeState = true;
         }
     }
-    if (strKey == 'X' && !keys[16] && !anim_F && activeCanvas && loadedMovesDone) {
+    if (strKey == 'X' && !keys[16] && !anim_F && activeCanvas && loadedMovesDone && !autoSolve) {
         // Must avoid conflicts with other movements
         if (!anim_Fi &&
             !anim_U && !anim_Ui &&
@@ -973,10 +1238,9 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_F = true;
-            changeCubeState = true;
         }
     }
-    if (strKey == 'X' && keys[16] && !anim_Fi && activeCanvas && loadedMovesDone) {
+    if (strKey == 'X' && keys[16] && !anim_Fi && activeCanvas && loadedMovesDone && !autoSolve) {
         // Must avoid conflicts with other movements
         if (!anim_F &&
             !anim_U && !anim_Ui &&
@@ -990,10 +1254,9 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Fi = true;
-            changeCubeState = true;
         }
     }
-    if (strKey == 'C' && !keys[16] && !anim_S && activeCanvas && loadedMovesDone) {
+    if (strKey == 'C' && !keys[16] && !anim_S && activeCanvas && loadedMovesDone && !autoSolve) {
         // Must avoid conflicts with other movements
         if (!anim_Si &&
             !anim_U && !anim_Ui &&
@@ -1007,10 +1270,9 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_S = true;
-            changeCubeState = true;
         }
     }
-    if (strKey == 'C' && keys[16] && !anim_Si && activeCanvas && loadedMovesDone) {
+    if (strKey == 'C' && keys[16] && !anim_Si && activeCanvas && loadedMovesDone && !autoSolve) {
         // Must avoid conflicts with other movements
         if (!anim_S &&
             !anim_U && !anim_Ui &&
@@ -1024,10 +1286,9 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Si = true;
-            changeCubeState = true;
         }
     }
-    if (strKey == 'V' && !keys[16] && !anim_B && activeCanvas && loadedMovesDone) {
+    if (strKey == 'V' && !keys[16] && !anim_B && activeCanvas && loadedMovesDone && !autoSolve) {
         // Must avoid conflicts with other movements
         if (!anim_Bi &&
             !anim_U && !anim_Ui &&
@@ -1041,10 +1302,9 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_B = true;
-            changeCubeState = true;
         }
     }
-    if (strKey == 'V' && keys[16] && !anim_Bi && activeCanvas && loadedMovesDone) {
+    if (strKey == 'V' && keys[16] && !anim_Bi && activeCanvas && loadedMovesDone && !autoSolve) {
         // Must avoid conflicts with other movements
         if (!anim_B &&
             !anim_U && !anim_Ui &&
@@ -1058,10 +1318,9 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Bi = true;
-            changeCubeState = true;
         }
     }
-    if (strKey == 'W' && !keys[16] && !anim_U && activeCanvas && loadedMovesDone) {
+    if (strKey == 'W' && !keys[16] && !anim_U && activeCanvas && loadedMovesDone && !autoSolve) {
         // Must avoid conflicts with other movements
         if (!anim_Ui &&
             !anim_F && !anim_Fi &&
@@ -1075,10 +1334,9 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_U = true;
-            changeCubeState = true;
         }
     }
-    if (strKey == 'W' && keys[16] && !anim_Ui && activeCanvas && loadedMovesDone) {
+    if (strKey == 'W' && keys[16] && !anim_Ui && activeCanvas && loadedMovesDone && !autoSolve) {
         // Must avoid conflicts with other movements
         if (!anim_U &&
             !anim_F && !anim_Fi &&
@@ -1092,10 +1350,9 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Ui = true;
-            changeCubeState = true;
         }
     }
-    if (strKey == 'E' && !keys[16] && !anim_E && activeCanvas && loadedMovesDone) {
+    if (strKey == 'E' && !keys[16] && !anim_E && activeCanvas && loadedMovesDone && !autoSolve) {
         // Must avoid conflicts with other movements
         if (!anim_Ei &&
             !anim_F && !anim_Fi &&
@@ -1109,10 +1366,9 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_E = true;
-            changeCubeState = true;
         }
     }
-    if (strKey == 'E' && keys[16] && !anim_Ei && activeCanvas && loadedMovesDone) {
+    if (strKey == 'E' && keys[16] && !anim_Ei && activeCanvas && loadedMovesDone && !autoSolve) {
         // Must avoid conflicts with other movements
         if (!anim_E &&
             !anim_F && !anim_Fi &&
@@ -1126,10 +1382,9 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Ei = true;
-            changeCubeState = true;
         }
     }
-    if (strKey == 'R' && !keys[16] && !anim_D && activeCanvas && loadedMovesDone) {
+    if (strKey == 'R' && !keys[16] && !anim_D && activeCanvas && loadedMovesDone && !autoSolve) {
         // Must avoid conflicts with other movements
         if (!anim_Di &&
             !anim_F && !anim_Fi &&
@@ -1143,10 +1398,9 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_D = true;
-            changeCubeState = true;
         }
     }
-    if (strKey == 'R' && keys[16] && !anim_Di && activeCanvas && loadedMovesDone) {
+    if (strKey == 'R' && keys[16] && !anim_Di && activeCanvas && loadedMovesDone && !autoSolve) {
         // Must avoid conflicts with other movements
         if (!anim_D &&
             !anim_F && !anim_Fi &&
@@ -1160,11 +1414,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Di = true;
-            changeCubeState = true;
         }
     }
     // Up Arrow Key (Revolve Around X Axis)
-    if (keys[38] && !anim_X && activeCanvas && loadedMovesDone) {
+    if (keys[38] && !anim_X && activeCanvas && loadedMovesDone && !autoSolve) {
         // Must avoid conflicts with other movements
         if (!anim_Xi &&
             !anim_F && !anim_Fi &&
@@ -1180,11 +1433,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_X = true;
-            changeCubeState = true;
         }
     }
     // Down Arrow Key (Inverse Revolve Around X Axis)
-    if (keys[40] && !anim_Xi && activeCanvas && loadedMovesDone) {
+    if (keys[40] && !anim_Xi && activeCanvas && loadedMovesDone && !autoSolve) {
         // Must avoid conflicts with other movements
         if (!anim_X &&
             !anim_F && !anim_Fi &&
@@ -1200,11 +1452,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Xi = true;
-            changeCubeState = true;
         }
     }
     // Left Arrow Key (Revolve Around Y Axis)
-    if (keys[37] && !anim_Y && activeCanvas && loadedMovesDone) {
+    if (keys[37] && !anim_Y && activeCanvas && loadedMovesDone && !autoSolve) {
         // Must avoid conflicts with other movements
         if (!anim_Yi &&
             !anim_F && !anim_Fi &&
@@ -1220,11 +1471,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Y = true;
-            changeCubeState = true;
         }
     }
     // Right Arrow Key (Inverse Revolve Around Y Axis)
-    if (keys[39] && !anim_Yi && activeCanvas && loadedMovesDone) {
+    if (keys[39] && !anim_Yi && activeCanvas && loadedMovesDone && !autoSolve) {
         // Must avoid conflicts with other movements
         if (!anim_Y &&
             !anim_F && !anim_Fi &&
@@ -1240,11 +1490,10 @@ function onDocumentKeyDown(event) {
             !anim_Z && !anim_Zi) {
 
             anim_Yi = true;
-            changeCubeState = true;
         }
     }
     // Space Bar (Revolve Around Z Axis)
-    if (keys[32] && !anim_Z && !keys[16] && activeCanvas && loadedMovesDone) {
+    if (keys[32] && !anim_Z && !keys[16] && activeCanvas && loadedMovesDone && !autoSolve) {
         // Must avoid conflicts with other movements
         if (!anim_Zi &&
             !anim_F && !anim_Fi &&
@@ -1260,11 +1509,10 @@ function onDocumentKeyDown(event) {
             !anim_X && !anim_Xi) {
 
             anim_Z = true;
-            changeCubeState = true;
         }
     }
     // Space Bar + Shift (Inverse Revolve Around Z Axis)
-    if (keys[32] && !anim_Zi && keys[16] && activeCanvas && loadedMovesDone) {
+    if (keys[32] && !anim_Zi && keys[16] && activeCanvas && loadedMovesDone && !autoSolve) {
         // Must avoid conflicts with other movements
         if (!anim_Z &&
             !anim_F && !anim_Fi &&
@@ -1280,7 +1528,6 @@ function onDocumentKeyDown(event) {
             !anim_X && !anim_Xi) {
 
             anim_Zi = true;
-            changeCubeState = true;
         }
     }
 }
@@ -1294,13 +1541,30 @@ function init() {
     info.setAttribute("id", "canvasDiv");
     info.style.position = 'absolute';
     info.style.top = '30px';
-
     info.style.margin = "auto";
     info.style.textAlign = 'center';
     info.style.color = '#fff';
     info.style.backgroundColor = 'transparent';
-    info.style.zIndex = '1';
+    info.style.zIndex = '2';
     info.tabIndex = '1';
+
+    var solveButton = document.createElement('button');
+    solveButton.setAttribute("id", "solveButton");
+    solveButton.innerHTML = "Solve Cube";
+    solveButton.style.position = "absolute";
+    solveButton.style.zIndex = '1';
+    solveButton.style.display = "block";
+
+    solveButton.addEventListener("click", function () {
+                                            if (loadedMovesDone) {
+                                                get_solution_sequence().done(
+                                                function () {
+                                                    perform_solution_sequence();
+                                                });
+                                            }
+                                          } , false);
+
+    info.appendChild(solveButton);
 
 
     document.body.appendChild(info);
@@ -1347,22 +1611,29 @@ function init() {
                                                   vertexColors : THREE.FaceColors});
 
     // Loads a Cube from JSON
-    loadCubeJSON().done(function() {
+    loadPublicCubeGameJSON().done(function() {
+
+        gameState = cubeData['gameLog'];
 
         // Grabs the colors indicated from the loaded game cube
-        var cube_colors = cubeData['gameLog']['gameCube']['colors'];
-        var loadedGameEvents = cubeData['gameLog']['events'];
+        var cubeColors = gameState['gameCube']['colors'];
+        var loadedGameEvents = gameState['events'];
 
         // Extracts the face colors saved in file
-        var front_color = new THREE.Color( cube_colors['FRONT_COLOR'] ); // Default Green : 0x009b48
-        var back_color = new THREE.Color( cube_colors['BACK_COLOR'] );   // Default Blue : 0x0045ad
-        var left_color = new THREE.Color( cube_colors['LEFT_COLOR'] );   // Default Orange : 0xff5900
-        var right_color = new THREE.Color( cube_colors['RIGHT_COLOR'] ); // Default Red : 0xb90000
-        var up_color = new THREE.Color( cube_colors['UP_COLOR'] );       // Default White : 0xffffff
-        var down_color = new THREE.Color( cube_colors['DOWN_COLOR'] );   // Default Yellow : 0xffd500
+        var frontColor = new THREE.Color( cubeColors['FRONT_COLOR'] ); // Default Green : 0x009b48
+        var backColor = new THREE.Color( cubeColors['BACK_COLOR'] );   // Default Blue : 0x0045ad
+        var leftColor = new THREE.Color( cubeColors['LEFT_COLOR'] );   // Default Orange : 0xff5900
+        var rightColor = new THREE.Color( cubeColors['RIGHT_COLOR'] ); // Default Red : 0xb90000
+        var upColor = new THREE.Color( cubeColors['UP_COLOR'] );       // Default White : 0xffffff
+        var downColor = new THREE.Color( cubeColors['DOWN_COLOR'] );   // Default Yellow : 0xffd500
 
         // Assembles a color vector for painting the faces
-        colors = [ right_color, left_color, up_color, down_color, front_color, back_color ];
+        colors = [ rightColor,
+                   leftColor,
+                   upColor,
+                   downColor,
+                   frontColor,
+                   backColor ];
 
         // Constructs the 27 cubies
         for (var row_idx = 0; row_idx < 3; row_idx++) {
@@ -1482,15 +1753,20 @@ function init() {
                     }
                     else {
                         // Only gives the user control after an aditional 500 ms
-                        setTimeout( function() { loadedMovesDone = true; }, 500);
+                        setTimeout( function() {
+                                        loadedMovesDone = true;
+                                        changeCubeState = true;
+                                    }, 500);
                     }
                 },
             250);
         }
         loadedEventsLoop();
 
-
-
+        get_solution_sequence().done(function () {
+            console.log(isSolved);
+            console.log(solutionSequence);
+        })
     });
 
 
@@ -1523,7 +1799,7 @@ function init() {
 // render
 function render() {
 
-    //revolve_around_Y_axis(camera, 0.2)
+    revolve_around_Y_axis(camera , 0.2);
     renderer.render(scene, camera);
 }
 

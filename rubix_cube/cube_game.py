@@ -205,8 +205,6 @@ class Cube_Game(object):
                 print(f"\n[DEBUG]\tNew DEFAULT ``game_log`` created for game : '{self.game_name}'\n")
 
         else:
-            self.game_log['events'].append({'type' : '<<__NEW_GAME__>>',
-                                            'name' : self.game_name})
 
             if self.verbose:
                 print(f"\n[DEBUG]\tNew game created with name : '{self.game_name}'\n")
