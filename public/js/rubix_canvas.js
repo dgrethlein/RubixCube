@@ -117,10 +117,37 @@ function get_solution_sequence() {
            });
 }
 
+function post_is_solved() {
+    return $.post("/api/postGameEvent",
+            {'game_state' : JSON.stringify(gameState),
+             'game_event' : JSON.stringify({'type' : '<<__CUBE_SOLVED__>>'})
+            }).done(function (data) {
+                gameState = data;
+                isSolved = data['isSolved'];
+                numSolvedFaces = data['numSolvedFaces'];
+                numMatchTiles = data['numMatchingAdjTiles']
+            });
+}
+
+function post_solving_cube() {
+    return $.post("/api/postGameEvent",
+            {'game_state' : JSON.stringify(gameState),
+             'game_event' : JSON.stringify({'type' : '<<__SOLVE_CUBE__>>'})
+            }).done(function (data) {
+                gameState = data;
+                isSolved = data['isSolved'];
+                numSolvedFaces = data['numSolvedFaces'];
+                numMatchTiles = data['numMatchingAdjTiles']
+            });
+}
+
+
 function perform_solution_sequence() {
+    console.log(`Solution Sequence : ${solutionSequence}`)
 
     if (isSolved) {
         setTimeout(function () {
+                        post_is_solved();
                         alert('Cube Solved!');
                         autoSolve = false;
                         solutionSequence = [];
@@ -1561,9 +1588,13 @@ function init() {
 
     solveButton.addEventListener("click", function () {
                                             if (loadedMovesDone) {
-                                                get_solution_sequence().done(
+
+                                                post_solving_cube().done(
                                                 function () {
-                                                    perform_solution_sequence();
+                                                    get_solution_sequence().done(
+                                                        function () {
+                                                            perform_solution_sequence();
+                                                        });
                                                 });
                                             }
                                           } , false);
@@ -1769,7 +1800,7 @@ function init() {
 
         get_solution_sequence().done(function () {
             if (isSolved) {
-                alert(`Game['${game_name}'] Cube Solved!`)
+                console.log(`Game['${game_name}'] Cube Solved!`);
             }
         })
     });

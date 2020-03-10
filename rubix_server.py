@@ -1,5 +1,6 @@
 
 import os
+import copy
 import json
 
 import numpy as np
@@ -35,6 +36,46 @@ def send_public_game(path):
     p_game = json.load(open((Path(app.root_path) / 'api/cube_games/PUBLIC_GAMES') / path))
     return p_game
 
+# Gets a flag to indicate the Cube State has been solved in the game log
+# to truncate the potential solution sequence to be returned
+@app.route('/api/postGameEvent', methods=['POST'])
+def post_game_event():
+
+    request_d = request.form.to_dict(flat=False)
+    game_state = json.loads(request_d['game_state'][0]) # Gets the dictionary to construct a game
+    game_player = game_state['gamePlayer']
+    game_name = game_state['gameName']
+    game_event = json.loads(request_d['game_event'][0]) # Gets the game event update
+
+    events = game_state['events']
+    events.append(game_event)
+
+    print(f"\n[DEBUG]\t Game Event : {game_event}\n")
+
+    cube_dict = game_state['gameCube']
+    for name , face in cube_dict['faces'].items():
+        cube_dict['faces'][name] = np.array(face)
+
+    # Constructs a cube game from the current game state
+    cg = Cube_Game(cube=Cube(colors=cube_dict['colors'],
+                             faces=cube_dict['faces']),
+                   player_name=game_player,
+                   game_name=game_name,
+                   game_log={'events' : events},
+                   scramble=False,
+                   verbose=False)
+
+    # Updates the game state
+    json_cube = cg.game_cube.to_json_safe_dict()
+    game_state['gameCube'] = json_cube
+    game_state['events'] = cg.game_log['events']
+    game_state['isSolved'] = cg.game_cube.is_solved()
+    game_state['numSolvedFaces'] = cg.game_cube.get_num_solved_faces()
+    game_state['numMatchingAdjTiles'] = cg.game_cube.get_num_matching_adjacent_tiles()
+
+    # Sends an updated state to the front end
+    return game_state
+
 @app.route('/api/updateGameState', methods=['POST'])
 def game_state_update():
 
@@ -51,7 +92,7 @@ def game_state_update():
     print(f"\nState Update : {game_update}")
     print(f"Change Cube  : {change_cube}")
     print(f"Game Name : {game_name}")
-    print(f"Game Player : {game_player}")
+    print(f"Game Player : {game_player}\n")
 
     cube_dict = game_state['gameCube']
     for name , face in cube_dict['faces'].items():
@@ -96,7 +137,7 @@ def get_solution_sequence():
     #print(f"Game Name : {game_name}")
     #print(f"Game Player : {game_player}")
 
-    print(f"Game Is Solved : {game_state}")
+    #print(f"Game Is Solved : {game_state}")
 
     cube_dict = game_state['gameCube']
     for name , face in cube_dict['faces'].items():

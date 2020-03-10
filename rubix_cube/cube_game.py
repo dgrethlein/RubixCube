@@ -98,6 +98,7 @@ class Cube_Game(object):
                    '<<__PAUSE_GAME__>>',
                    '<<__RESUME_GAME__>>',
                    '<<__SOLVE_CUBE__>>',
+                   '<<__CUBE_SOLVED__>>',
                    '<<__QUIT_GAME__>>']
 
 
@@ -527,13 +528,29 @@ class Cube_Game(object):
         and 'events' in self.game_log:
 
             # Gets a reversed list of all log event types
-            event_types = [event['type'] for event in\
-                                            np.flip(self.game_log['events'])]
+            event_types = np.array([event['type'] for event in self.game_log['events']])
+
+            r_event_types = np.flip(event_types)
+
+            if '<<__CUBE_SOLVED__>>' in event_types:
+
+                last_solved_idx = np.where(r_event_types == '<<__CUBE_SOLVED__>>')[0][0]
+
+                print(f"Last Solved Idx : {last_solved_idx}")
+
+                if last_solved_idx == 0:
+                    sub_events = np.array([])
+                else:
+                    sub_events = r_event_types[:last_solved_idx + 1]
+
+                print(f"\n[DEBUG]\tOnly considering events : \n{json.dumps(sub_events.tolist(),indent=2)}")
+                #event_types = event_types[last_solved_idx:]
+
 
             # Filters down to cube-moves only
             log_moves = list(filter(lambda e_type: e_type in\
                                             Cube_Game.INVERSE_FUNCS,
-                                            event_types))
+                                            r_event_types))
 
             # Computes the inverse sequence
             sequence = [Cube_Game.INVERSE_FUNCS[mv] for mv in log_moves]
