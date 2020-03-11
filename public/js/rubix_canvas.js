@@ -95,7 +95,7 @@ var solutionSequence;
 
 init();
 animate();
-
+$.ajaxSetup({async: false});
 
 // Loads a default cube game from file
 function loadPublicCubeGameJSON() {
@@ -146,12 +146,18 @@ function perform_solution_sequence() {
     console.log(`Solution Sequence : ${solutionSequence}`)
 
     if (isSolved) {
-        setTimeout(function () {
-                        post_is_solved();
-                        alert('Cube Solved!');
-                        autoSolve = false;
-                        solutionSequence = [];
-                    }, 250);
+        if (isSolved) { 
+            setTimeout(function () {
+                            post_is_solved();
+                            alert('Cube Solved!');
+                            autoSolve = false;
+                            solutionSequence = [];
+                        }, 250);
+        }
+        else {
+            alert('Something went wrong solving cube!');
+            autoSolve = false;
+        }
     }
     else {
         setTimeout(function () {
@@ -232,11 +238,10 @@ function perform_solution_sequence() {
                 anim_Zi = true;
             }
 
-            //console.log(solutionSequence);
-            //console.log(isSolved);
-
+            console.log(solutionSequence);
             solutionSequence.shift();
             perform_solution_sequence();
+            //console.log(isSolved);
 
         }, 250);
     }
@@ -1129,6 +1134,7 @@ function closeNav() {
 function checkToSetActiveCanvas(event) {
 
     var target = event.target.tagName;
+    var ID = event.target.id;
 
     if (target == 'CANVAS') {
         activeCanvas = true;
@@ -1570,8 +1576,8 @@ function init() {
     // io
     var info = document.createElement('div');
     info.setAttribute("id", "canvasDiv");
-    info.style.position = 'absolute';
-    info.style.top = '30px';
+    //info.style.position = 'absolute';
+    //info.style.top = '30px';
     info.style.margin = "auto";
     info.style.textAlign = 'center';
     info.style.color = '#fff';
@@ -1580,12 +1586,14 @@ function init() {
     info.tabIndex = '1';
 
     var solveButton = document.createElement('button');
+    solveButton.classList.add('canvas-button');
     solveButton.setAttribute("id", "solveButton");
     solveButton.innerHTML = "Solve Cube";
     solveButton.style.position = "absolute";
     solveButton.style.zIndex = '1';
     solveButton.style.display = "block";
-
+    solveButton.style.left = "15%";
+	 solveButton.style.top = "20%";
     solveButton.addEventListener("click", function () {
                                             if (loadedMovesDone) {
 
@@ -1601,6 +1609,346 @@ function init() {
 
     info.appendChild(solveButton);
 
+    // Orientation Buttons
+    var XButton = document.createElement('button');
+    XButton.classList.add('canvas-button');
+    XButton.setAttribute("id", "XButton");
+    XButton.innerHTML = "X";
+    XButton.style.position = "absolute";
+    XButton.style.zIndex = '1';
+    XButton.style.display = "block";
+    XButton.style.left = "85%";
+    XButton.style.top = "25%";
+    info.appendChild(XButton);
+
+    var XiButton = document.createElement('button');
+    XiButton.classList.add('canvas-button');
+    XiButton.setAttribute("id", "XiButton");
+    XiButton.innerHTML = "Xi";
+    XiButton.style.position = "absolute";
+    XiButton.style.zIndex = '1';
+    XiButton.style.display = "block";
+    XiButton.style.left = "90%";
+    XiButton.style.top = "25%";
+    info.appendChild(XiButton);
+
+    var YButton = document.createElement('button');
+    YButton.classList.add('canvas-button');
+    YButton.setAttribute("id", "YButton");
+    YButton.innerHTML = "Y";
+    YButton.style.position = "absolute";
+    YButton.style.zIndex = '1';
+    YButton.style.display = "block";
+    YButton.style.left = "85%";
+    YButton.style.top = "30%";
+    info.appendChild(YButton);
+
+    var YiButton = document.createElement('button');
+    YiButton.classList.add('canvas-button');
+    YiButton.setAttribute("id", "YiButton");
+    YiButton.innerHTML = "Yi";
+    YiButton.style.position = "absolute";
+    YiButton.style.zIndex = '1';
+    YiButton.style.display = "block";
+    YiButton.style.left = "90%";
+    YiButton.style.top = "30%";
+    info.appendChild(YiButton);
+
+    var ZButton = document.createElement('button');
+    ZButton.classList.add('canvas-button');
+    ZButton.setAttribute("id", "ZButton");
+    ZButton.innerHTML = "Z";
+    ZButton.style.position = "absolute";
+    ZButton.style.zIndex = '1';
+    ZButton.style.display = "block";
+    ZButton.style.left = "85%";
+    ZButton.style.top = "35%";
+    info.appendChild(ZButton);
+
+    var ZiButton = document.createElement('button');
+    ZiButton.classList.add('canvas-button');
+    ZiButton.setAttribute("id", "ZiButton");
+    ZiButton.innerHTML = "Zi";
+    ZiButton.style.position = "absolute";
+    ZiButton.style.zIndex = '1';
+    ZiButton.style.display = "block";
+    ZiButton.style.left = "90%";
+    ZiButton.style.top = "35%";
+    info.appendChild(ZiButton);
+
+    // Vertical Layers Buttons
+    var UButton = document.createElement('button');
+    UButton.classList.add('canvas-button');
+    UButton.setAttribute("id", "UButton");
+    UButton.innerHTML = "U";
+    UButton.style.position = "absolute";
+    UButton.style.zIndex = '1';
+    UButton.style.display = "block";
+    UButton.style.left = "25%";
+    UButton.style.top = "55%";
+    UButton.style.transform = "skewY(-30deg)";
+    info.appendChild(UButton);
+
+    var UiButton = document.createElement('button');
+    UiButton.classList.add('canvas-button');
+    UiButton.setAttribute("id", "UiButton");
+    UiButton.innerHTML = "Ui";
+    UiButton.style.position = "absolute";
+    UiButton.style.zIndex = '1';
+    UiButton.style.display = "block";
+    UiButton.style.left = "30%";
+    UiButton.style.top = "50%";
+    UiButton.style.transform = "skewY(-30deg)";
+    info.appendChild(UiButton);
+
+    var EButton = document.createElement('button');
+    EButton.classList.add('canvas-button');
+    EButton.setAttribute("id", "EButton");
+    EButton.innerHTML = "E";
+    EButton.style.position = "absolute";
+    EButton.style.zIndex = '1';
+    EButton.style.display = "block";
+    EButton.style.left = "25%";
+    EButton.style.top = "65%";
+    EButton.style.transform = "skewY(-30deg)";
+    info.appendChild(EButton);
+
+    var EiButton = document.createElement('button');
+    EiButton.classList.add('canvas-button');
+    EiButton.setAttribute("id", "EiButton");
+    EiButton.innerHTML = "Ei";
+    EiButton.style.position = "absolute";
+    EiButton.style.zIndex = '1';
+    EiButton.style.display = "block";
+    EiButton.style.left = "30%";
+    EiButton.style.top = "60%";
+    EiButton.style.transform = "skewY(-30deg)";
+    info.appendChild(EiButton);
+
+    var DButton = document.createElement('button');
+    DButton.classList.add('canvas-button');
+    DButton.setAttribute("id", "DButton");
+    DButton.innerHTML = "D";
+    DButton.style.position = "absolute";
+    DButton.style.zIndex = '1';
+    DButton.style.display = "block";
+    DButton.style.left = "25%";
+    DButton.style.top = "75%";
+    DButton.style.transform = "skewY(-30deg)";
+    info.appendChild(DButton);
+
+    var DiButton = document.createElement('button');
+    DiButton.classList.add('canvas-button');
+    DiButton.setAttribute("id", "DiButton");
+    DiButton.innerHTML = "Di";
+    DiButton.style.position = "absolute";
+    DiButton.style.zIndex = '1';
+    DiButton.style.display = "block";
+    DiButton.style.left = "30%";
+    DiButton.style.top = "70%";
+    DiButton.style.transform = "skewY(-30deg)";
+    info.appendChild(DiButton);
+
+    // Depth Layer Buttons
+    var FButton = document.createElement('button');
+    FButton.classList.add('canvas-button');
+    FButton.setAttribute("id", "FButton");
+    FButton.innerHTML = "F";
+    FButton.style.position = "absolute";
+    FButton.style.zIndex = '1';
+    FButton.style.display = "block";
+    FButton.style.left = "35%";
+    FButton.style.top = "30%";
+    FButton.style.transform = "skewY(-25deg)";
+    info.appendChild(FButton);
+
+    var FiButton = document.createElement('button');
+    FiButton.classList.add('canvas-button');
+    FiButton.setAttribute("id", "FiButton");
+    FiButton.innerHTML = "Fi";
+    FiButton.style.position = "absolute";
+    FiButton.style.zIndex = '1';
+    FiButton.style.display = "block";
+    FiButton.style.left = "35%";
+    FiButton.style.top = "36%";
+    FiButton.style.transform = "skewY(-25deg)";
+    info.appendChild(FiButton);
+
+    var SButton = document.createElement('button');
+    SButton.classList.add('canvas-button');
+    SButton.setAttribute("id", "SButton");
+    SButton.innerHTML = "S";
+    SButton.style.position = "absolute";
+    SButton.style.zIndex = '1';
+    SButton.style.display = "block";
+    SButton.style.left = "40%";
+    SButton.style.top = "26%";
+    SButton.style.transform = "skewY(-25deg)";
+    info.appendChild(SButton);
+
+    var SiButton = document.createElement('button');
+    SiButton.classList.add('canvas-button');
+    SiButton.setAttribute("id", "SiButton");
+    SiButton.innerHTML = "Si";
+    SiButton.style.position = "absolute";
+    SiButton.style.zIndex = '1';
+    SiButton.style.display = "block";
+    SiButton.style.left = "40%";
+    SiButton.style.top = "32%";
+    SiButton.style.transform = "skewY(-25deg)";
+    info.appendChild(SiButton);
+
+    var BButton = document.createElement('button');
+    BButton.classList.add('canvas-button');
+    BButton.setAttribute("id", "BButton");
+    BButton.innerHTML = "B";
+    BButton.style.position = "absolute";
+    BButton.style.zIndex = '1';
+    BButton.style.display = "block";
+    BButton.style.left = "45%";
+    BButton.style.top = "22%";
+    BButton.style.transform = "skewY(-25deg)";
+    info.appendChild(BButton);
+
+    var BiButton = document.createElement('button');
+    BiButton.classList.add('canvas-button');
+    BiButton.setAttribute("id", "BiButton");
+    BiButton.innerHTML = "Bi";
+    BiButton.style.position = "absolute";
+    BiButton.style.zIndex = '1';
+    BiButton.style.display = "block";
+    BiButton.style.left = "45%";
+    BiButton.style.top = "28%";
+    BiButton.style.transform = "skewY(-25deg)";
+    info.appendChild(BiButton);
+
+    // Horizontal Layer Buttons
+    var LButton = document.createElement('button');
+    LButton.classList.add('canvas-button');
+    LButton.setAttribute("id", "LButton");
+    LButton.innerHTML = "L";
+    LButton.style.position = "absolute";
+    LButton.style.zIndex = '1';
+    LButton.style.display = "block";
+    LButton.style.left = "52%";
+    LButton.style.top = "22%";
+    LButton.style.transform = "skewY(15deg)";
+    info.appendChild(LButton);
+
+    var LiButton = document.createElement('button');
+    LiButton.classList.add('canvas-button');
+    LiButton.setAttribute("id", "LiButton");
+    LiButton.innerHTML = "Li";
+    LiButton.style.position = "absolute";
+    LiButton.style.zIndex = '1';
+    LiButton.style.display = "block";
+    LiButton.style.left = "52%";
+    LiButton.style.top = "28%";
+    LiButton.style.transform = "skewY(15deg)";
+    info.appendChild(LiButton);
+
+    var MButton = document.createElement('button');
+    MButton.classList.add('canvas-button');
+    MButton.setAttribute("id", "MButton");
+    MButton.innerHTML = "M";
+    MButton.style.position = "absolute";
+    MButton.style.zIndex = '1';
+    MButton.style.display = "block";
+    MButton.style.left = "57%";
+    MButton.style.top = "25%";
+    MButton.style.transform = "skewY(15deg)";
+    info.appendChild(MButton);
+
+    var MiButton = document.createElement('button');
+    MiButton.classList.add('canvas-button');
+    MiButton.setAttribute("id", "MiButton");
+    MiButton.innerHTML = "Mi";
+    MiButton.style.position = "absolute";
+    MiButton.style.zIndex = '1';
+    MiButton.style.display = "block";
+    MiButton.style.left = "57%";
+    MiButton.style.top = "31%";
+    MiButton.style.transform = "skewY(15deg)";
+    info.appendChild(MiButton);
+
+    var RButton = document.createElement('button');
+    RButton.classList.add('canvas-button');
+    RButton.setAttribute("id", "RButton");
+    RButton.innerHTML = "R";
+    RButton.style.position = "absolute";
+    RButton.style.zIndex = '1';
+    RButton.style.display = "block";
+    RButton.style.left = "62%";
+    RButton.style.top = "28%";
+    RButton.style.transform = "skewY(15deg)";
+    info.appendChild(RButton);
+
+    var RiButton = document.createElement('button');
+    RiButton.classList.add('canvas-button');
+    RiButton.setAttribute("id", "RiButton");
+    RiButton.innerHTML = "Ri";
+    RiButton.style.position = "absolute";
+    RiButton.style.zIndex = '1';
+    RiButton.style.display = "block";
+    RiButton.style.left = "62%";
+    RiButton.style.top = "34%";
+    RiButton.style.transform = "skewY(15deg)";
+    info.appendChild(RiButton);
+
+
+
+
+/*
+    var SButton = document.createElement('button');
+    SButton.classList.add('canvas-button');
+    SButton.setAttribute("id", "SButton");
+    SButton.innerHTML = "S";
+    SButton.style.position = "absolute";
+    SButton.style.zIndex = '1';
+    SButton.style.display = "block";
+    SButton.style.left = "40%";
+    SButton.style.top = "26%";
+    SButton.style.transform = "skewY(-25deg)";
+    info.appendChild(SButton);
+
+    var SiButton = document.createElement('button');
+    SiButton.classList.add('canvas-button');
+    SiButton.setAttribute("id", "SiButton");
+    SiButton.innerHTML = "Si";
+    SiButton.style.position = "absolute";
+    SiButton.style.zIndex = '1';
+    SiButton.style.display = "block";
+    SiButton.style.left = "40%";
+    SiButton.style.top = "32%";
+    SiButton.style.transform = "skewY(-25deg)";
+    info.appendChild(SiButton);
+
+    var BButton = document.createElement('button');
+    BButton.classList.add('canvas-button');
+    BButton.setAttribute("id", "BButton");
+    BButton.innerHTML = "B";
+    BButton.style.position = "absolute";
+    BButton.style.zIndex = '1';
+    BButton.style.display = "block";
+    BButton.style.left = "45%";
+    BButton.style.top = "22%";
+    BButton.style.transform = "skewY(-25deg)";
+    info.appendChild(BButton);
+
+    var BiButton = document.createElement('button');
+    BiButton.classList.add('canvas-button');
+    BiButton.setAttribute("id", "BiButton");
+    BiButton.innerHTML = "Bi";
+    BiButton.style.position = "absolute";
+    BiButton.style.zIndex = '1';
+    BiButton.style.display = "block";
+    BiButton.style.left = "45%";
+    BiButton.style.top = "28%";
+    BiButton.style.transform = "skewY(-25deg)";
+    info.appendChild(BiButton);
+*/
+
+
 
     document.body.appendChild(info);
 
@@ -1613,7 +1961,7 @@ function init() {
 
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth , window.innerHeight );
-    document.body.appendChild(renderer.domElement);
+    info.appendChild(renderer.domElement);
 
     // scene
     scene = new THREE.Scene();
@@ -1835,7 +2183,7 @@ function init() {
 // render
 function render() {
 
-    revolve_around_Y_axis(camera , 0.2);
+    //revolve_around_Y_axis(camera , 0.2);
     renderer.render(scene, camera);
 }
 
