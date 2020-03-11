@@ -151,7 +151,7 @@ function perform_solution_sequence() {
                             post_is_solved();
                             alert('Cube Solved!');
                             autoSolve = false;
-                            solutionSequence = [];
+                            get_solution_sequence();
                         }, 250);
         }
         else {
@@ -1135,13 +1135,18 @@ function checkToSetActiveCanvas(event) {
 
     var target = event.target.tagName;
     var ID = event.target.id;
+    var classList = event.target.classList;
 
-    if (target == 'CANVAS') {
+    if (target == 'CANVAS' || classList.contains('canvas-button')) {
         activeCanvas = true;
         closeNav();
+        //if (classList.contains('canvas-button')) {
+        //    controls.reset(); // Re-orients camera to default position
+        //}
     }
     else {
         activeCanvas = false;
+        controls.reset(); // Re-orient camera to default position when clicking away
     }
 }
 
@@ -1620,6 +1625,27 @@ function init() {
     XButton.style.left = "85%";
     XButton.style.top = "25%";
     info.appendChild(XButton);
+    XButton.onclick = 
+        function () { 
+            if (!anim_X && activeCanvas && loadedMovesDone && !autoSolve) {
+                // Must avoid conflicts with other movements
+                if (!anim_Xi &&
+                    !anim_F && !anim_Fi &&
+                    !anim_S && !anim_Si &&
+                    !anim_B && !anim_Bi &&
+                    !anim_L && !anim_Li &&
+                    !anim_M && !anim_Mi &&
+                    !anim_R && !anim_Ri &&
+                    !anim_U && !anim_Ui &&
+                    !anim_E && !anim_Ei &&
+                    !anim_D && !anim_Di &&
+                    !anim_Y && !anim_Yi &&
+                    !anim_Z && !anim_Zi) {
+
+                    anim_X = true;
+                }
+            } 
+        };
 
     var XiButton = document.createElement('button');
     XiButton.classList.add('canvas-button');
@@ -1631,6 +1657,28 @@ function init() {
     XiButton.style.left = "90%";
     XiButton.style.top = "25%";
     info.appendChild(XiButton);
+    XiButton.onclick = 
+        function () { 
+            if (!anim_Xi && activeCanvas && loadedMovesDone && !autoSolve) {
+                // Must avoid conflicts with other movements
+                if (!anim_X &&
+                    !anim_F && !anim_Fi &&
+                    !anim_S && !anim_Si &&
+                    !anim_B && !anim_Bi &&
+                    !anim_L && !anim_Li &&
+                    !anim_M && !anim_Mi &&
+                    !anim_R && !anim_Ri &&
+                    !anim_U && !anim_Ui &&
+                    !anim_E && !anim_Ei &&
+                    !anim_D && !anim_Di &&
+                    !anim_Y && !anim_Yi &&
+                    !anim_Z && !anim_Zi) {
+
+                    anim_Xi = true;
+                }
+            } 
+ 
+        };
 
     var YButton = document.createElement('button');
     YButton.classList.add('canvas-button');
@@ -1642,6 +1690,27 @@ function init() {
     YButton.style.left = "85%";
     YButton.style.top = "30%";
     info.appendChild(YButton);
+    YButton.onclick = 
+        function () { 
+            if (!anim_Y && activeCanvas && loadedMovesDone && !autoSolve) {
+                // Must avoid conflicts with other movements
+                if (!anim_Yi &&
+                    !anim_F && !anim_Fi &&
+                    !anim_S && !anim_Si &&
+                    !anim_B && !anim_Bi &&
+                    !anim_L && !anim_Li &&
+                    !anim_M && !anim_Mi &&
+                    !anim_R && !anim_Ri &&
+                    !anim_U && !anim_Ui &&
+                    !anim_E && !anim_Ei &&
+                    !anim_D && !anim_Di &&
+                    !anim_X && !anim_Xi &&
+                    !anim_Z && !anim_Zi) {
+
+                    anim_Y = true;
+                }
+            } 
+        };
 
     var YiButton = document.createElement('button');
     YiButton.classList.add('canvas-button');
@@ -1653,6 +1722,28 @@ function init() {
     YiButton.style.left = "90%";
     YiButton.style.top = "30%";
     info.appendChild(YiButton);
+    YiButton.onclick = 
+        function () { 
+            if (!anim_Yi && activeCanvas && loadedMovesDone && !autoSolve) {
+                // Must avoid conflicts with other movements
+                if (!anim_Y &&
+                    !anim_F && !anim_Fi &&
+                    !anim_S && !anim_Si &&
+                    !anim_B && !anim_Bi &&
+                    !anim_L && !anim_Li &&
+                    !anim_M && !anim_Mi &&
+                    !anim_R && !anim_Ri &&
+                    !anim_U && !anim_Ui &&
+                    !anim_E && !anim_Ei &&
+                    !anim_D && !anim_Di &&
+                    !anim_X && !anim_Xi &&
+                    !anim_Z && !anim_Zi) {
+
+                    anim_Yi = true;
+                }
+            } 
+ 
+        };
 
     var ZButton = document.createElement('button');
     ZButton.classList.add('canvas-button');
@@ -1664,6 +1755,28 @@ function init() {
     ZButton.style.left = "85%";
     ZButton.style.top = "35%";
     info.appendChild(ZButton);
+    ZButton.onclick = 
+        function () { 
+            if (!anim_Z && activeCanvas && loadedMovesDone && !autoSolve) {
+                // Must avoid conflicts with other movements
+                if (!anim_Zi &&
+                    !anim_F && !anim_Fi &&
+                    !anim_S && !anim_Si &&
+                    !anim_B && !anim_Bi &&
+                    !anim_L && !anim_Li &&
+                    !anim_M && !anim_Mi &&
+                    !anim_R && !anim_Ri &&
+                    !anim_U && !anim_Ui &&
+                    !anim_E && !anim_Ei &&
+                    !anim_D && !anim_Di &&
+                    !anim_X && !anim_Xi &&
+                    !anim_Y && !anim_Yi) {
+
+                    anim_Z = true;
+                }
+            } 
+        };
+
 
     var ZiButton = document.createElement('button');
     ZiButton.classList.add('canvas-button');
@@ -1675,6 +1788,28 @@ function init() {
     ZiButton.style.left = "90%";
     ZiButton.style.top = "35%";
     info.appendChild(ZiButton);
+    ZiButton.onclick = 
+        function () { 
+            if (!anim_Zi && activeCanvas && loadedMovesDone && !autoSolve) {
+                // Must avoid conflicts with other movements
+                if (!anim_Z &&
+                    !anim_F && !anim_Fi &&
+                    !anim_S && !anim_Si &&
+                    !anim_B && !anim_Bi &&
+                    !anim_L && !anim_Li &&
+                    !anim_M && !anim_Mi &&
+                    !anim_R && !anim_Ri &&
+                    !anim_U && !anim_Ui &&
+                    !anim_E && !anim_Ei &&
+                    !anim_D && !anim_Di &&
+                    !anim_X && !anim_Xi &&
+                    !anim_Y && !anim_Yi) {
+
+                    anim_Zi = true;
+                }
+            } 
+        };
+
 
     // Vertical Layers Buttons
     var UButton = document.createElement('button');
@@ -1688,6 +1823,25 @@ function init() {
     UButton.style.top = "55%";
     UButton.style.transform = "skewY(-30deg)";
     info.appendChild(UButton);
+    UButton.onclick = 
+       function () {
+           if (!anim_U && activeCanvas && loadedMovesDone && !autoSolve) {
+               // Must avoid conflicts with other movements
+               if (!anim_Ui &&
+                   !anim_F && !anim_Fi &&
+                   !anim_S && !anim_Si &&
+                   !anim_B && !anim_Bi &&
+                   !anim_L && !anim_Li &&
+                   !anim_M && !anim_Mi &&
+                   !anim_R && !anim_Ri &&
+                   !anim_X && !anim_Xi &&
+                   !anim_Y && !anim_Yi &&
+                   !anim_Z && !anim_Zi) {
+
+                   anim_U = true;
+               }
+           }
+       };
 
     var UiButton = document.createElement('button');
     UiButton.classList.add('canvas-button');
@@ -1700,6 +1854,26 @@ function init() {
     UiButton.style.top = "50%";
     UiButton.style.transform = "skewY(-30deg)";
     info.appendChild(UiButton);
+    UiButton.onclick = 
+       function () {
+           if (!anim_Ui && activeCanvas && loadedMovesDone && !autoSolve) {
+               // Must avoid conflicts with other movements
+               if (!anim_U &&
+                   !anim_F && !anim_Fi &&
+                   !anim_S && !anim_Si &&
+                   !anim_B && !anim_Bi &&
+                   !anim_L && !anim_Li &&
+                   !anim_M && !anim_Mi &&
+                   !anim_R && !anim_Ri &&
+                   !anim_X && !anim_Xi &&
+                   !anim_Y && !anim_Yi &&
+                   !anim_Z && !anim_Zi) {
+
+                   anim_Ui = true;
+               }
+           }
+       };
+
 
     var EButton = document.createElement('button');
     EButton.classList.add('canvas-button');
@@ -1712,6 +1886,26 @@ function init() {
     EButton.style.top = "65%";
     EButton.style.transform = "skewY(-30deg)";
     info.appendChild(EButton);
+    EButton.onclick = 
+       function () {
+           if (!anim_E && activeCanvas && loadedMovesDone && !autoSolve) {
+               // Must avoid conflicts with other movements
+               if (!anim_Ei &&
+                   !anim_F && !anim_Fi &&
+                   !anim_S && !anim_Si &&
+                   !anim_B && !anim_Bi &&
+                   !anim_L && !anim_Li &&
+                   !anim_M && !anim_Mi &&
+                   !anim_R && !anim_Ri &&
+                   !anim_X && !anim_Xi &&
+                   !anim_Y && !anim_Yi &&
+                   !anim_Z && !anim_Zi) {
+
+                   anim_E = true;
+               }
+           }
+       };
+
 
     var EiButton = document.createElement('button');
     EiButton.classList.add('canvas-button');
@@ -1724,6 +1918,26 @@ function init() {
     EiButton.style.top = "60%";
     EiButton.style.transform = "skewY(-30deg)";
     info.appendChild(EiButton);
+    EiButton.onclick = 
+       function () {
+           if (!anim_Ei && activeCanvas && loadedMovesDone && !autoSolve) {
+               // Must avoid conflicts with other movements
+               if (!anim_E &&
+                   !anim_F && !anim_Fi &&
+                   !anim_S && !anim_Si &&
+                   !anim_B && !anim_Bi &&
+                   !anim_L && !anim_Li &&
+                   !anim_M && !anim_Mi &&
+                   !anim_R && !anim_Ri &&
+                   !anim_X && !anim_Xi &&
+                   !anim_Y && !anim_Yi &&
+                   !anim_Z && !anim_Zi) {
+
+                   anim_Ei = true;
+               }
+           }
+       };
+
 
     var DButton = document.createElement('button');
     DButton.classList.add('canvas-button');
@@ -1736,6 +1950,26 @@ function init() {
     DButton.style.top = "75%";
     DButton.style.transform = "skewY(-30deg)";
     info.appendChild(DButton);
+    DButton.onclick = 
+       function () {
+           if (!anim_D && activeCanvas && loadedMovesDone && !autoSolve) {
+               // Must avoid conflicts with other movements
+               if (!anim_Di &&
+                   !anim_F && !anim_Fi &&
+                   !anim_S && !anim_Si &&
+                   !anim_B && !anim_Bi &&
+                   !anim_L && !anim_Li &&
+                   !anim_M && !anim_Mi &&
+                   !anim_R && !anim_Ri &&
+                   !anim_X && !anim_Xi &&
+                   !anim_Y && !anim_Yi &&
+                   !anim_Z && !anim_Zi) {
+
+                   anim_D = true;
+               }
+           }
+       };
+
 
     var DiButton = document.createElement('button');
     DiButton.classList.add('canvas-button');
@@ -1748,6 +1982,26 @@ function init() {
     DiButton.style.top = "70%";
     DiButton.style.transform = "skewY(-30deg)";
     info.appendChild(DiButton);
+    DiButton.onclick = 
+       function () {
+           if (!anim_Di && activeCanvas && loadedMovesDone && !autoSolve) {
+               // Must avoid conflicts with other movements
+               if (!anim_D &&
+                   !anim_F && !anim_Fi &&
+                   !anim_S && !anim_Si &&
+                   !anim_B && !anim_Bi &&
+                   !anim_L && !anim_Li &&
+                   !anim_M && !anim_Mi &&
+                   !anim_R && !anim_Ri &&
+                   !anim_X && !anim_Xi &&
+                   !anim_Y && !anim_Yi &&
+                   !anim_Z && !anim_Zi) {
+
+                   anim_Di = true;
+               }
+           }
+       };
+
 
     // Depth Layer Buttons
     var FButton = document.createElement('button');
@@ -1761,6 +2015,26 @@ function init() {
     FButton.style.top = "30%";
     FButton.style.transform = "skewY(-25deg)";
     info.appendChild(FButton);
+    FButton.onclick = 
+       function () {
+           if (!anim_F && activeCanvas && loadedMovesDone && !autoSolve) {
+               // Must avoid conflicts with other movements
+               if (!anim_Fi &&
+                   !anim_U && !anim_Ui &&
+                   !anim_E && !anim_Ei &&
+                   !anim_D && !anim_Di &&
+                   !anim_L && !anim_Li &&
+                   !anim_M && !anim_Mi &&
+                   !anim_R && !anim_Ri &&
+                   !anim_X && !anim_Xi &&
+                   !anim_Y && !anim_Yi &&
+                   !anim_Z && !anim_Zi) {
+
+                   anim_F = true;
+               }
+           }
+       };
+
 
     var FiButton = document.createElement('button');
     FiButton.classList.add('canvas-button');
@@ -1773,6 +2047,25 @@ function init() {
     FiButton.style.top = "36%";
     FiButton.style.transform = "skewY(-25deg)";
     info.appendChild(FiButton);
+    FiButton.onclick = 
+       function () {
+           if (!anim_Fi && activeCanvas && loadedMovesDone && !autoSolve) {
+               // Must avoid conflicts with other movements
+               if (!anim_F &&
+                   !anim_U && !anim_Ui &&
+                   !anim_E && !anim_Ei &&
+                   !anim_D && !anim_Di &&
+                   !anim_L && !anim_Li &&
+                   !anim_M && !anim_Mi &&
+                   !anim_R && !anim_Ri &&
+                   !anim_X && !anim_Xi &&
+                   !anim_Y && !anim_Yi &&
+                   !anim_Z && !anim_Zi) {
+
+                   anim_Fi = true;
+               }
+           }
+       };
 
     var SButton = document.createElement('button');
     SButton.classList.add('canvas-button');
@@ -1785,6 +2078,25 @@ function init() {
     SButton.style.top = "26%";
     SButton.style.transform = "skewY(-25deg)";
     info.appendChild(SButton);
+    SButton.onclick = 
+       function () {
+           if (!anim_S && activeCanvas && loadedMovesDone && !autoSolve) {
+               // Must avoid conflicts with other movements
+               if (!anim_Si &&
+                   !anim_U && !anim_Ui &&
+                   !anim_E && !anim_Ei &&
+                   !anim_D && !anim_Di &&
+                   !anim_L && !anim_Li &&
+                   !anim_M && !anim_Mi &&
+                   !anim_R && !anim_Ri &&
+                   !anim_X && !anim_Xi &&
+                   !anim_Y && !anim_Yi &&
+                   !anim_Z && !anim_Zi) {
+
+                   anim_S = true;
+               }
+           }
+       };
 
     var SiButton = document.createElement('button');
     SiButton.classList.add('canvas-button');
@@ -1797,6 +2109,25 @@ function init() {
     SiButton.style.top = "32%";
     SiButton.style.transform = "skewY(-25deg)";
     info.appendChild(SiButton);
+    SiButton.onclick = 
+       function () {
+           if (!anim_Si && activeCanvas && loadedMovesDone && !autoSolve) {
+               // Must avoid conflicts with other movements
+               if (!anim_S &&
+                   !anim_U && !anim_Ui &&
+                   !anim_E && !anim_Ei &&
+                   !anim_D && !anim_Di &&
+                   !anim_L && !anim_Li &&
+                   !anim_M && !anim_Mi &&
+                   !anim_R && !anim_Ri &&
+                   !anim_X && !anim_Xi &&
+                   !anim_Y && !anim_Yi &&
+                   !anim_Z && !anim_Zi) {
+
+                   anim_Si = true;
+               }
+           }
+       };
 
     var BButton = document.createElement('button');
     BButton.classList.add('canvas-button');
@@ -1809,6 +2140,25 @@ function init() {
     BButton.style.top = "22%";
     BButton.style.transform = "skewY(-25deg)";
     info.appendChild(BButton);
+    BButton.onclick = 
+       function () {
+           if (!anim_B && activeCanvas && loadedMovesDone && !autoSolve) {
+               // Must avoid conflicts with other movements
+               if (!anim_Bi &&
+                   !anim_U && !anim_Ui &&
+                   !anim_E && !anim_Ei &&
+                   !anim_D && !anim_Di &&
+                   !anim_L && !anim_Li &&
+                   !anim_M && !anim_Mi &&
+                   !anim_R && !anim_Ri &&
+                   !anim_X && !anim_Xi &&
+                   !anim_Y && !anim_Yi &&
+                   !anim_Z && !anim_Zi) {
+
+                   anim_B = true;
+               }
+           }
+       };
 
     var BiButton = document.createElement('button');
     BiButton.classList.add('canvas-button');
@@ -1821,6 +2171,25 @@ function init() {
     BiButton.style.top = "28%";
     BiButton.style.transform = "skewY(-25deg)";
     info.appendChild(BiButton);
+    BiButton.onclick = 
+       function () {
+           if (!anim_Bi && activeCanvas && loadedMovesDone && !autoSolve) {
+               // Must avoid conflicts with other movements
+               if (!anim_B &&
+                   !anim_U && !anim_Ui &&
+                   !anim_E && !anim_Ei &&
+                   !anim_D && !anim_Di &&
+                   !anim_L && !anim_Li &&
+                   !anim_M && !anim_Mi &&
+                   !anim_R && !anim_Ri &&
+                   !anim_X && !anim_Xi &&
+                   !anim_Y && !anim_Yi &&
+                   !anim_Z && !anim_Zi) {
+
+                   anim_Bi = true;
+               }
+           }
+       };
 
     // Horizontal Layer Buttons
     var LButton = document.createElement('button');
@@ -1834,6 +2203,25 @@ function init() {
     LButton.style.top = "22%";
     LButton.style.transform = "skewY(15deg)";
     info.appendChild(LButton);
+    LButton.onclick = 
+       function () {
+           if (!anim_L && activeCanvas && loadedMovesDone && !autoSolve) {
+               // Must avoid conflicts with other movements
+               if (!anim_Li &&
+                   !anim_U && !anim_Ui &&
+                   !anim_E && !anim_Ei &&
+                   !anim_D && !anim_Di &&
+                   !anim_F && !anim_Fi &&
+                   !anim_S && !anim_Si &&
+                   !anim_B && !anim_Bi &&
+                   !anim_X && !anim_Xi &&
+                   !anim_Y && !anim_Yi &&
+                   !anim_Z && !anim_Zi) {
+
+                   anim_L = true;
+               }
+           }
+       };
 
     var LiButton = document.createElement('button');
     LiButton.classList.add('canvas-button');
@@ -1846,6 +2234,25 @@ function init() {
     LiButton.style.top = "28%";
     LiButton.style.transform = "skewY(15deg)";
     info.appendChild(LiButton);
+    LiButton.onclick = 
+       function () {
+           if (!anim_Li && activeCanvas && loadedMovesDone && !autoSolve) {
+               // Must avoid conflicts with other movements
+               if (!anim_L &&
+                   !anim_U && !anim_Ui &&
+                   !anim_E && !anim_Ei &&
+                   !anim_D && !anim_Di &&
+                   !anim_F && !anim_Fi &&
+                   !anim_S && !anim_Si &&
+                   !anim_B && !anim_Bi &&
+                   !anim_X && !anim_Xi &&
+                   !anim_Y && !anim_Yi &&
+                   !anim_Z && !anim_Zi) {
+
+                   anim_Li = true;
+               }
+           }
+       };
 
     var MButton = document.createElement('button');
     MButton.classList.add('canvas-button');
@@ -1858,6 +2265,25 @@ function init() {
     MButton.style.top = "25%";
     MButton.style.transform = "skewY(15deg)";
     info.appendChild(MButton);
+    MButton.onclick = 
+       function () {
+           if (!anim_M && activeCanvas && loadedMovesDone && !autoSolve) {
+               // Must avoid conflicts with other movements
+               if (!anim_Mi &&
+                   !anim_U && !anim_Ui &&
+                   !anim_E && !anim_Ei &&
+                   !anim_D && !anim_Di &&
+                   !anim_F && !anim_Fi &&
+                   !anim_S && !anim_Si &&
+                   !anim_B && !anim_Bi &&
+                   !anim_X && !anim_Xi &&
+                   !anim_Y && !anim_Yi &&
+                   !anim_Z && !anim_Zi) {
+
+                   anim_M = true;
+               }
+           }
+       };
 
     var MiButton = document.createElement('button');
     MiButton.classList.add('canvas-button');
@@ -1870,6 +2296,25 @@ function init() {
     MiButton.style.top = "31%";
     MiButton.style.transform = "skewY(15deg)";
     info.appendChild(MiButton);
+    MiButton.onclick = 
+       function () {
+           if (!anim_Mi && activeCanvas && loadedMovesDone && !autoSolve) {
+               // Must avoid conflicts with other movements
+               if (!anim_M &&
+                   !anim_U && !anim_Ui &&
+                   !anim_E && !anim_Ei &&
+                   !anim_D && !anim_Di &&
+                   !anim_F && !anim_Fi &&
+                   !anim_S && !anim_Si &&
+                   !anim_B && !anim_Bi &&
+                   !anim_X && !anim_Xi &&
+                   !anim_Y && !anim_Yi &&
+                   !anim_Z && !anim_Zi) {
+
+                   anim_Mi = true;
+               }
+           }
+       };
 
     var RButton = document.createElement('button');
     RButton.classList.add('canvas-button');
@@ -1882,6 +2327,25 @@ function init() {
     RButton.style.top = "28%";
     RButton.style.transform = "skewY(15deg)";
     info.appendChild(RButton);
+    RButton.onclick = 
+       function () {
+           if (!anim_R && activeCanvas && loadedMovesDone && !autoSolve) {
+               // Must avoid conflicts with other movements
+               if (!anim_Ri &&
+                   !anim_U && !anim_Ui &&
+                   !anim_E && !anim_Ei &&
+                   !anim_D && !anim_Di &&
+                   !anim_F && !anim_Fi &&
+                   !anim_S && !anim_Si &&
+                   !anim_B && !anim_Bi &&
+                   !anim_X && !anim_Xi &&
+                   !anim_Y && !anim_Yi &&
+                   !anim_Z && !anim_Zi) {
+
+                   anim_R = true;
+               }
+           }
+       };
 
     var RiButton = document.createElement('button');
     RiButton.classList.add('canvas-button');
@@ -1894,59 +2358,27 @@ function init() {
     RiButton.style.top = "34%";
     RiButton.style.transform = "skewY(15deg)";
     info.appendChild(RiButton);
+    RiButton.onclick = 
+       function () {
+           if (!anim_Ri && activeCanvas && loadedMovesDone && !autoSolve) {
+               // Must avoid conflicts with other movements
+               if (!anim_R &&
+                   !anim_U && !anim_Ui &&
+                   !anim_E && !anim_Ei &&
+                   !anim_D && !anim_Di &&
+                   !anim_F && !anim_Fi &&
+                   !anim_S && !anim_Si &&
+                   !anim_B && !anim_Bi &&
+                   !anim_X && !anim_Xi &&
+                   !anim_Y && !anim_Yi &&
+                   !anim_Z && !anim_Zi) {
+
+                   anim_Ri = true;
+               }
+           }
+       };
 
 
-
-
-/*
-    var SButton = document.createElement('button');
-    SButton.classList.add('canvas-button');
-    SButton.setAttribute("id", "SButton");
-    SButton.innerHTML = "S";
-    SButton.style.position = "absolute";
-    SButton.style.zIndex = '1';
-    SButton.style.display = "block";
-    SButton.style.left = "40%";
-    SButton.style.top = "26%";
-    SButton.style.transform = "skewY(-25deg)";
-    info.appendChild(SButton);
-
-    var SiButton = document.createElement('button');
-    SiButton.classList.add('canvas-button');
-    SiButton.setAttribute("id", "SiButton");
-    SiButton.innerHTML = "Si";
-    SiButton.style.position = "absolute";
-    SiButton.style.zIndex = '1';
-    SiButton.style.display = "block";
-    SiButton.style.left = "40%";
-    SiButton.style.top = "32%";
-    SiButton.style.transform = "skewY(-25deg)";
-    info.appendChild(SiButton);
-
-    var BButton = document.createElement('button');
-    BButton.classList.add('canvas-button');
-    BButton.setAttribute("id", "BButton");
-    BButton.innerHTML = "B";
-    BButton.style.position = "absolute";
-    BButton.style.zIndex = '1';
-    BButton.style.display = "block";
-    BButton.style.left = "45%";
-    BButton.style.top = "22%";
-    BButton.style.transform = "skewY(-25deg)";
-    info.appendChild(BButton);
-
-    var BiButton = document.createElement('button');
-    BiButton.classList.add('canvas-button');
-    BiButton.setAttribute("id", "BiButton");
-    BiButton.innerHTML = "Bi";
-    BiButton.style.position = "absolute";
-    BiButton.style.zIndex = '1';
-    BiButton.style.display = "block";
-    BiButton.style.left = "45%";
-    BiButton.style.top = "28%";
-    BiButton.style.transform = "skewY(-25deg)";
-    info.appendChild(BiButton);
-*/
 
 
 
