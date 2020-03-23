@@ -298,6 +298,7 @@
                    <span class="s1">&#39;&lt;&lt;__PAUSE_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
                    <span class="s1">&#39;&lt;&lt;__RESUME_GAME__&gt;&gt;&#39;</span><span class="p">,</span>
                    <span class="s1">&#39;&lt;&lt;__SOLVE_CUBE__&gt;&gt;&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;&lt;&lt;__CUBE_SOLVED__&gt;&gt;&#39;</span><span class="p">,</span>
                    <span class="s1">&#39;&lt;&lt;__QUIT_GAME__&gt;&gt;&#39;</span><span class="p">]</span>
 
 
@@ -727,13 +728,29 @@
         <span class="ow">and</span> <span class="s1">&#39;events&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span><span class="p">:</span>
 
             <span class="c1"># Gets a reversed list of all log event types</span>
-            <span class="n">event_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">event</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span>\
-                                            <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">game_log</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">])]</span>
+            <span class="n">event_types</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">event</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">game_log</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">]])</span>
+
+            <span class="n">r_event_types</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">event_types</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="s1">&#39;&lt;&lt;__CUBE_SOLVED__&gt;&gt;&#39;</span> <span class="ow">in</span> <span class="n">event_types</span><span class="p">:</span>
+
+                <span class="n">last_solved_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">r_event_types</span> <span class="o">==</span> <span class="s1">&#39;&lt;&lt;__CUBE_SOLVED__&gt;&gt;&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Last Solved Idx : </span><span class="si">{last_solved_idx}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">last_solved_idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">sub_events</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">sub_events</span> <span class="o">=</span> <span class="n">r_event_types</span><span class="p">[:</span><span class="n">last_solved_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[DEBUG]</span><span class="se">\t</span><span class="s2">Only considering events : </span><span class="se">\n</span><span class="s2">{json.dumps(sub_events.tolist(),indent=2)}&quot;</span><span class="p">)</span>
+                <span class="c1">#event_types = event_types[last_solved_idx:]</span>
+
 
             <span class="c1"># Filters down to cube-moves only</span>
             <span class="n">log_moves</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e_type</span><span class="p">:</span> <span class="n">e_type</span> <span class="ow">in</span>\
                                             <span class="n">Cube_Game</span><span class="o">.</span><span class="n">INVERSE_FUNCS</span><span class="p">,</span>
-                                            <span class="n">event_types</span><span class="p">))</span>
+                                            <span class="n">r_event_types</span><span class="p">))</span>
 
             <span class="c1"># Computes the inverse sequence</span>
             <span class="n">sequence</span> <span class="o">=</span> <span class="p">[</span><span class="n">Cube_Game</span><span class="o">.</span><span class="n">INVERSE_FUNCS</span><span class="p">[</span><span class="n">mv</span><span class="p">]</span> <span class="k">for</span> <span class="n">mv</span> <span class="ow">in</span> <span class="n">log_moves</span><span class="p">]</span>
